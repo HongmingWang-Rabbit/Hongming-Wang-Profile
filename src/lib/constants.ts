@@ -21,7 +21,7 @@ export const personalInfo = {
   linkedin: "https://www.linkedin.com/in/hongming-wang-tech/",
   github: "https://github.com/hongmingwang",
   bio: "I'm a Full-Stack Developer passionate about building modern web applications that make a difference. With experience in Web3, DeFi, and traditional web development, I bring ideas to life with clean, efficient code.",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/Hongming_Wang_Resume.pdf",
 };
 
 export const navItems = [
