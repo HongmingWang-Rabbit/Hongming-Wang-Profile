@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://hongmingwang.dev/sitemap.xml",
+    sitemap: "https://wanghongming.xyz/sitemap.xml",
   };
 }

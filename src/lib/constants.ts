@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "Hongming Wang | Full-Stack Developer",
   description:
     "Full-Stack Developer specializing in React, Next.js, and Web3 technologies. Building modern web applications with a focus on performance and user experience.",
-  url: "https://hongmingwang.dev",
+  url: "https://wanghongming.xyz",
   ogImage: "/og-image.png",
   links: {
     github: "https://github.com/hongmingwang",
