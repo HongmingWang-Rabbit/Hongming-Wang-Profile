@@ -1,0 +1,163 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { ArrowDown, Github, Linkedin, Mail, MapPin, FileText } from "lucide-react";
+import { personalInfo } from "@/lib/constants";
+
+export function Hero() {
+  return (
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+    >
+      {/* Background gradient */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-400/10 rounded-full blur-3xl animate-float animation-delay-400" />
+      </div>
+
+      <div className="container-custom pt-20">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Status badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-primary-500/10 border border-primary-500/20 rounded-full"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500" />
+            </span>
+            <span className="text-sm text-primary-600 dark:text-primary-400 font-medium">
+              Available for opportunities
+            </span>
+          </motion.div>
+
+          {/* Main heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
+          >
+            Hi, I&apos;m{" "}
+            <span className="gradient-text">{personalInfo.name}</span>
+          </motion.h1>
+
+          {/* Role */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-xl sm:text-2xl md:text-3xl text-neutral-600 dark:text-neutral-400 mb-4"
+          >
+            {personalInfo.role}
+          </motion.p>
+
+          {/* Location */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex items-center justify-center gap-2 text-neutral-500 dark:text-neutral-500 mb-8"
+          >
+            <MapPin className="w-4 h-4" />
+            <span>{personalInfo.location}</span>
+          </motion.div>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-10"
+          >
+            Building modern web applications with React, Next.js, and Web3 technologies.
+            Passionate about creating seamless user experiences and scalable solutions.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+          >
+            <a href="#contact" className="btn-primary">
+              <Mail className="w-4 h-4" />
+              Get in Touch
+            </a>
+            <a
+              href={personalInfo.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary"
+            >
+              <FileText className="w-4 h-4" />
+              Download Resume
+            </a>
+          </motion.div>
+
+          {/* Social links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="flex items-center justify-center gap-4"
+          >
+            <motion.a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="GitHub"
+            >
+              <Github className="w-5 h-5" />
+            </motion.a>
+            <motion.a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-5 h-5" />
+            </motion.a>
+            <motion.a
+              href={`mailto:${personalInfo.email}`}
+              className="p-3 bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Email"
+            >
+              <Mail className="w-5 h-5" />
+            </motion.a>
+          </motion.div>
+        </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <motion.a
+            href="#about"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="flex flex-col items-center gap-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors"
+          >
+            <span className="text-sm">Scroll down</span>
+            <ArrowDown className="w-4 h-4" />
+          </motion.a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
