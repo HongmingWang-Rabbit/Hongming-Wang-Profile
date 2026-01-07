@@ -6,7 +6,7 @@ export const siteConfig = {
   url: "https://wanghongming.xyz",
   ogImage: "/og-image.png",
   links: {
-    github: "https://github.com/hongmingwang",
+    github: "https://github.com/HongmingWang-Rabbit",
     linkedin: "https://www.linkedin.com/in/hongming-wang-tech/",
     email: "hongmingwangrabbit@gmail.com",
   },
@@ -19,7 +19,7 @@ export const personalInfo = {
   email: "hongmingwangrabbit@gmail.com",
   phone: "+1 778-861-1008",
   linkedin: "https://www.linkedin.com/in/hongming-wang-tech/",
-  github: "https://github.com/hongmingwang",
+  github: "https://github.com/HongmingWang-Rabbit",
   bio: "I'm a Full-Stack Developer passionate about building modern web applications that make a difference. With experience in Web3, DeFi, and traditional web development, I bring ideas to life with clean, efficient code.",
   resumeUrl: "/Hongming_Wang_Resume.pdf",
 };
@@ -85,8 +85,8 @@ export const projects = [
     title: "PlotEngine",
     description:
       "AI-powered writing assistance SaaS that helps authors craft compelling stories with intelligent plot development tools and real-time suggestions.",
-    technologies: ["Next.js", "TypeScript", "OpenAI API", "PostgreSQL", "Prisma", "Tailwind CSS"],
-    github: "https://github.com/hongmingwang/plotengine",
+    technologies: ["Flutter", "Dart", "OpenAI API", "Firebase"],
+    github: "https://github.com/HongmingWang-Rabbit/plot-engine",
     live: "#",
     featured: true,
   },
@@ -95,7 +95,7 @@ export const projects = [
     description:
       "AI-powered career development platform that helps professionals visualize skills, explore 500+ career paths, and generate tailored resumes and cover letters in multiple languages.",
     technologies: ["Next.js", "React", "React Flow", "OpenAI API", "Tailwind CSS"],
-    github: "https://github.com/hongmingwang/skillmap",
+    github: "https://github.com/HongmingWang-Rabbit/ai-skill-tree-website",
     live: "https://personalskillmap.com",
     featured: true,
   },
