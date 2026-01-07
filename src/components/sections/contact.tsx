@@ -26,23 +26,42 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const [error, setError] = useState("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError("");
 
-    // Simulate form submission - in production, integrate with your preferred service
-    // (Formspree, EmailJS, custom API, etc.)
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+          subject: `New contact from ${formState.name}`,
+        }),
+      });
 
-    // For now, open mailto link
-    const mailtoLink = `mailto:${personalInfo.email}?subject=Contact from ${formState.name}&body=${encodeURIComponent(formState.message)}%0A%0AFrom: ${formState.email}`;
-    window.open(mailtoLink, "_blank");
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSubmitted(true);
+        setFormState({ name: "", email: "", message: "" });
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Failed to send message. Please try again.");
+    }
 
     setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormState({ name: "", email: "", message: "" });
-
-    setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   const handleChange = (
@@ -260,6 +279,11 @@ export function Contact() {
                     </>
                   )}
                 </motion.button>
+
+                {/* Error message */}
+                {error && (
+                  <p className="text-red-500 text-sm text-center mt-4">{error}</p>
+                )}
               </div>
             </form>
           </motion.div>
