@@ -46,17 +46,6 @@ export const experiences = [
     technologies: ["React", "Next.js", "TypeScript", "Web3", "Solidity", "Tailwind CSS"],
   },
   {
-    title: "Front-End Developer",
-    company: "Cuckoo Games",
-    period: "2022",
-    description: [
-      "Developed interactive game UI components using React",
-      "Implemented responsive designs and smooth animations",
-      "Optimized performance for engaging gaming experiences",
-    ],
-    technologies: ["React", "JavaScript", "CSS", "Animations", "Performance"],
-  },
-  {
     title: "Freelance Web Developer",
     company: "Self-Employed",
     period: "2023",
@@ -66,6 +55,17 @@ export const experiences = [
       "Created all-in-one restaurant solutions with online ordering and reservations",
     ],
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-commerce"],
+  },
+  {
+    title: "Front-End Developer",
+    company: "Cuckoo Games",
+    period: "2022",
+    description: [
+      "Developed interactive game UI components using React",
+      "Implemented responsive designs and smooth animations",
+      "Optimized performance for engaging gaming experiences",
+    ],
+    technologies: ["React", "JavaScript", "CSS", "Animations", "Performance"],
   },
   {
     title: "IT Admin",
