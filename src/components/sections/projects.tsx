@@ -116,7 +116,7 @@ export function Projects() {
           className="text-center mt-12"
         >
           <a
-            href="https://github.com/hongmingwang"
+            href="https://github.com/HongmingWang-Rabbit"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-secondary inline-flex"
