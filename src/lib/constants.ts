@@ -139,7 +139,7 @@ export const skills = {
   ],
   backend: ["Node.js", "Express.js", "Fastify", "Django", "Flask", "REST APIs", "GraphQL"],
   databases: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "MS SQL Server", "Vector DBs"],
-  cloud: ["AWS", "GCP", "Vercel", "Docker", "Kubernetes", "CI/CD", "GitHub Actions"],
+  cloud: ["AWS", "GCP", "Vercel", "Railway", "Docker", "Kubernetes", "CI/CD", "GitHub Actions", "RabbitMQ"],
   other: ["Web3/Blockchain", "OpenAI API", "LangChain", "RAG", "React Native", "Git", "Figma"],
 };
 
