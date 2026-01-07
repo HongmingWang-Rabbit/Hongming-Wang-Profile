@@ -41,7 +41,7 @@ export function Experience() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.2 + index * 0.2 }}
-                className={`relative flex items-start gap-8 mb-12 last:mb-0 ${
+                className={`relative flex items-start gap-4 sm:gap-8 mb-8 sm:mb-12 last:mb-0 ${
                   index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
               >
@@ -50,13 +50,13 @@ export function Experience() {
 
                 {/* Content */}
                 <div
-                  className={`ml-8 md:ml-0 md:w-1/2 ${
+                  className={`ml-6 sm:ml-8 md:ml-0 md:w-1/2 ${
                     index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
                   }`}
                 >
                   <motion.div
                     whileHover={{ y: -5 }}
-                    className="p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300"
+                    className="p-4 sm:p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl sm:rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300"
                   >
                     {/* Company badge */}
                     <div

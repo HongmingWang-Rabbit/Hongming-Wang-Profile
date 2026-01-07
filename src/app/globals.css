@@ -20,6 +20,7 @@
   body {
     @apply bg-white dark:bg-dark-bg text-neutral-900 dark:text-neutral-100 antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-tap-highlight-color: transparent;
   }
 
   ::selection {
@@ -33,7 +34,7 @@
   }
 
   .section-padding {
-    @apply py-16 md:py-24;
+    @apply py-12 sm:py-16 md:py-24;
   }
 
   .gradient-text {
@@ -45,11 +46,11 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25;
+    @apply inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-3 min-h-[44px] bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25 active:scale-[0.98];
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-neutral-100 dark:bg-dark-card hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 font-medium rounded-full border border-neutral-200 dark:border-dark-border transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-3 min-h-[44px] bg-neutral-100 dark:bg-dark-card hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100 font-medium rounded-full border border-neutral-200 dark:border-dark-border transition-all duration-300 active:scale-[0.98];
   }
 
   .link-underline {
@@ -57,7 +58,7 @@
   }
 
   .skill-badge {
-    @apply px-3 py-1.5 text-sm font-medium bg-neutral-100 dark:bg-dark-card text-neutral-700 dark:text-neutral-300 rounded-full border border-neutral-200 dark:border-dark-border transition-all duration-300 hover:border-primary-500 hover:text-primary-500;
+    @apply px-3 py-2 sm:py-1.5 text-sm font-medium bg-neutral-100 dark:bg-dark-card text-neutral-700 dark:text-neutral-300 rounded-full border border-neutral-200 dark:border-dark-border transition-all duration-300 hover:border-primary-500 hover:text-primary-500;
   }
 }
 
@@ -76,6 +77,16 @@
 
   .animation-delay-600 {
     animation-delay: 600ms;
+  }
+
+  /* Mobile touch improvements */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  /* Prevent text selection on tap */
+  .no-tap-highlight {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 

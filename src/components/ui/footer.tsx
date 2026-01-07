@@ -13,8 +13,8 @@ export function Footer() {
 
   return (
     <footer className="bg-neutral-50 dark:bg-dark-card/50 border-t border-neutral-200 dark:border-dark-border">
-      <div className="container-custom py-12">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+      <div className="container-custom py-8 sm:py-12">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 mb-8">
           {/* Brand */}
           <div>
             <a href="#home" className="text-xl font-bold gradient-text">
@@ -51,32 +51,32 @@ export function Footer() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
+                className="p-2.5 sm:p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="GitHub"
               >
-                <Github className="w-4 h-4" />
+                <Github className="w-5 h-5 sm:w-4 sm:h-4" />
               </motion.a>
               <motion.a
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
+                className="p-2.5 sm:p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-4 h-4" />
+                <Linkedin className="w-5 h-5 sm:w-4 sm:h-4" />
               </motion.a>
               <motion.a
                 href={`mailto:${personalInfo.email}`}
-                className="p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
+                className="p-2.5 sm:p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Email"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-5 h-5 sm:w-4 sm:h-4" />
               </motion.a>
             </div>
             <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">

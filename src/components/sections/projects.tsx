@@ -30,7 +30,7 @@ export function Projects() {
         </motion.div>
 
         {/* Projects grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -40,7 +40,7 @@ export function Projects() {
             >
               <motion.div
                 whileHover={{ y: -8 }}
-                className="group h-full p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300"
+                className="group h-full p-4 sm:p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300"
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">

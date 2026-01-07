@@ -11,9 +11,9 @@ export function Hero() {
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-400/10 rounded-full blur-3xl animate-float animation-delay-400" />
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-primary-500/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-primary-400/10 rounded-full blur-3xl animate-float animation-delay-400" />
       </div>
 
       <div className="container-custom pt-20">
@@ -71,7 +71,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-10"
+            className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-8 sm:mb-10 px-2 sm:px-0"
           >
             Building modern web applications with React, Next.js, and Web3 technologies.
             Passionate about creating seamless user experiences and scalable solutions.
@@ -82,9 +82,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-12 px-4 sm:px-0"
           >
-            <a href="#contact" className="btn-primary">
+            <a href="#contact" className="btn-primary w-full sm:w-auto">
               <Mail className="w-4 h-4" />
               Get in Touch
             </a>
@@ -92,7 +92,7 @@ export function Hero() {
               href={personalInfo.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary"
+              className="btn-secondary w-full sm:w-auto"
             >
               <FileText className="w-4 h-4" />
               Download Resume
@@ -140,12 +140,12 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator - hidden on very small screens */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="hidden sm:block absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2"
         >
           <motion.a
             href="#about"

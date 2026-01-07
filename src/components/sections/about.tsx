@@ -68,7 +68,7 @@ export function About() {
         </motion.div>
 
         {/* About content */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-20">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 mb-12 sm:mb-20">
           {/* Bio */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -132,10 +132,10 @@ export function About() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  className="p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-2xl text-center"
+                  className="p-4 sm:p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl sm:rounded-2xl text-center"
                 >
-                  <div className="text-3xl font-bold gradient-text mb-1">{stat.value}</div>
-                  <div className="text-sm text-neutral-600 dark:text-neutral-400">
+                  <div className="text-2xl sm:text-3xl font-bold gradient-text mb-1">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                     {stat.label}
                   </div>
                 </motion.div>
@@ -180,14 +180,14 @@ export function About() {
           <h3 className="text-2xl font-semibold text-center mb-8">
             Technical <span className="gradient-text">Skills</span>
           </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {skillCategories.map((category, categoryIndex) => (
               <motion.div
                 key={category.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.6 + categoryIndex * 0.1 }}
-                className="p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-2xl"
+                className="p-4 sm:p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl sm:rounded-2xl"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div
