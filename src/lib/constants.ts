@@ -56,6 +56,28 @@ export const experiences = [
     ],
     technologies: ["React", "JavaScript", "CSS", "Animations", "Performance"],
   },
+  {
+    title: "Freelance Web Developer",
+    company: "Self-Employed",
+    period: "2023",
+    description: [
+      "Built custom e-commerce platforms with payment integration and inventory management",
+      "Developed professional portfolio and landing pages for clients",
+      "Created all-in-one restaurant solutions with online ordering and reservations",
+    ],
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-commerce"],
+  },
+  {
+    title: "IT Admin",
+    company: "Haidilao",
+    period: "2021",
+    description: [
+      "Developed automation scripts to streamline IT operations and workflows",
+      "Provided technical support and troubleshooting for staff and systems",
+      "Maintained IT infrastructure and ensured system reliability",
+    ],
+    technologies: ["Automation", "IT Support", "Scripting", "System Administration"],
+  },
 ];
 
 export const projects = [
