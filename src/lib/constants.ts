@@ -77,6 +77,22 @@ export const projects = [
     live: "https://personalskillmap.com",
     featured: true,
   },
+  {
+    title: "Spark Kitchen and Bar",
+    description:
+      "Modern restaurant website featuring online ordering, table reservations, and menu browsing for a Vancouver-based dining establishment.",
+    technologies: ["Next.js", "React", "Tailwind CSS", "Responsive Design"],
+    live: "https://vansparkbar.ca",
+    featured: true,
+  },
+  {
+    title: "VE Studio",
+    description:
+      "E-commerce platform for handcrafted luxury leather accessories, featuring multiple product collections with a focus on artisanal quality and festival wear.",
+    technologies: ["Next.js", "React", "E-commerce", "Tailwind CSS"],
+    live: "https://vestudio.ca",
+    featured: true,
+  },
 ];
 
 export const skills = {
