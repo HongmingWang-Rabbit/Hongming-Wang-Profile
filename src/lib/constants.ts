@@ -93,6 +93,14 @@ export const projects = [
     live: "https://vestudio.ca",
     featured: true,
   },
+  {
+    title: "Point System SaaS",
+    description:
+      "White-label SaaS platform for launching custom points and rewards systems, featuring gamified loyalty programs and trading rewards for community engagement.",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "SaaS"],
+    live: "https://point-system-monorepo-saas-web.vercel.app",
+    featured: true,
+  },
 ];
 
 export const skills = {
