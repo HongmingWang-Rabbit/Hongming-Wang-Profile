@@ -12,48 +12,72 @@ const skillCategories = [
     icon: Code2,
     skills: skills.languages,
     color: "text-blue-500",
+    bgColor: "bg-blue-500/10",
+    borderColor: "border-t-blue-500",
+    badgeColor: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
   },
   {
     title: "Frontend",
     icon: Blocks,
     skills: skills.frontend,
     color: "text-purple-500",
+    bgColor: "bg-purple-500/10",
+    borderColor: "border-t-purple-500",
+    badgeColor: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
   },
   {
     title: "Backend",
     icon: Database,
     skills: skills.backend,
     color: "text-green-500",
+    bgColor: "bg-green-500/10",
+    borderColor: "border-t-green-500",
+    badgeColor: "bg-green-500/10 text-green-600 dark:text-green-400",
   },
   {
     title: "Databases",
     icon: Database,
     skills: skills.databases,
     color: "text-orange-500",
+    bgColor: "bg-orange-500/10",
+    borderColor: "border-t-orange-500",
+    badgeColor: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
   },
   {
     title: "Web3",
     icon: Link,
     skills: skills.web3,
     color: "text-indigo-500",
+    bgColor: "bg-indigo-500/10",
+    borderColor: "border-t-indigo-500",
+    badgeColor: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
   },
   {
     title: "AI/LLM",
     icon: Brain,
     skills: skills.ai,
     color: "text-pink-500",
+    bgColor: "bg-pink-500/10",
+    borderColor: "border-t-pink-500",
+    badgeColor: "bg-pink-500/10 text-pink-600 dark:text-pink-400",
   },
   {
     title: "DevOps & Infra",
     icon: Cloud,
     skills: skills.devops,
     color: "text-cyan-500",
+    bgColor: "bg-cyan-500/10",
+    borderColor: "border-t-cyan-500",
+    badgeColor: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400",
   },
   {
     title: "Payments & Auth",
     icon: CreditCard,
     skills: skills.payments,
     color: "text-emerald-500",
+    bgColor: "bg-emerald-500/10",
+    borderColor: "border-t-emerald-500",
+    badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
   },
 ];
 
@@ -192,26 +216,30 @@ export function About() {
           <h3 className="text-2xl font-semibold text-center mb-8">
             Technical <span className="gradient-text">Skills</span>
           </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {skillCategories.map((category, categoryIndex) => (
               <motion.div
                 key={category.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.6 + categoryIndex * 0.1 }}
-                className="p-4 sm:p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl sm:rounded-2xl"
+                transition={{ duration: 0.5, delay: 0.6 + categoryIndex * 0.05 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className={`p-4 sm:p-5 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border border-t-2 ${category.borderColor} rounded-xl sm:rounded-2xl hover:shadow-lg transition-shadow duration-300 flex flex-col`}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div
-                    className={`p-2 bg-neutral-100 dark:bg-dark-bg rounded-lg ${category.color}`}
+                    className={`p-2.5 rounded-xl ${category.bgColor}`}
                   >
-                    <category.icon className="w-5 h-5" />
+                    <category.icon className={`w-5 h-5 ${category.color}`} />
                   </div>
-                  <h4 className="font-semibold">{category.title}</h4>
+                  <h4 className="font-semibold text-base">{category.title}</h4>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 flex-1">
                   {category.skills.map((skill) => (
-                    <span key={skill} className="skill-badge">
+                    <span
+                      key={skill}
+                      className={`px-2.5 py-1 text-xs font-medium rounded-lg ${category.badgeColor} transition-transform hover:scale-105`}
+                    >
                       {skill}
                     </span>
                   ))}

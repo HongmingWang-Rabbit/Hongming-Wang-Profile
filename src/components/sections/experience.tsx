@@ -29,100 +29,68 @@ export function Experience() {
         </motion.div>
 
         {/* Timeline */}
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-primary-400 to-primary-300 dark:from-primary-600 dark:via-primary-500 dark:to-primary-400" />
+            <div className="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-primary-400 to-transparent" />
 
             {/* Experience items */}
             {experiences.map((experience, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.2 }}
-                className={`relative flex items-start gap-4 sm:gap-8 mb-8 sm:mb-12 last:mb-0 ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
+                className="relative flex items-start gap-6 sm:gap-8 mb-8 last:mb-0"
               >
                 {/* Timeline dot */}
-                <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary-500 border-4 border-white dark:border-dark-bg rounded-full z-10" />
+                <div className="relative z-10 flex-shrink-0">
+                  <div className="w-8 h-8 sm:w-12 sm:h-12 bg-primary-500/10 border-2 border-primary-500 rounded-full flex items-center justify-center">
+                    <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-primary-500" />
+                  </div>
+                </div>
 
                 {/* Content */}
-                <div
-                  className={`ml-6 sm:ml-8 md:ml-0 md:w-1/2 ${
-                    index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
-                  }`}
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className="flex-1 p-5 sm:p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-2xl shadow-sm hover:shadow-xl hover:border-primary-500/30 transition-all duration-300"
                 >
-                  <motion.div
-                    whileHover={{ y: -5 }}
-                    className="p-4 sm:p-6 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl sm:rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300"
-                  >
-                    {/* Company badge */}
-                    <div
-                      className={`flex items-center gap-2 mb-3 ${
-                        index % 2 === 0 ? "md:justify-end" : ""
-                      }`}
-                    >
-                      <div className="p-2 bg-primary-500/10 rounded-lg">
-                        <Briefcase className="w-4 h-4 text-primary-500" />
-                      </div>
-                      <span className="font-semibold text-primary-600 dark:text-primary-400">
+                  {/* Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold">{experience.title}</h3>
+                      <span className="text-primary-600 dark:text-primary-400 font-semibold">
                         {experience.company}
                       </span>
                     </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-bold mb-2">{experience.title}</h3>
-
-                    {/* Period */}
-                    <div
-                      className={`flex items-center gap-2 text-sm text-neutral-500 mb-4 ${
-                        index % 2 === 0 ? "md:justify-end" : ""
-                      }`}
-                    >
+                    <div className="flex items-center gap-2 text-sm text-neutral-500 bg-neutral-100 dark:bg-dark-bg px-3 py-1.5 rounded-full w-fit">
                       <Calendar className="w-4 h-4" />
-                      <span>{experience.period}</span>
+                      <span className="font-medium">{experience.period}</span>
                     </div>
+                  </div>
 
-                    {/* Description */}
-                    <ul
-                      className={`space-y-2 text-neutral-600 dark:text-neutral-400 mb-4 ${
-                        index % 2 === 0 ? "md:text-right" : ""
-                      }`}
-                    >
-                      {experience.description.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span
-                            className={`w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0 ${
-                              index % 2 === 0 ? "md:order-1" : ""
-                            }`}
-                          />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  {/* Description */}
+                  <ul className="space-y-2.5 text-neutral-600 dark:text-neutral-400 mb-5">
+                    {experience.description.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-sm leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                    {/* Technologies */}
-                    <div
-                      className={`flex flex-wrap gap-2 ${
-                        index % 2 === 0 ? "md:justify-end" : ""
-                      }`}
-                    >
-                      {experience.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2 py-1 text-xs font-medium bg-neutral-100 dark:bg-dark-bg text-neutral-600 dark:text-neutral-400 rounded-md"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Empty space for alternating layout */}
-                <div className="hidden md:block md:w-1/2" />
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-neutral-200 dark:border-dark-border">
+                    {experience.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2.5 py-1 text-xs font-medium bg-primary-500/10 text-primary-600 dark:text-primary-400 rounded-lg"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
@@ -139,13 +107,12 @@ export function Experience() {
             Want to know more about my experience?
           </p>
           <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/Hongming_Wang_Resume.docx"
+            download
             className="btn-secondary inline-flex"
           >
             <ExternalLink className="w-4 h-4" />
-            View Full Resume
+            Download Full Resume
           </a>
         </motion.div>
       </div>
