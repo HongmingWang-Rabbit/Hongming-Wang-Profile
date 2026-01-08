@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code2, Database, Cloud, Blocks, Smartphone, Brain } from "lucide-react";
+import { Code2, Database, Cloud, Blocks, Brain, Wallet, CreditCard, Link } from "lucide-react";
 import { personalInfo, skills, education } from "@/lib/constants";
 
 const skillCategories = [
@@ -32,16 +32,28 @@ const skillCategories = [
     color: "text-orange-500",
   },
   {
-    title: "Cloud & DevOps",
+    title: "Web3",
+    icon: Link,
+    skills: skills.web3,
+    color: "text-indigo-500",
+  },
+  {
+    title: "AI/LLM",
+    icon: Brain,
+    skills: skills.ai,
+    color: "text-pink-500",
+  },
+  {
+    title: "DevOps & Infra",
     icon: Cloud,
-    skills: skills.cloud,
+    skills: skills.devops,
     color: "text-cyan-500",
   },
   {
-    title: "AI & Other",
-    icon: Brain,
-    skills: skills.other,
-    color: "text-pink-500",
+    title: "Payments & Auth",
+    icon: CreditCard,
+    skills: skills.payments,
+    color: "text-emerald-500",
   },
 ];
 
@@ -180,7 +192,7 @@ export function About() {
           <h3 className="text-2xl font-semibold text-center mb-8">
             Technical <span className="gradient-text">Skills</span>
           </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {skillCategories.map((category, categoryIndex) => (
               <motion.div
                 key={category.title}
