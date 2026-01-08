@@ -14,7 +14,7 @@ const skillCategories = [
     color: "text-blue-500",
     bgColor: "bg-blue-500/10",
     borderColor: "border-t-blue-500",
-    badgeColor: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+    badgeColor: "bg-blue-500/20 text-blue-400 border border-blue-500/30",
   },
   {
     title: "Frontend",
@@ -23,7 +23,7 @@ const skillCategories = [
     color: "text-purple-500",
     bgColor: "bg-purple-500/10",
     borderColor: "border-t-purple-500",
-    badgeColor: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
+    badgeColor: "bg-purple-500/20 text-purple-400 border border-purple-500/30",
   },
   {
     title: "Backend",
@@ -32,7 +32,7 @@ const skillCategories = [
     color: "text-green-500",
     bgColor: "bg-green-500/10",
     borderColor: "border-t-green-500",
-    badgeColor: "bg-green-500/10 text-green-600 dark:text-green-400",
+    badgeColor: "bg-green-500/20 text-green-400 border border-green-500/30",
   },
   {
     title: "Databases",
@@ -41,7 +41,7 @@ const skillCategories = [
     color: "text-orange-500",
     bgColor: "bg-orange-500/10",
     borderColor: "border-t-orange-500",
-    badgeColor: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
+    badgeColor: "bg-orange-500/20 text-orange-400 border border-orange-500/30",
   },
   {
     title: "Web3",
@@ -50,7 +50,7 @@ const skillCategories = [
     color: "text-indigo-500",
     bgColor: "bg-indigo-500/10",
     borderColor: "border-t-indigo-500",
-    badgeColor: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+    badgeColor: "bg-indigo-500/20 text-indigo-400 border border-indigo-500/30",
   },
   {
     title: "AI/LLM",
@@ -59,7 +59,7 @@ const skillCategories = [
     color: "text-pink-500",
     bgColor: "bg-pink-500/10",
     borderColor: "border-t-pink-500",
-    badgeColor: "bg-pink-500/10 text-pink-600 dark:text-pink-400",
+    badgeColor: "bg-pink-500/20 text-pink-400 border border-pink-500/30",
   },
   {
     title: "DevOps & Infra",
@@ -68,7 +68,7 @@ const skillCategories = [
     color: "text-cyan-500",
     bgColor: "bg-cyan-500/10",
     borderColor: "border-t-cyan-500",
-    badgeColor: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400",
+    badgeColor: "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30",
   },
   {
     title: "Payments & Auth",
@@ -77,7 +77,7 @@ const skillCategories = [
     color: "text-emerald-500",
     bgColor: "bg-emerald-500/10",
     borderColor: "border-t-emerald-500",
-    badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    badgeColor: "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30",
   },
 ];
 
