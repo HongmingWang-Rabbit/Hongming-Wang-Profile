@@ -234,11 +234,11 @@ export function About() {
                   </div>
                   <h4 className="font-semibold text-base">{category.title}</h4>
                 </div>
-                <div className="flex flex-wrap gap-1.5 flex-1">
+                <div className="flex flex-wrap gap-2 flex-1 content-start">
                   {category.skills.map((skill) => (
                     <span
                       key={skill}
-                      className={`px-2.5 py-1 text-xs font-medium rounded-lg ${category.badgeColor} transition-transform hover:scale-105`}
+                      className={`px-2 py-0.5 text-xs font-medium rounded-md ${category.badgeColor}`}
                     >
                       {skill}
                     </span>
