@@ -115,10 +115,10 @@ export const skills = {
   ],
   backend: ["Node.js", "Express", "Fastify", "tRPC", "REST APIs", "GraphQL", "Apollo", "Subgraph", "Webhooks"],
   databases: ["PostgreSQL", "Neon", "MySQL", "MongoDB", "Redis", "Upstash", "Drizzle ORM", "Prisma"],
-  web3: ["Wagmi", "Viem", "ethers.js", "RainbowKit", "Privy", "Particle Network", "Multi-chain (EVM/Solana/Cosmos)"],
+  web3: ["Wagmi", "Viem", "ethers.js", "RainbowKit", "Privy", "Particle Network", "EVM", "Solana", "Cosmos"],
   ai: ["OpenAI GPT-4o", "Prompt Engineering", "RAG", "Entity Recognition", "Tavily Search"],
   devops: ["Vercel", "Railway", "AWS", "Docker", "CI/CD", "GitHub Actions", "Sentry", "Nx Monorepo"],
-  payments: ["Stripe", "NextAuth.js", "OAuth (Google/Twitter/Discord/WeChat)", "Web3 SIWE"],
+  payments: ["Stripe", "NextAuth.js", "OAuth", "Google Auth", "Twitter Auth", "Discord Auth", "WeChat Auth", "Web3 SIWE"],
 };
 
 export const education = [
