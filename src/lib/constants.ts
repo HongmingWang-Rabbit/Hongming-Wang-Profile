@@ -49,14 +49,14 @@ export const experiences = [
   {
     title: "Freelance Full-Stack Developer",
     company: "Self-Employed",
-    period: "2022 - 2023",
+    period: "2022 - Present",
     description: [
+      "exSatPay: Built cross-platform mobile app enabling users to spend stablecoins (USDT/USDC/USD1) via Visa-powered debit card with Apple Pay and Google Wallet integration",
+      "Implemented secure authentication with native biometric (Face ID/Touch ID) and WebAuthn passkey support for passwordless login; developed KYC verification flow and real-time transaction tracking",
       "VE Studio: Built full-stack e-commerce for luxury leather accessories with Stripe payment integration and Builder.io headless CMS",
-      "Implemented Stripe payment intent creation, customer data management, webhook handling, and multi-step checkout flow with Zod validation",
       "Spark Kitchen & Bar: Built modern restaurant website with Next.js 13, Builder.io CMS, and TableAgent reservation system",
-      "Applied atomic design patterns for scalable component architecture; implemented SEO with dynamic metadata and OpenGraph tags",
     ],
-    technologies: ["Next.js 14", "Node.js", "Express", "TypeScript", "Stripe API", "Builder.io", "Redux Toolkit", "Zod", "Framer Motion"],
+    technologies: ["Expo", "React Native", "TypeScript", "AWS", "WebAuthn", "Next.js 14", "Node.js", "Express", "Stripe API", "Builder.io"],
   },
   {
     title: "Software Developer / IT Admin",
@@ -106,6 +106,7 @@ export const skills = {
   frontend: [
     "React 18/19",
     "Next.js 14/15",
+    "React Native/Expo",
     "React Flow",
     "TanStack Query",
     "Redux Toolkit",
