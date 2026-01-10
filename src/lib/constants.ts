@@ -129,3 +129,51 @@ export const education = [
     year: "2023",
   },
 ];
+
+// Chatbot configuration
+export const chatbotConfig = {
+  enabled: true,
+  welcomeMessage: `Hi! I'm ${personalInfo.name.split(" ")[0]}'s AI assistant. Ask me anything about his experience, skills, or projects!`,
+  model: "llama-3.1-8b-instant",
+  temperature: 0.7,
+  maxTokens: 500,
+};
+
+// Generate system prompt from existing constants (keeps data DRY)
+export function generateChatSystemPrompt(): string {
+  const skillsFormatted = Object.entries(skills)
+    .map(([category, items]) => `- ${category.charAt(0).toUpperCase() + category.slice(1)}: ${items.join(", ")}`)
+    .join("\n");
+
+  const experiencesFormatted = experiences
+    .map((exp) => `${exp.title} at ${exp.company} (${exp.period}):\n${exp.description.map((d) => `  - ${d}`).join("\n")}`)
+    .join("\n\n");
+
+  const projectsFormatted = projects
+    .map((proj) => `- ${proj.title}: ${proj.description} (${proj.technologies.join(", ")})`)
+    .join("\n");
+
+  return `You are a helpful assistant on ${personalInfo.name}'s portfolio website. You help visitors learn about ${personalInfo.name.split(" ")[0]} and answer questions about his experience, skills, and projects.
+
+About ${personalInfo.name}:
+- ${personalInfo.role} with 4+ years of experience
+- Based in ${personalInfo.location}
+- Education: ${education[0].degree} from ${education[0].school} (${education[0].year})
+
+Work Experience:
+${experiencesFormatted}
+
+Technical Skills:
+${skillsFormatted}
+
+Notable Projects:
+${projectsFormatted}
+
+Contact:
+- Email: ${personalInfo.email}
+- Phone: ${personalInfo.phone}
+- GitHub: ${personalInfo.github}
+- LinkedIn: ${personalInfo.linkedin}
+
+Keep responses concise and friendly. If asked about something not related to ${personalInfo.name.split(" ")[0]} or his work, politely redirect the conversation. Guide visitors to use the contact form or email for business inquiries.`;
+}

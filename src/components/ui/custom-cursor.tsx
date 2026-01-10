@@ -1,7 +1,21 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+
+// Cursor configuration - easy to customize
+const CURSOR_CONFIG = {
+  innerSize: 8, // pixels
+  outerSize: {
+    default: 32,
+    hover: 50,
+    withText: 80,
+  },
+  spring: {
+    damping: 25,
+    stiffness: 200,
+  },
+} as const;
 
 interface CursorState {
   isHovering: boolean;
@@ -23,9 +37,8 @@ export function CustomCursor() {
   const mouseY = useMotionValue(0);
 
   // Smoothed position for the outer circle (follows with delay)
-  const springConfig = { damping: 25, stiffness: 200 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
+  const smoothX = useSpring(mouseX, CURSOR_CONFIG.spring);
+  const smoothY = useSpring(mouseY, CURSOR_CONFIG.spring);
 
   useEffect(() => {
     // Check if touch device
@@ -98,9 +111,9 @@ export function CustomCursor() {
   if (isTouchDevice) return null;
 
   const getOuterSize = () => {
-    if (cursorState.text) return 80;
-    if (cursorState.isHovering) return 50;
-    return 32;
+    if (cursorState.text) return CURSOR_CONFIG.outerSize.withText;
+    if (cursorState.isHovering) return CURSOR_CONFIG.outerSize.hover;
+    return CURSOR_CONFIG.outerSize.default;
   };
 
   return (
@@ -134,8 +147,8 @@ export function CustomCursor() {
           width: getOuterSize(),
           height: getOuterSize(),
           opacity: isVisible ? 1 : 0,
-          backgroundColor: cursorState.text ? "#14b8a6" : "transparent",
-          borderColor: cursorState.isHovering ? "#14b8a6" : "#14b8a6",
+          backgroundColor: cursorState.text ? "var(--primary)" : "transparent",
+          borderColor: "var(--primary)",
         }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       >

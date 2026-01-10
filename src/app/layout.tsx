@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { CustomCursor } from "@/components/ui/custom-cursor";
+import { Chatbot } from "@/components/ui/chatbot";
 import { siteConfig } from "@/lib/constants";
 import "./globals.css";
 
@@ -90,6 +91,7 @@ export default function RootLayout({
         >
           <CustomCursor />
           {children}
+          <Chatbot />
         </ThemeProvider>
       </body>
     </html>

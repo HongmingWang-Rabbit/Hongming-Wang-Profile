@@ -161,25 +161,25 @@ export function Hero() {
             </motion.a>
           </motion.div>
         </div>
-
-        {/* Scroll indicator - hidden on very small screens */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1 }}
-          className="hidden sm:block absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.a
-            href="#about"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="flex flex-col items-center gap-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors"
-          >
-            <span className="text-sm">Scroll down</span>
-            <ArrowDown className="w-4 h-4" />
-          </motion.a>
-        </motion.div>
       </div>
+
+      {/* Scroll indicator - hidden on very small screens */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 1 }}
+        className="hidden sm:block absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
+        <motion.a
+          href="#about"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="flex flex-col items-center gap-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors"
+        >
+          <span className="text-sm">Scroll down</span>
+          <ArrowDown className="w-4 h-4" />
+        </motion.a>
+      </motion.div>
     </section>
   );
 }
