@@ -130,6 +130,12 @@ export const education = [
   },
 ];
 
+// Loading screen configuration
+export const loadingScreenConfig = {
+  text: "Loading experience",
+  subtext: "Preparing 3D visualization",
+};
+
 // Chatbot configuration
 export const chatbotConfig = {
   enabled: true,

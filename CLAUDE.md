@@ -30,7 +30,7 @@ src/
 │   └── globals.css         # Global styles & CSS variables
 ├── components/
 │   ├── sections/           # Full page sections (hero, about, experience, projects, contact)
-│   ├── ui/                 # Reusable components (navbar, footer, splat-scene, custom-cursor, chatbot)
+│   ├── ui/                 # Reusable components (navbar, footer, splat-scene, loading-screen, custom-cursor, chatbot)
 │   └── providers/          # Theme provider wrapper
 └── lib/
     └── constants.ts        # ALL site content centralized here
@@ -38,7 +38,7 @@ src/
 
 ### Data Pattern
 
-**All text content lives in `src/lib/constants.ts`** - exports `siteConfig`, `personalInfo`, `navItems`, `experiences`, `projects`, `skills`, `education`, `chatbotConfig`, `generateChatSystemPrompt()`. Update content here, not in components.
+**All text content lives in `src/lib/constants.ts`** - exports `siteConfig`, `personalInfo`, `navItems`, `experiences`, `projects`, `skills`, `education`, `loadingScreenConfig`, `chatbotConfig`, `generateChatSystemPrompt()`. Update content here, not in components.
 
 ### Component Pattern
 
@@ -73,6 +73,14 @@ The hero section features an interactive PLY point cloud with:
 - **Cursor-following reveal**: Particles appear near mouse position
 - **Scan line animation**: Left-to-right sweep when idle
 - **Configurable via `POINT_CLOUD_CONFIG`**: All values (scale, speed, colors, etc.) in one object at top of file
+- **Loading callback**: Notifies parent when PLY file is loaded via `onLoad` prop
+
+### Loading Screen (`loading-screen.tsx`)
+
+Full-screen loading overlay shown while 3D assets load:
+- **Animated dots**: Bouncing indicator with staggered timing
+- **Configurable text**: `loadingScreenConfig` in `constants.ts`
+- **Smooth transition**: Fades out when `isLoading` becomes false
 
 ### Styling
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { loadingScreenConfig } from "@/lib/constants";
 
 interface LoadingScreenProps {
   isLoading: boolean;
@@ -43,7 +44,7 @@ export function LoadingScreen({ isLoading }: LoadingScreenProps) {
             transition={{ delay: 0.2 }}
             className="text-lg text-neutral-600 dark:text-neutral-400 font-medium"
           >
-            Loading experience
+            {loadingScreenConfig.text}
             <motion.span
               animate={{ opacity: [0, 1, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -59,7 +60,7 @@ export function LoadingScreen({ isLoading }: LoadingScreenProps) {
             transition={{ delay: 0.5 }}
             className="text-sm text-neutral-400 dark:text-neutral-500 mt-2"
           >
-            Preparing 3D visualization
+            {loadingScreenConfig.subtext}
           </motion.p>
         </motion.div>
       )}
