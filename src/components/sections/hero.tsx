@@ -104,7 +104,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-12 px-4 sm:px-0"
           >
-            <a href="#contact" className="btn-primary w-full sm:w-auto">
+            <a href="#contact" className="btn-primary w-full sm:w-auto" data-cursor="contact" data-cursor-text="LET'S TALK">
               <Mail className="w-4 h-4" />
               Get in Touch
             </a>
@@ -113,6 +113,8 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary w-full sm:w-auto"
+              data-cursor="button"
+              data-cursor-text="VIEW"
             >
               <FileText className="w-4 h-4" />
               Download Resume

@@ -115,6 +115,8 @@ export function Contact() {
                 href={`mailto:${personalInfo.email}`}
                 className="flex items-center gap-4 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl hover:border-primary-500 transition-all group overflow-hidden"
                 whileHover={{ x: 5 }}
+                data-cursor="contact"
+                data-cursor-text="EMAIL"
               >
                 <div className="p-3 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-colors shrink-0">
                   <Mail className="w-5 h-5 text-primary-500" />
@@ -261,6 +263,8 @@ export function Contact() {
                   className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  data-cursor="button"
+                  data-cursor-text="SEND"
                 >
                   {isSubmitting ? (
                     <>
