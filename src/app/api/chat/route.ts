@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import Groq from "groq-sdk";
 import { generateChatSystemPrompt, chatbotConfig } from "@/lib/constants";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
 export async function POST(request: NextRequest) {
   try {
     // Check if chatbot is enabled
@@ -16,14 +12,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { messages } = await request.json();
-
     if (!process.env.GROQ_API_KEY) {
       return NextResponse.json(
         { error: "Chat is not configured" },
         { status: 500 }
       );
     }
+
+    const { messages } = await request.json();
+
+    // Lazy instantiation - only create client at runtime
+    const groq = new Groq({
+      apiKey: process.env.GROQ_API_KEY,
+    });
 
     const completion = await groq.chat.completions.create({
       model: chatbotConfig.model,
