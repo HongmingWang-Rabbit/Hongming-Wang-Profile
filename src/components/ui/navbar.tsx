@@ -2,19 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "next-themes";
-import { Menu, X, Moon, Sun, Monitor } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { navItems, personalInfo } from "@/lib/constants";
 import clsx from "clsx";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
@@ -23,19 +19,6 @@ export function Navbar() {
   }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-
-  const cycleTheme = () => {
-    if (theme === "dark") setTheme("light");
-    else if (theme === "light") setTheme("system");
-    else setTheme("dark");
-  };
-
-  const ThemeIcon = () => {
-    if (!mounted) return <Monitor className="w-5 h-5" />;
-    if (theme === "dark") return <Moon className="w-5 h-5" />;
-    if (theme === "light") return <Sun className="w-5 h-5" />;
-    return <Monitor className="w-5 h-5" />;
-  };
 
   return (
     <>
@@ -78,28 +61,16 @@ export function Navbar() {
               ))}
             </div>
 
-            {/* Right side - Theme toggle & Mobile menu button */}
-            <div className="flex items-center gap-4">
-              <motion.button
-                onClick={cycleTheme}
-                className="p-2 rounded-full bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Toggle theme"
-              >
-                <ThemeIcon />
-              </motion.button>
-
-              <motion.button
-                onClick={toggleMenu}
-                className="md:hidden p-2 rounded-full bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Toggle menu"
-              >
-                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </motion.button>
-            </div>
+            {/* Mobile menu button */}
+            <motion.button
+              onClick={toggleMenu}
+              className="md:hidden p-2 rounded-full bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </motion.button>
           </div>
         </nav>
       </motion.header>
