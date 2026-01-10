@@ -15,10 +15,12 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-white dark:bg-dark-bg text-neutral-900 dark:text-neutral-100 antialiased;
+    overflow-x: hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-tap-highlight-color: transparent;
   }

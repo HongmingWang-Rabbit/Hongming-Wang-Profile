@@ -113,42 +113,42 @@ export function Contact() {
             <div className="space-y-4">
               <motion.a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-4 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl hover:border-primary-500 transition-all group"
+                className="flex items-center gap-4 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl hover:border-primary-500 transition-all group overflow-hidden"
                 whileHover={{ x: 5 }}
               >
-                <div className="p-3 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-colors">
+                <div className="p-3 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-colors shrink-0">
                   <Mail className="w-5 h-5 text-primary-500" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-neutral-500">Email</p>
-                  <p className="font-medium">{personalInfo.email}</p>
+                  <p className="font-medium text-sm sm:text-base break-all">{personalInfo.email}</p>
                 </div>
               </motion.a>
 
               <motion.a
                 href={`tel:${personalInfo.phone}`}
-                className="flex items-center gap-4 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl hover:border-primary-500 transition-all group"
+                className="flex items-center gap-4 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl hover:border-primary-500 transition-all group overflow-hidden"
                 whileHover={{ x: 5 }}
               >
-                <div className="p-3 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-colors">
+                <div className="p-3 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-colors shrink-0">
                   <Phone className="w-5 h-5 text-primary-500" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="text-sm text-neutral-500">Phone</p>
-                  <p className="font-medium">{personalInfo.phone}</p>
+                  <p className="font-medium truncate">{personalInfo.phone}</p>
                 </div>
               </motion.a>
 
               <motion.div
-                className="flex items-center gap-4 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl"
+                className="flex items-center gap-4 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl overflow-hidden"
                 whileHover={{ x: 5 }}
               >
-                <div className="p-3 bg-primary-500/10 rounded-lg">
+                <div className="p-3 bg-primary-500/10 rounded-lg shrink-0">
                   <MapPin className="w-5 h-5 text-primary-500" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="text-sm text-neutral-500">Location</p>
-                  <p className="font-medium">{personalInfo.location}</p>
+                  <p className="font-medium truncate">{personalInfo.location}</p>
                 </div>
               </motion.div>
             </div>
