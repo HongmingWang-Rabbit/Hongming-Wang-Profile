@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useRef, useMemo, useCallback } from "react";
+import { Suspense, useRef, useMemo, useCallback, useEffect } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader.js";
@@ -151,9 +151,10 @@ const FRAGMENT_SHADER = `
 interface PointCloudProps {
   mousePosition: { x: number; y: number };
   isActive: boolean;
+  onLoad?: () => void;
 }
 
-function PointCloud({ mousePosition, isActive }: PointCloudProps) {
+function PointCloud({ mousePosition, isActive, onLoad }: PointCloudProps) {
   const pointsRef = useRef<THREE.Points>(null);
   const mouseRef = useRef(new THREE.Vector3(0, 0, 0));
   const { camera, size, viewport } = useThree();
@@ -168,6 +169,13 @@ function PointCloud({ mousePosition, isActive }: PointCloudProps) {
 
   // Load PLY file
   const geometry = useLoader(PLYLoader, config.plyPath);
+
+  // Notify parent when loaded
+  useEffect(() => {
+    if (geometry && onLoad) {
+      onLoad();
+    }
+  }, [geometry, onLoad]);
 
   // Create custom attributes for animation
   const { positions, colors, sizes } = useMemo(() => {
@@ -279,9 +287,10 @@ function PointCloud({ mousePosition, isActive }: PointCloudProps) {
 export interface SplatSceneProps {
   mousePosition: { x: number; y: number };
   isActive: boolean;
+  onLoad?: () => void;
 }
 
-export function SplatScene({ mousePosition, isActive }: SplatSceneProps) {
+export function SplatScene({ mousePosition, isActive, onLoad }: SplatSceneProps) {
   const config = POINT_CLOUD_CONFIG;
 
   return (
@@ -299,7 +308,7 @@ export function SplatScene({ mousePosition, isActive }: SplatSceneProps) {
       gl={{ alpha: true, antialias: true }}
     >
       <Suspense fallback={null}>
-        <PointCloud mousePosition={mousePosition} isActive={isActive} />
+        <PointCloud mousePosition={mousePosition} isActive={isActive} onLoad={onLoad} />
       </Suspense>
     </Canvas>
   );

@@ -6,11 +6,18 @@ import { ArrowDown, Github, Linkedin, Mail, MapPin, FileText } from "lucide-reac
 import { personalInfo } from "@/lib/constants";
 
 import { SplatScene } from "../ui/splat-scene";
+import { LoadingScreen } from "../ui/loading-screen";
 
 export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isActive, setIsActive] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const handleSceneLoad = useCallback(() => {
+    // Small delay to ensure smooth transition
+    setTimeout(() => setIsLoaded(true), 100);
+  }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (sectionRef.current) {
@@ -27,16 +34,18 @@ export function Hero() {
   }, [isActive]);
 
   return (
-    <section
-      ref={sectionRef}
-      id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => setIsActive(false)}
-    >
-      <SplatScene mousePosition={mousePosition} isActive={isActive} />
+    <>
+      <LoadingScreen isLoading={!isLoaded} />
+      <section
+        ref={sectionRef}
+        id="home"
+        className="min-h-screen flex items-center justify-center relative overflow-hidden"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={() => setIsActive(false)}
+      >
+        <SplatScene mousePosition={mousePosition} isActive={isActive} onLoad={handleSceneLoad} />
 
-      <div className="container-custom pt-20 relative z-10">
+        <div className="container-custom pt-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Status badge */}
           <motion.div
@@ -181,5 +190,6 @@ export function Hero() {
         </motion.a>
       </motion.div>
     </section>
+    </>
   );
 }
