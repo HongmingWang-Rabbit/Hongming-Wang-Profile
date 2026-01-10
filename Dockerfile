@@ -1,4 +1,4 @@
-# Dockerfile for Next.js app
+# Dockerfile for Next.js app with standalone output
 
 # Stage 1: Builder
 FROM node:20-alpine AS builder
@@ -21,19 +21,27 @@ RUN pnpm build
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+ENV NODE_ENV=production
 
-# Copy necessary files from the builder stage
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
+# Create non-root user for security
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Copy standalone build
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.mjs ./next.config.mjs
+
+# Set correct permissions
+RUN chown -R nextjs:nodejs /app
+
+USER nextjs
 
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Set the command to start the app
-CMD ["pnpm", "start"]
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Start the standalone server
+CMD ["node", "server.js"]
