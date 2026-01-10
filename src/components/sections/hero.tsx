@@ -1,22 +1,42 @@
 "use client";
 
+import { useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, MapPin, FileText } from "lucide-react";
 import { personalInfo } from "@/lib/constants";
 
+import { SplatScene } from "../ui/splat-scene";
+
 export function Hero() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isActive, setIsActive] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (sectionRef.current) {
+      const rect = sectionRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+      // Set active on mouse move (handles case where mouse is already in section on load)
+      if (!isActive) {
+        setIsActive(true);
+      }
+    }
+  }, [isActive]);
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setIsActive(false)}
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-primary-500/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-primary-400/10 rounded-full blur-3xl animate-float animation-delay-400" />
-      </div>
+      <SplatScene mousePosition={mousePosition} isActive={isActive} />
 
-      <div className="container-custom pt-20">
+      <div className="container-custom pt-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Status badge */}
           <motion.div
