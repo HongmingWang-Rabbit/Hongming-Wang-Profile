@@ -7,8 +7,8 @@ import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader.js";
 
 // Configuration - easily adjustable values
 const POINT_CLOUD_CONFIG = {
-  // File path
-  plyPath: "/hongming.ply",
+  // File path (hosted on Cloud Storage for better performance)
+  plyPath: "https://storage.googleapis.com/static-profile-file/hongming.ply",
 
   // Scale settings
   scale: {
