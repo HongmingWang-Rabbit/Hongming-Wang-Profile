@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navItems, personalInfo } from "@/lib/constants";
@@ -9,6 +10,9 @@ import clsx from "clsx";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +23,29 @@ export function Navbar() {
   }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      // Non-hash links (e.g. /blog) — let normal navigation happen
+      if (!href.startsWith("#")) return;
+
+      e.preventDefault();
+      setIsOpen(false);
+
+      if (isHome) {
+        // On homepage: smooth scroll to section
+        const el = document.querySelector(href);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+          window.history.replaceState(null, "", href);
+        }
+      } else {
+        // On other pages: navigate home with hash
+        router.push(`/${href}`);
+      }
+    },
+    [isHome, router]
+  );
 
   return (
     <>
@@ -37,7 +64,13 @@ export function Navbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <motion.a
-              href="#home"
+              href="/"
+              onClick={(e) => {
+                if (isHome) {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
               className="text-xl font-bold gradient-text"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -51,7 +84,8 @@ export function Navbar() {
               {navItems.map((item) => (
                 <motion.a
                   key={item.name}
-                  href={item.href}
+                  href={item.href.startsWith("#") && !isHome ? `/${item.href}` : item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white link-underline transition-colors"
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
@@ -91,8 +125,8 @@ export function Navbar() {
                   {navItems.map((item, index) => (
                     <motion.a
                       key={item.name}
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
+                      href={item.href.startsWith("#") && !isHome ? `/${item.href}` : item.href}
+                      onClick={(e) => handleNavClick(e, item.href)}
                       className="px-4 py-4 text-base text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-dark-card rounded-lg transition-colors active:bg-neutral-200 dark:active:bg-dark-border"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
