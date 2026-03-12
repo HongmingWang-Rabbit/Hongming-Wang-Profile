@@ -12,20 +12,6 @@ My client [Reno Stars](https://reno-stars.com/) is a renovation company in Vanco
 
 They came to me wanting something modern that actually loads fast on mobile (where most of their leads come from). Here's what I learned rebuilding it from scratch.
 
-## Before & After
-
-**Desktop — old WordPress site vs new Next.js site:**
-
-![Reno Stars old WordPress site](/blog/wordpress-to-nextjs/reno-stars-old.jpg)
-
-![Reno Stars new Next.js site](/blog/wordpress-to-nextjs/reno-stars-new.jpg)
-
-**Mobile comparison:**
-
-![Old site on mobile](/blog/wordpress-to-nextjs/reno-stars-old-mobile.jpg)
-
-![New site on mobile](/blog/wordpress-to-nextjs/reno-stars-new-mobile.jpg)
-
 ## The Old Stack vs New Stack
 
 | | WordPress (Old) | Next.js (New) |
@@ -35,6 +21,56 @@ They came to me wanting something modern that actually loads fast on mobile (whe
 | **Hosting** | Shared hosting | Vercel |
 | **Load time** | ~4s | <1s |
 | **Maintenance** | Plugin updates, security patches | Near zero |
+
+## Visual Comparison
+
+### Hero Section
+
+The first thing visitors see. The old site had a generic Elementor layout. The new one is cleaner, more focused, and loads significantly faster.
+
+**Before (WordPress):**
+![Old hero section — WordPress + Elementor](/blog/wordpress-to-nextjs/old-hero.jpg)
+
+**After (Next.js):**
+![New hero section — Next.js + Tailwind CSS](/blog/wordpress-to-nextjs/new-hero.jpg)
+
+### Services Section
+
+Service cards got a complete redesign. Less visual clutter, better hierarchy, and the content is actually readable now.
+
+**Before:**
+![Old services page — heavy Elementor widgets](/blog/wordpress-to-nextjs/old-services.jpg)
+
+**After:**
+![New services section — clean card layout](/blog/wordpress-to-nextjs/new-services.jpg)
+
+### Portfolio / Projects
+
+The portfolio is where renovation companies win clients. The new version loads images lazily with Next.js Image optimization — no more waiting for a 3MB gallery to download.
+
+**Before:**
+![Old portfolio section](/blog/wordpress-to-nextjs/old-portfolio.jpg)
+
+**After:**
+![New portfolio with optimized images](/blog/wordpress-to-nextjs/new-portfolio.jpg)
+
+### About & Testimonials
+
+**Before:**
+![Old about section](/blog/wordpress-to-nextjs/old-about.jpg)
+
+**After:**
+![New about section with stats and trust signals](/blog/wordpress-to-nextjs/new-about.jpg)
+
+### Footer
+
+Even the footer got cleaned up. Better information architecture, clear CTAs, and proper service area listing.
+
+**Before:**
+![Old WordPress footer](/blog/wordpress-to-nextjs/old-footer.jpg)
+
+**After:**
+![New streamlined footer](/blog/wordpress-to-nextjs/new-footer.jpg)
 
 ## What Actually Mattered
 
