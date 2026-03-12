@@ -148,7 +148,7 @@
 }
 
 .prose-custom img {
-  @apply rounded-xl my-6 w-full;
+  @apply rounded-xl my-4 w-full border border-neutral-200 dark:border-dark-border shadow-lg;
 }
 
 .prose-custom hr {
