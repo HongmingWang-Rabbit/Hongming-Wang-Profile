@@ -17,7 +17,7 @@ They came to me wanting something modern that actually loads fast on mobile (whe
 | | WordPress (Old) | Next.js (New) |
 |---|---|---|
 | **Framework** | WordPress + Elementor | Next.js 14 + Tailwind CSS |
-| **CMS** | WordPress Admin | Custom Admin CMS |
+| **CMS** | WordPress Admin + plugins | Custom Admin with AI + CRM |
 | **Hosting** | Shared hosting | Vercel |
 | **Load time** | ~4s | <1s |
 | **Maintenance** | Plugin updates, security patches | Near zero |
@@ -72,6 +72,22 @@ Even the footer got cleaned up. Better information architecture, clear CTAs, and
 **After:**
 ![New streamlined footer](/blog/wordpress-to-nextjs/new-footer.jpg)
 
+### Admin Panel
+
+This is the biggest upgrade. WordPress gives you wp-admin — a generic dashboard with 30+ sidebar items, half of them from plugins, none of them branded. My client doesn't need to know what "Yoast SEO" or "Elementor Templates" means.
+
+The new admin is purpose-built: clean dashboard with at-a-glance content counts, organized into Portfolio, Content, CRM, and Settings. Bilingual toggle (English/中文) right in the header — essential for a Vancouver renovation company serving Chinese-speaking clients. And it has AI-powered features for content generation baked right in.
+
+**Before (WordPress wp-admin):**
+![Generic WordPress login and admin](/blog/wordpress-to-nextjs/old-admin.jpg)
+
+**After (Custom Admin Panel):**
+![Custom Next.js admin dashboard — clean, branded, bilingual](/blog/wordpress-to-nextjs/new-admin.jpg)
+
+The projects management page alone shows the difference. Instead of navigating WordPress's "Custom Post Types" with ACF fields, the client sees a clean table with all the fields that matter: PO number, title, city, featured status, published status — with search, tabs for filtering, and one-click actions.
+
+![Project management — clean table with search, tabs, and inline actions](/blog/wordpress-to-nextjs/new-admin-projects.jpg)
+
 ## What Actually Mattered
 
 ### 1. SEO Migration is the Hard Part
@@ -90,13 +106,14 @@ I had to:
 
 WordPress's biggest advantage is its admin panel. Non-technical clients can update content without calling you. Taking that away is a downgrade unless you replace it.
 
-I built a custom admin CMS that lets them:
-- Update project photos and descriptions
-- Edit service pages
-- Manage blog posts
-- Update team info
+I built a custom admin panel that goes beyond what WordPress offered:
+- **Portfolio management** — Projects, Services, Service Areas, with batch upload for renovation photos
+- **Content management** — Blog posts, FAQs, Gallery, Social Posts, Trust Badges, Partners
+- **CRM** — Contact tracking (WordPress needed a separate plugin for this)
+- **AI-powered features** — Content generation and optimization built directly into the workflow
+- **Bilingual** — English/中文 toggle throughout, not a $99/year WPML plugin
 
-It's simpler than WordPress admin, which is actually a feature — fewer things to break.
+It's simpler than WordPress admin, which is actually a feature — fewer things to break, and everything is relevant to running a renovation business.
 
 ### 3. Performance Wins
 
