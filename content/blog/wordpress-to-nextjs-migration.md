@@ -12,6 +12,20 @@ My client [Reno Stars](https://reno-stars.com/) is a renovation company in Vanco
 
 They came to me wanting something modern that actually loads fast on mobile (where most of their leads come from). Here's what I learned rebuilding it from scratch.
 
+## Before & After
+
+**Desktop — old WordPress site vs new Next.js site:**
+
+![Reno Stars old WordPress site](/blog/wordpress-to-nextjs/reno-stars-old.jpg)
+
+![Reno Stars new Next.js site](/blog/wordpress-to-nextjs/reno-stars-new.jpg)
+
+**Mobile comparison:**
+
+![Old site on mobile](/blog/wordpress-to-nextjs/reno-stars-old-mobile.jpg)
+
+![New site on mobile](/blog/wordpress-to-nextjs/reno-stars-new-mobile.jpg)
+
 ## The Old Stack vs New Stack
 
 | | WordPress (Old) | Next.js (New) |
