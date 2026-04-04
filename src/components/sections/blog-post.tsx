@@ -73,9 +73,34 @@ function markdownToHtml(md: string): string {
   html = html.replace(/^## (.+)$/gm, '<h2 class="blog-h2">$1</h2>');
   html = html.replace(/^# (.+)$/gm, '<h1 class="blog-h1">$1</h1>');
 
+  // Images (must come before links to avoid conflict with ![...](...)
+  html = html.replace(
+    /!\[([^\]]*)\]\(([^)]+)\)/g,
+    '<img src="$2" alt="$1" class="blog-img" loading="lazy" />'
+  );
+
+  // Links
+  html = html.replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    '<a href="$2" class="blog-link" target="_blank" rel="noopener noreferrer">$1</a>'
+  );
+
   // Bold & italic
   html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
   html = html.replace(/\*(.+?)\*/g, "<em>$1</em>");
+
+  // Unordered lists
+  html = html.replace(
+    /(?:^|\n)((?:- .+(?:\n|$))+)/g,
+    (_match, listBlock: string) => {
+      const items = listBlock
+        .trim()
+        .split(/\n(?=- )/)
+        .map((item) => `<li>${item.replace(/^- /, "").trim()}</li>`)
+        .join("");
+      return `<ul class="blog-ul">${items}</ul>`;
+    }
+  );
 
   // Ordered lists
   html = html.replace(
@@ -107,6 +132,7 @@ function markdownToHtml(md: string): string {
         trimmed.startsWith("<ul") ||
         trimmed.startsWith("<div") ||
         trimmed.startsWith("<hr") ||
+        trimmed.startsWith("<img") ||
         trimmed.startsWith("<table")
       ) {
         return trimmed;
