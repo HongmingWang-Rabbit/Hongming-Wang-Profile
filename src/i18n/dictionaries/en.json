@@ -1,0 +1,207 @@
+{
+  "siteConfig": {
+    "title": "Hongming Wang | Full-Stack Developer",
+    "description": "Full-Stack Developer with 4+ years of experience building production DeFi platforms, multi-tenant SaaS, and AI-powered applications. Built multi-chain DeFi ecosystem processing $90M+ trading volume with 53K+ users."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact",
+    "blog": "Blog"
+  },
+  "hero": {
+    "available": "Available for opportunities",
+    "greeting": "Hi, I'm",
+    "role": "Full-Stack Developer",
+    "location": "Vancouver, Canada",
+    "description": "Building modern web applications with React, Next.js, and Web3 technologies. Passionate about creating seamless user experiences and scalable solutions.",
+    "getInTouch": "Get in Touch",
+    "downloadResume": "Download Resume",
+    "scrollDown": "Scroll down"
+  },
+  "about": {
+    "title": "About",
+    "titleHighlight": "Me",
+    "subtitle": "Get to know more about my background, skills, and what drives me as a developer.",
+    "whoIAm": "Who I Am",
+    "bio": "Full-Stack Developer with 4+ years of experience building production DeFi platforms, multi-tenant SaaS, and AI-powered applications. Core expertise in React/Next.js frontend with strong backend skills in Node.js, PostgreSQL, and API design. Built multi-chain DeFi ecosystem processing $90M+ trading volume with 53K+ users.",
+    "bioP2": "Currently working at Honeypot Finance, I specialize in building Web3 applications and DeFi platforms. I enjoy tackling complex problems and turning ideas into reality through clean, efficient code.",
+    "bioP3": "When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or enjoying the beautiful outdoors of Vancouver.",
+    "education": "Education",
+    "degree": "Software Development Diploma",
+    "school": "British Columbia Institute of Technology (BCIT)",
+    "year": "2023",
+    "quickFacts": "Quick Facts",
+    "yearsExp": "Years of Experience",
+    "projectsCompleted": "Projects Completed",
+    "technologies": "Technologies",
+    "coffeeCups": "Coffee Cups",
+    "whatIDo": "What I Do",
+    "whatIDoItems": [
+      "Build scalable web applications",
+      "Develop Web3 & DeFi platforms",
+      "Create responsive user interfaces",
+      "Integrate AI/LLM capabilities",
+      "Optimize performance & SEO"
+    ],
+    "technicalSkills": "Technical",
+    "technicalSkillsHighlight": "Skills",
+    "skillCategories": {
+      "languages": "Languages",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "databases": "Databases",
+      "web3": "Web3",
+      "ai": "AI/LLM",
+      "devops": "DevOps & Infra",
+      "payments": "Payments & Auth"
+    }
+  },
+  "experience": {
+    "title": "Work",
+    "titleHighlight": "Experience",
+    "subtitle": "My professional journey and the companies I've had the pleasure to work with.",
+    "wantToKnowMore": "Want to know more about my experience?",
+    "downloadResume": "Download Full Resume",
+    "jobs": [
+      {
+        "title": "Full-Stack Engineer",
+        "company": "Honeypot Finance",
+        "period": "2024 - Present",
+        "description": [
+          "Multi-chain DeFi platform ecosystem: $90M+ trading volume, 53K+ active users, 1.9M+ trades executed",
+          "Architected Nx monorepo with 6 interconnected Next.js applications: DEX, memecoin launchpad, IDO platform, governance token market, vault dashboard, and token vesting interface",
+          "Built perpetual futures DEX on Orderly Network with TradingView charts, real-time order book, and live PnL tracking",
+          "Designed pluggable multi-chain wallet architecture supporting Privy, Web3-Onboard, RainbowKit across EVM, Solana, and Cosmos ecosystems",
+          "Built Subgraph integrations with Apollo GraphQL for real-time on-chain data indexing; developed tRPC APIs for type-safe internal communication"
+        ]
+      },
+      {
+        "title": "Freelance Full-Stack Developer",
+        "company": "Self-Employed",
+        "period": "2022 - Present",
+        "description": [
+          "exSatPay: Built cross-platform mobile app enabling users to spend stablecoins (USDT/USDC/USD1) via Visa-powered debit card with Apple Pay and Google Wallet integration",
+          "Implemented secure authentication with native biometric (Face ID/Touch ID) and WebAuthn passkey support for passwordless login; developed KYC verification flow and real-time transaction tracking",
+          "VE Studio: Built full-stack e-commerce for luxury leather accessories with Stripe payment integration and Builder.io headless CMS",
+          "Spark Kitchen & Bar: Built modern restaurant website with Next.js 13, Builder.io CMS, and TableAgent reservation system"
+        ]
+      },
+      {
+        "title": "Software Developer / IT Admin",
+        "company": "Haidilao Hot Pot",
+        "period": "2021 - 2022",
+        "description": [
+          "Built production automation system for multi-location restaurant chain (8 stores), replacing manual Excel workflows with database-driven reporting",
+          "Designed end-to-end data pipeline: web scraping → data extraction → PostgreSQL storage → automated report generation",
+          "Developed Excel report generators for business intelligence: gross margin analysis, YoY comparisons, inventory tracking",
+          "Implemented Selenium-based web scraper for automated data collection; created bank transaction processing system for multiple Canadian banks"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "title": "Featured",
+    "titleHighlight": "Projects",
+    "subtitle": "A selection of projects I've built that showcase my skills and passion for creating impactful applications.",
+    "featured": "Featured",
+    "viewMore": "View More on GitHub",
+    "items": [
+      {
+        "title": "PlotEngine",
+        "description": "Cross-platform AI writing assistant for fiction writers. Features rich text editor with AI-powered entity recognition, knowledge base for narrative elements, multi-tab editor with auto-save, and multi-language support (EN/ZH/FR)."
+      },
+      {
+        "title": "Personal Skill Map",
+        "description": "AI-powered career development platform with skill tree visualization using React Flow. Features multi-format document import with GPT-4o vision, AI resume generation with ATS keyword injection, 10-locale i18n system, and credit-based billing with Stripe."
+      },
+      {
+        "title": "Point System SaaS",
+        "description": "Full-stack multi-tenant SaaS platform for tracking user rewards with pnpm monorepo architecture. Features isolated PostgreSQL databases per tenant, append-only ledger for immutable transactions, quest/campaign system, multi-level referral system, and anti-sybil protection."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Get In",
+    "titleHighlight": "Touch",
+    "subtitle": "Have a project in mind or want to discuss opportunities? I'd love to hear from you. Let's create something amazing together.",
+    "letsConnect": "Let's Connect",
+    "connectDescription": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out through any of the channels below.",
+    "email": "Email",
+    "phone": "Phone",
+    "locationLabel": "Location",
+    "followMe": "Follow me on",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell me about your project...",
+    "sending": "Sending...",
+    "messageSent": "Message Sent!",
+    "sendMessage": "Send Message",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "errorFailed": "Failed to send message. Please try again."
+  },
+  "footer": {
+    "tagline": "Full-Stack Developer building modern web applications with a focus on performance and user experience.",
+    "quickLinks": "Quick Links",
+    "connect": "Connect",
+    "madeWith": "Made with",
+    "inVancouver": "in Vancouver"
+  },
+  "loading": {
+    "text": "Loading experience",
+    "subtext": "Preparing 3D visualization"
+  },
+  "chatbot": {
+    "welcomeMessage": "Hi! I'm Hongming's AI assistant. Ask me anything about his experience, skills, or projects!",
+    "chatWithAI": "Chat with AI",
+    "askAbout": "Ask about Hongming's work",
+    "placeholder": "Ask me anything...",
+    "errorMessage": "Sorry, I'm having trouble responding right now. Please try again or use the contact form."
+  },
+  "seo": {
+    "title": "Hongming Wang | Full-Stack Developer & Web3 Engineer in Vancouver",
+    "description": "Hongming Wang is a Full-Stack Developer in Vancouver with 4+ years of experience in React, Next.js, TypeScript, and Web3. Built DeFi platforms processing $90M+ in trading volume for 53K+ users.",
+    "ogImageAlt": "Hongming Wang – Full-Stack Developer Portfolio",
+    "jsonLd": {
+      "jobTitle": "Full-Stack Developer",
+      "knowsAbout": "React, Next.js, TypeScript, Web3, DeFi, Node.js, PostgreSQL"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "titleHighlight": "Posts",
+    "subtitle": "Thoughts on software architecture, AI engineering, and lessons learned from building real-world systems.",
+    "readMore": "Read more",
+    "readingTime": "min read",
+    "publishedOn": "Published on",
+    "backToBlog": "Back to Blog",
+    "allPosts": "All Posts",
+    "tableOfContents": "Table of Contents",
+    "sharePost": "Share this post",
+    "noPosts": "No blog posts yet. Stay tuned!"
+  },
+  "aria": {
+    "mainNavigation": "Main navigation",
+    "mobileNavigation": "Mobile navigation",
+    "footerNavigation": "Footer quick links",
+    "socialLinks": "Social media links",
+    "github": "Visit Hongming Wang's GitHub profile",
+    "linkedin": "Visit Hongming Wang's LinkedIn profile",
+    "emailLink": "Send email to Hongming Wang",
+    "toggleMenu": "Toggle navigation menu",
+    "closeChat": "Close chat window",
+    "openChat": "Open chat with AI assistant",
+    "backToTop": "Back to top of page",
+    "switchLanguage": "Switch language to",
+    "viewGithubRepo": "View source code on GitHub",
+    "viewLiveSite": "View live demo",
+    "downloadResume": "Download resume document",
+    "readBlogPost": "Read blog post",
+    "blogNavigation": "Blog navigation"
+  }
+}

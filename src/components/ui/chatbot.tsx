@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Loader2, Bot, User } from "lucide-react";
 import { chatbotConfig } from "@/lib/constants";
+import { useDictionary } from "@/i18n/dictionary-provider";
 
 interface Message {
   role: "user" | "assistant";
@@ -11,11 +12,12 @@ interface Message {
 }
 
 export function Chatbot() {
+  const { dictionary: t } = useDictionary();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: chatbotConfig.welcomeMessage,
+      content: t.chatbot.welcomeMessage,
     },
   ]);
   const [input, setInput] = useState("");
@@ -66,7 +68,7 @@ export function Chatbot() {
         ...prev,
         {
           role: "assistant",
-          content: "Sorry, I'm having trouble responding right now. Please try again or use the contact form.",
+          content: t.chatbot.errorMessage,
         },
       ]);
     } finally {
@@ -92,7 +94,7 @@ export function Chatbot() {
         className="fixed bottom-6 right-6 z-50 p-4 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg shadow-primary-500/25 transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        aria-label={isOpen ? "Close chat" : "Open chat"}
+        aria-label={isOpen ? t.aria.closeChat : t.aria.openChat}
         data-cursor="button"
         data-cursor-text="CHAT"
       >
@@ -129,6 +131,8 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
+            role="dialog"
+            aria-label={t.chatbot.chatWithAI}
             className="fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] sm:w-96 h-[500px] max-h-[70vh] bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
@@ -138,8 +142,8 @@ export function Chatbot() {
                   <Bot className="w-5 h-5 text-primary-500" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-sm">Chat with AI</h3>
-                  <p className="text-xs text-neutral-500">Ask about Hongming&apos;s work</p>
+                  <h3 className="font-semibold text-sm">{t.chatbot.chatWithAI}</h3>
+                  <p className="text-xs text-neutral-500">{t.chatbot.askAbout}</p>
                 </div>
               </div>
             </div>
@@ -203,7 +207,7 @@ export function Chatbot() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask me anything..."
+                  placeholder={t.chatbot.placeholder}
                   className="flex-1 px-4 py-2.5 text-sm bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-full focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
                   disabled={isLoading}
                 />

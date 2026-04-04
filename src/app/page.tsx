@@ -1,23 +1,8 @@
-import { Navbar } from "@/components/ui/navbar";
-import { Hero } from "@/components/sections/hero";
-import { About } from "@/components/sections/about";
-import { Experience } from "@/components/sections/experience";
-import { Projects } from "@/components/sections/projects";
-import { Contact } from "@/components/sections/contact";
-import { Footer } from "@/components/ui/footer";
+import { redirect } from "next/navigation";
+import { defaultLocale } from "@/i18n/config";
 
-export default function Home() {
-  return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-    </>
-  );
+// Root page redirects to default locale.
+// The middleware handles this too, but this is a safety fallback.
+export default function RootPage() {
+  redirect(`/${defaultLocale}`);
 }

@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, MapPin, FileText } from "lucide-react";
 import { personalInfo } from "@/lib/constants";
+import { useDictionary } from "@/i18n/dictionary-provider";
 
 import { SplatScene } from "../ui/splat-scene";
 import { LoadingScreen } from "../ui/loading-screen";
@@ -33,6 +34,8 @@ export function Hero() {
     }
   }, [isActive]);
 
+  const { dictionary: t } = useDictionary();
+
   return (
     <>
       <LoadingScreen isLoading={!isLoaded} />
@@ -59,7 +62,7 @@ export function Hero() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500" />
             </span>
             <span className="text-sm text-primary-600 dark:text-primary-400 font-medium">
-              Available for opportunities
+              {t.hero.available}
             </span>
           </motion.div>
 
@@ -70,7 +73,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
           >
-            Hi, I&apos;m{" "}
+            {t.hero.greeting}{" "}
             <span className="gradient-text">{personalInfo.name}</span>
           </motion.h1>
 
@@ -81,7 +84,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl sm:text-2xl md:text-3xl text-neutral-600 dark:text-neutral-400 mb-4"
           >
-            {personalInfo.role}
+            {t.hero.role}
           </motion.p>
 
           {/* Location */}
@@ -92,7 +95,7 @@ export function Hero() {
             className="flex items-center justify-center gap-2 text-neutral-500 dark:text-neutral-500 mb-8"
           >
             <MapPin className="w-4 h-4" />
-            <span>{personalInfo.location}</span>
+            <span>{t.hero.location}</span>
           </motion.div>
 
           {/* Description */}
@@ -102,8 +105,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-8 sm:mb-10 px-2 sm:px-0"
           >
-            Building modern web applications with React, Next.js, and Web3 technologies.
-            Passionate about creating seamless user experiences and scalable solutions.
+            {t.hero.description}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -115,7 +117,7 @@ export function Hero() {
           >
             <a href="#contact" className="btn-primary w-full sm:w-auto" data-cursor="contact" data-cursor-text="LET'S TALK">
               <Mail className="w-4 h-4" />
-              Get in Touch
+              {t.hero.getInTouch}
             </a>
             <a
               href={personalInfo.resumeUrl}
@@ -124,9 +126,10 @@ export function Hero() {
               className="btn-secondary w-full sm:w-auto"
               data-cursor="button"
               data-cursor-text="VIEW"
+              aria-label={t.aria.downloadResume}
             >
               <FileText className="w-4 h-4" />
-              Download Resume
+              {t.hero.downloadResume}
             </a>
           </motion.div>
 
@@ -144,7 +147,7 @@ export function Hero() {
               className="p-3 bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              aria-label="GitHub"
+              aria-label={t.aria.github}
             >
               <Github className="w-5 h-5" />
             </motion.a>
@@ -155,7 +158,7 @@ export function Hero() {
               className="p-3 bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              aria-label="LinkedIn"
+              aria-label={t.aria.linkedin}
             >
               <Linkedin className="w-5 h-5" />
             </motion.a>
@@ -164,7 +167,7 @@ export function Hero() {
               className="p-3 bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              aria-label="Email"
+              aria-label={t.aria.emailLink}
             >
               <Mail className="w-5 h-5" />
             </motion.a>
@@ -185,7 +188,7 @@ export function Hero() {
           transition={{ duration: 2, repeat: Infinity }}
           className="flex flex-col items-center gap-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors"
         >
-          <span className="text-sm">Scroll down</span>
+          <span className="text-sm">{t.hero.scrollDown}</span>
           <ArrowDown className="w-4 h-4" />
         </motion.a>
       </motion.div>

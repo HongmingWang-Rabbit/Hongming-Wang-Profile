@@ -3,16 +3,30 @@
 import { useState, useEffect, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { navItems, personalInfo } from "@/lib/constants";
+import { Menu, X, Globe } from "lucide-react";
+import { personalInfo } from "@/lib/constants";
+import { useDictionary } from "@/i18n/dictionary-provider";
+import { localeNames, type Locale } from "@/i18n/config";
 import clsx from "clsx";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { dictionary: t, locale } = useDictionary();
   const pathname = usePathname();
   const router = useRouter();
-  const isHome = pathname === "/";
+
+  // Check if we're on the home page (/<locale> or /<locale>/)
+  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`;
+
+  const navItems = [
+    { name: t.nav.home, href: "#home" },
+    { name: t.nav.about, href: "#about" },
+    { name: t.nav.experience, href: "#experience" },
+    { name: t.nav.projects, href: "#projects" },
+    { name: t.nav.blog, href: `/${locale}/blog` },
+    { name: t.nav.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +40,7 @@ export function Navbar() {
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-      // Non-hash links (e.g. /blog) — let normal navigation happen
+      // Non-hash links (e.g. /en/blog) — let normal navigation happen
       if (!href.startsWith("#")) return;
 
       e.preventDefault();
@@ -40,12 +54,26 @@ export function Navbar() {
           window.history.replaceState(null, "", href);
         }
       } else {
-        // On other pages: navigate home with hash
-        router.push(`/${href}`);
+        // On other pages (e.g. blog): navigate home with hash
+        router.push(`/${locale}/${href}`);
       }
     },
-    [isHome, router]
+    [isHome, router, locale]
   );
+
+  const switchLocale = useCallback(
+    (newLocale: Locale) => {
+      // Set cookie and navigate to the new locale URL
+      document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
+      const currentPath = window.location.pathname;
+      // Replace current locale prefix with new one
+      const newPath = currentPath.replace(`/${locale}`, `/${newLocale}`);
+      window.location.href = newPath + window.location.hash;
+    },
+    [locale]
+  );
+
+  const otherLocale = locale === "en" ? "zh" : "en";
 
   return (
     <>
@@ -60,11 +88,11 @@ export function Navbar() {
             : "bg-transparent"
         )}
       >
-        <nav className="container-custom">
+        <nav className="container-custom" aria-label={t.aria.mainNavigation}>
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <motion.a
-              href="/"
+              href={`/${locale}`}
               onClick={(e) => {
                 if (isHome) {
                   e.preventDefault();
@@ -74,6 +102,7 @@ export function Navbar() {
               className="text-xl font-bold gradient-text"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              aria-label={`${personalInfo.name} - ${t.nav.home}`}
             >
               {personalInfo.name.split(" ")[0]}
               <span className="text-neutral-900 dark:text-white">.dev</span>
@@ -84,7 +113,7 @@ export function Navbar() {
               {navItems.map((item) => (
                 <motion.a
                   key={item.name}
-                  href={item.href.startsWith("#") && !isHome ? `/${item.href}` : item.href}
+                  href={item.href.startsWith("#") && !isHome ? `/${locale}/${item.href}` : item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
                   className="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white link-underline transition-colors"
                   whileHover={{ y: -2 }}
@@ -93,18 +122,41 @@ export function Navbar() {
                   {item.name}
                 </motion.a>
               ))}
+
+              {/* Language toggle */}
+              <motion.button
+                onClick={() => switchLocale(otherLocale)}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-full transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={`${t.aria.switchLanguage} ${localeNames[otherLocale]}`}
+              >
+                <Globe className="w-3.5 h-3.5" />
+                {localeNames[otherLocale]}
+              </motion.button>
             </div>
 
-            {/* Mobile menu button */}
-            <motion.button
-              onClick={toggleMenu}
-              className="md:hidden p-2 rounded-full bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </motion.button>
+            {/* Mobile: language toggle + menu button */}
+            <div className="flex md:hidden items-center gap-2">
+              <motion.button
+                onClick={() => switchLocale(otherLocale)}
+                className="p-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-full"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label={`${t.aria.switchLanguage} ${localeNames[otherLocale]}`}
+              >
+                <Globe className="w-4 h-4" />
+              </motion.button>
+              <motion.button
+                onClick={toggleMenu}
+                className="p-2 rounded-full bg-neutral-100 dark:bg-dark-card border border-neutral-200 dark:border-dark-border"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label={t.aria.toggleMenu}
+              >
+                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </motion.button>
+            </div>
           </div>
         </nav>
       </motion.header>
@@ -120,12 +172,12 @@ export function Navbar() {
             className="fixed inset-x-0 top-16 z-40 md:hidden"
           >
             <div className="bg-white dark:bg-dark-bg border-b border-neutral-200 dark:border-dark-border shadow-lg">
-              <nav className="container-custom py-4">
+              <nav className="container-custom py-4" aria-label={t.aria.mobileNavigation}>
                 <div className="flex flex-col gap-2">
                   {navItems.map((item, index) => (
                     <motion.a
                       key={item.name}
-                      href={item.href.startsWith("#") && !isHome ? `/${item.href}` : item.href}
+                      href={item.href.startsWith("#") && !isHome ? `/${locale}/${item.href}` : item.href}
                       onClick={(e) => handleNavClick(e, item.href)}
                       className="px-4 py-4 text-base text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-dark-card rounded-lg transition-colors active:bg-neutral-200 dark:active:bg-dark-border"
                       initial={{ opacity: 0, x: -20 }}

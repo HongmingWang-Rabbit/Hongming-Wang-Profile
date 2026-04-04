@@ -5,10 +5,12 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Github, ExternalLink, Folder, Star } from "lucide-react";
 import { projects } from "@/lib/constants";
+import { useDictionary } from "@/i18n/dictionary-provider";
 
 export function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { dictionary: t } = useDictionary();
 
   return (
     <section id="projects" className="section-padding bg-neutral-50 dark:bg-dark-card/30">
@@ -21,11 +23,10 @@ export function Projects() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Featured <span className="gradient-text">Projects</span>
+            {t.projects.title} <span className="gradient-text">{t.projects.titleHighlight}</span>
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-            A selection of projects I&apos;ve built that showcase my skills and passion for
-            creating impactful applications.
+            {t.projects.subtitle}
           </p>
         </motion.div>
 
@@ -56,7 +57,7 @@ export function Projects() {
                         className="p-2 text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
-                        aria-label="View GitHub repository"
+                        aria-label={t.aria.viewGithubRepo}
                       >
                         <Github className="w-5 h-5" />
                       </motion.a>
@@ -69,7 +70,7 @@ export function Projects() {
                         className="p-2 text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
-                        aria-label="View live site"
+                        aria-label={t.aria.viewLiveSite}
                       >
                         <ExternalLink className="w-5 h-5" />
                       </motion.a>
@@ -81,18 +82,18 @@ export function Projects() {
                 {project.featured && (
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-4 text-xs font-medium text-primary-600 dark:text-primary-400 bg-primary-500/10 rounded-full">
                     <Star className="w-3 h-3 fill-current" />
-                    Featured
+                    {t.projects.featured}
                   </div>
                 )}
 
                 {/* Title */}
                 <h3 className="text-xl font-bold mb-3 group-hover:text-primary-500 transition-colors">
-                  {project.title}
+                  {t.projects.items[index]?.title || project.title}
                 </h3>
 
                 {/* Description */}
                 <p className="text-neutral-600 dark:text-neutral-400 mb-6 line-clamp-3">
-                  {project.description}
+                  {t.projects.items[index]?.description || project.description}
                 </p>
 
                 {/* Technologies */}
@@ -122,7 +123,7 @@ export function Projects() {
             className="btn-secondary inline-flex"
           >
             <Github className="w-4 h-4" />
-            View More on GitHub
+            {t.projects.viewMore}
           </a>
         </motion.div>
       </div>

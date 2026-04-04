@@ -2,14 +2,25 @@
 
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Heart, ArrowUp } from "lucide-react";
-import { personalInfo, navItems } from "@/lib/constants";
+import { personalInfo } from "@/lib/constants";
+import { useDictionary } from "@/i18n/dictionary-provider";
 
 export function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const { dictionary: t, locale } = useDictionary();
   const currentYear = new Date().getFullYear();
+
+  const navItems = [
+    { name: t.nav.home, href: "#home" },
+    { name: t.nav.about, href: "#about" },
+    { name: t.nav.experience, href: "#experience" },
+    { name: t.nav.projects, href: "#projects" },
+    { name: t.nav.contact, href: "#contact" },
+    { name: t.nav.blog, href: `/${locale}/blog` },
+  ];
 
   return (
     <footer className="bg-neutral-50 dark:bg-dark-card/50 border-t border-neutral-200 dark:border-dark-border">
@@ -22,15 +33,14 @@ export function Footer() {
               <span className="text-neutral-900 dark:text-white">.dev</span>
             </a>
             <p className="mt-4 text-neutral-600 dark:text-neutral-400 text-sm max-w-xs">
-              Full-Stack Developer building modern web applications with a focus on performance
-              and user experience.
+              {t.footer.tagline}
             </p>
           </div>
 
           {/* Quick links */}
           <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
-            <nav className="flex flex-col gap-2">
+            <h4 className="font-semibold mb-4">{t.footer.quickLinks}</h4>
+            <nav className="flex flex-col gap-2" aria-label={t.aria.footerNavigation}>
               {navItems.map((item) => (
                 <a
                   key={item.name}
@@ -45,7 +55,7 @@ export function Footer() {
 
           {/* Connect */}
           <div>
-            <h4 className="font-semibold mb-4">Connect</h4>
+            <h4 className="font-semibold mb-4">{t.footer.connect}</h4>
             <div className="flex gap-3">
               <motion.a
                 href={personalInfo.github}
@@ -54,7 +64,7 @@ export function Footer() {
                 className="p-2.5 sm:p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                aria-label="GitHub"
+                aria-label={t.aria.github}
               >
                 <Github className="w-5 h-5 sm:w-4 sm:h-4" />
               </motion.a>
@@ -65,7 +75,7 @@ export function Footer() {
                 className="p-2.5 sm:p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                aria-label="LinkedIn"
+                aria-label={t.aria.linkedin}
               >
                 <Linkedin className="w-5 h-5 sm:w-4 sm:h-4" />
               </motion.a>
@@ -74,7 +84,7 @@ export function Footer() {
                 className="p-2.5 sm:p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                aria-label="Email"
+                aria-label={t.aria.emailLink}
               >
                 <Mail className="w-5 h-5 sm:w-4 sm:h-4" />
               </motion.a>
@@ -88,8 +98,8 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-neutral-200 dark:border-dark-border">
           <p className="text-sm text-neutral-600 dark:text-neutral-400 flex items-center gap-1">
-            &copy; {currentYear} {personalInfo.name}. Made with{" "}
-            <Heart className="w-3 h-3 text-red-500 fill-current" /> in Vancouver
+            &copy; {currentYear} {personalInfo.name}. {t.footer.madeWith}{" "}
+            <Heart className="w-3 h-3 text-red-500 fill-current" /> {t.footer.inVancouver}
           </p>
 
           {/* Back to top */}
@@ -98,7 +108,7 @@ export function Footer() {
             className="mt-4 md:mt-0 p-2 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-lg text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            aria-label="Back to top"
+            aria-label={t.aria.backToTop}
           >
             <ArrowUp className="w-4 h-4" />
           </motion.button>

@@ -1,13 +1,14 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { loadingScreenConfig } from "@/lib/constants";
+import { useDictionary } from "@/i18n/dictionary-provider";
 
 interface LoadingScreenProps {
   isLoading: boolean;
 }
 
 export function LoadingScreen({ isLoading }: LoadingScreenProps) {
+  const { dictionary: t } = useDictionary();
   return (
     <AnimatePresence>
       {isLoading && (
@@ -44,7 +45,7 @@ export function LoadingScreen({ isLoading }: LoadingScreenProps) {
             transition={{ delay: 0.2 }}
             className="text-lg text-neutral-600 dark:text-neutral-400 font-medium"
           >
-            {loadingScreenConfig.text}
+            {t.loading.text}
             <motion.span
               animate={{ opacity: [0, 1, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -60,7 +61,7 @@ export function LoadingScreen({ isLoading }: LoadingScreenProps) {
             transition={{ delay: 0.5 }}
             className="text-sm text-neutral-400 dark:text-neutral-500 mt-2"
           >
-            {loadingScreenConfig.subtext}
+            {t.loading.subtext}
           </motion.p>
         </motion.div>
       )}

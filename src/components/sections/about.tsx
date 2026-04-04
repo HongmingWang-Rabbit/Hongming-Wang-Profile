@@ -5,10 +5,11 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Code2, Database, Cloud, Blocks, Brain, Wallet, CreditCard, Link } from "lucide-react";
 import { personalInfo, skills, education } from "@/lib/constants";
+import { useDictionary } from "@/i18n/dictionary-provider";
 
-const skillCategories = [
+const skillCategoriesConfig = [
   {
-    title: "Languages",
+    key: "languages" as const,
     icon: Code2,
     skills: skills.languages,
     color: "text-blue-500",
@@ -17,7 +18,7 @@ const skillCategories = [
     badgeColor: "bg-blue-500/20 text-blue-400 ",
   },
   {
-    title: "Frontend",
+    key: "frontend" as const,
     icon: Blocks,
     skills: skills.frontend,
     color: "text-purple-500",
@@ -26,7 +27,7 @@ const skillCategories = [
     badgeColor: "bg-purple-500/20 text-purple-400",
   },
   {
-    title: "Backend",
+    key: "backend" as const,
     icon: Database,
     skills: skills.backend,
     color: "text-green-500",
@@ -35,7 +36,7 @@ const skillCategories = [
     badgeColor: "bg-green-500/20 text-green-400",
   },
   {
-    title: "Databases",
+    key: "databases" as const,
     icon: Database,
     skills: skills.databases,
     color: "text-orange-500",
@@ -44,7 +45,7 @@ const skillCategories = [
     badgeColor: "bg-orange-500/20 text-orange-400",
   },
   {
-    title: "Web3",
+    key: "web3" as const,
     icon: Link,
     skills: skills.web3,
     color: "text-indigo-500",
@@ -53,7 +54,7 @@ const skillCategories = [
     badgeColor: "bg-indigo-500/20 text-indigo-400",
   },
   {
-    title: "AI/LLM",
+    key: "ai" as const,
     icon: Brain,
     skills: skills.ai,
     color: "text-pink-500",
@@ -62,7 +63,7 @@ const skillCategories = [
     badgeColor: "bg-pink-500/20 text-pink-400",
   },
   {
-    title: "DevOps & Infra",
+    key: "devops" as const,
     icon: Cloud,
     skills: skills.devops,
     color: "text-cyan-500",
@@ -71,7 +72,7 @@ const skillCategories = [
     badgeColor: "bg-cyan-500/20 text-cyan-400",
   },
   {
-    title: "Payments & Auth",
+    key: "payments" as const,
     icon: CreditCard,
     skills: skills.payments,
     color: "text-emerald-500",
@@ -84,6 +85,14 @@ const skillCategories = [
 export function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { dictionary: t } = useDictionary();
+
+  const stats = [
+    { label: t.about.yearsExp, value: "4+" },
+    { label: t.about.projectsCompleted, value: "20+" },
+    { label: t.about.technologies, value: "40+" },
+    { label: t.about.coffeeCups, value: "∞" },
+  ];
 
   return (
     <section id="about" className="section-padding bg-neutral-50 dark:bg-dark-card/30">
@@ -96,10 +105,10 @@ export function About() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            About <span className="gradient-text">Me</span>
+            {t.about.title} <span className="gradient-text">{t.about.titleHighlight}</span>
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-            Get to know more about my background, skills, and what drives me as a developer.
+            {t.about.subtitle}
           </p>
         </motion.div>
 
@@ -111,40 +120,30 @@ export function About() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-semibold mb-4">Who I Am</h3>
+            <h3 className="text-2xl font-semibold mb-4">{t.about.whoIAm}</h3>
             <div className="space-y-4 text-neutral-600 dark:text-neutral-400">
-              <p>{personalInfo.bio}</p>
-              <p>
-                Currently working at Honeypot Finance, I specialize in building Web3 applications
-                and DeFi platforms. I enjoy tackling complex problems and turning ideas into
-                reality through clean, efficient code.
-              </p>
-              <p>
-                When I&apos;m not coding, you can find me exploring new technologies, contributing
-                to open-source projects, or enjoying the beautiful outdoors of Vancouver.
-              </p>
+              <p>{t.about.bio}</p>
+              <p>{t.about.bioP2}</p>
+              <p>{t.about.bioP3}</p>
             </div>
 
             {/* Education */}
             <div className="mt-8">
-              <h4 className="text-lg font-semibold mb-3">Education</h4>
-              {education.map((edu, index) => (
-                <div
-                  key={index}
-                  className="flex items-start gap-3 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl"
-                >
-                  <div className="p-2 bg-primary-500/10 rounded-lg">
-                    <Code2 className="w-5 h-5 text-primary-500" />
-                  </div>
-                  <div>
-                    <h5 className="font-medium">{edu.degree}</h5>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      {edu.school}
-                    </p>
-                    <p className="text-sm text-neutral-500">{edu.year}</p>
-                  </div>
+              <h4 className="text-lg font-semibold mb-3">{t.about.education}</h4>
+              <div
+                className="flex items-start gap-3 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl"
+              >
+                <div className="p-2 bg-primary-500/10 rounded-lg">
+                  <Code2 className="w-5 h-5 text-primary-500" />
                 </div>
-              ))}
+                <div>
+                  <h5 className="font-medium">{t.about.degree}</h5>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    {t.about.school}
+                  </p>
+                  <p className="text-sm text-neutral-500">{t.about.year}</p>
+                </div>
+              </div>
             </div>
           </motion.div>
 
@@ -155,14 +154,9 @@ export function About() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="space-y-6"
           >
-            <h3 className="text-2xl font-semibold mb-4">Quick Facts</h3>
+            <h3 className="text-2xl font-semibold mb-4">{t.about.quickFacts}</h3>
             <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: "Years of Experience", value: "4+" },
-                { label: "Projects Completed", value: "20+" },
-                { label: "Technologies", value: "40+" },
-                { label: "Coffee Cups", value: "∞" },
-              ].map((stat, index) => (
+              {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}
@@ -180,28 +174,14 @@ export function About() {
 
             {/* What I do */}
             <div className="p-6 bg-gradient-to-br from-primary-500/10 to-primary-600/5 border border-primary-500/20 rounded-2xl">
-              <h4 className="text-lg font-semibold mb-3">What I Do</h4>
+              <h4 className="text-lg font-semibold mb-3">{t.about.whatIDo}</h4>
               <ul className="space-y-2 text-neutral-600 dark:text-neutral-400">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-primary-500 rounded-full" />
-                  Build scalable web applications
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-primary-500 rounded-full" />
-                  Develop Web3 & DeFi platforms
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-primary-500 rounded-full" />
-                  Create responsive user interfaces
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-primary-500 rounded-full" />
-                  Integrate AI/LLM capabilities
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-primary-500 rounded-full" />
-                  Optimize performance & SEO
-                </li>
+                {t.about.whatIDoItems.map((item: string, i: number) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-primary-500 rounded-full" />
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
           </motion.div>
@@ -214,12 +194,12 @@ export function About() {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <h3 className="text-2xl font-semibold text-center mb-8">
-            Technical <span className="gradient-text">Skills</span>
+            {t.about.technicalSkills} <span className="gradient-text">{t.about.technicalSkillsHighlight}</span>
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            {skillCategories.map((category, categoryIndex) => (
+            {skillCategoriesConfig.map((category, categoryIndex) => (
               <motion.div
-                key={category.title}
+                key={category.key}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.6 + categoryIndex * 0.05 }}
@@ -232,7 +212,7 @@ export function About() {
                   >
                     <category.icon className={`w-5 h-5 ${category.color}`} />
                   </div>
-                  <h4 className="font-semibold text-base">{category.title}</h4>
+                  <h4 className="font-semibold text-base">{t.about.skillCategories[category.key]}</h4>
                 </div>
                 <div className="flex flex-wrap gap-2 flex-1 content-start">
                   {category.skills.map((skill) => (

@@ -5,10 +5,12 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Briefcase, Calendar, ExternalLink } from "lucide-react";
 import { experiences } from "@/lib/constants";
+import { useDictionary } from "@/i18n/dictionary-provider";
 
 export function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { dictionary: t } = useDictionary();
 
   return (
     <section id="experience" className="section-padding">
@@ -21,10 +23,10 @@ export function Experience() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Work <span className="gradient-text">Experience</span>
+            {t.experience.title} <span className="gradient-text">{t.experience.titleHighlight}</span>
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-            My professional journey and the companies I&apos;ve had the pleasure to work with.
+            {t.experience.subtitle}
           </p>
         </motion.div>
 
@@ -35,7 +37,7 @@ export function Experience() {
             <div className="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-primary-400 to-transparent" />
 
             {/* Experience items */}
-            {experiences.map((experience, index) => (
+            {t.experience.jobs.map((experience: { title: string; company: string; period: string; description: string[] }, index: number) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
@@ -71,7 +73,7 @@ export function Experience() {
 
                   {/* Description */}
                   <ul className="space-y-2.5 text-neutral-600 dark:text-neutral-400 mb-5">
-                    {experience.description.map((item, i) => (
+                    {experience.description.map((item: string, i: number) => (
                       <li key={i} className="flex items-start gap-3">
                         <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0" />
                         <span className="text-sm leading-relaxed">{item}</span>
@@ -79,9 +81,9 @@ export function Experience() {
                     ))}
                   </ul>
 
-                  {/* Technologies */}
+                  {/* Technologies — these stay in English (tech names) */}
                   <div className="flex flex-wrap gap-2 pt-4 border-t border-neutral-200 dark:border-dark-border">
-                    {experience.technologies.map((tech) => (
+                    {experiences[index]?.technologies.map((tech) => (
                       <span
                         key={tech}
                         className="px-2.5 py-1 text-xs font-medium bg-primary-500/10 text-primary-600 dark:text-primary-400 rounded-lg"
@@ -104,15 +106,16 @@ export function Experience() {
           className="text-center mt-16"
         >
           <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-            Want to know more about my experience?
+            {t.experience.wantToKnowMore}
           </p>
           <a
             href="/Hongming_Wang_Resume.docx"
             download
             className="btn-secondary inline-flex"
+            aria-label={t.aria.downloadResume}
           >
             <ExternalLink className="w-4 h-4" />
-            Download Full Resume
+            {t.experience.downloadResume}
           </a>
         </motion.div>
       </div>

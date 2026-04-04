@@ -1,0 +1,207 @@
+{
+  "siteConfig": {
+    "title": "王弘铭 | 全栈开发工程师",
+    "description": "拥有4年以上经验的全栈开发工程师，专注于构建生产级DeFi平台、多租户SaaS系统和AI驱动的应用程序。已构建处理超过9000万美元交易量、服务53K+用户的多链DeFi生态系统。"
+  },
+  "nav": {
+    "home": "首页",
+    "about": "关于我",
+    "experience": "工作经历",
+    "projects": "项目作品",
+    "contact": "联系我",
+    "blog": "博客"
+  },
+  "hero": {
+    "available": "开放工作机会",
+    "greeting": "你好，我是",
+    "role": "全栈开发工程师",
+    "location": "加拿大温哥华",
+    "description": "使用 React、Next.js 和 Web3 技术构建现代化 Web 应用。热衷于打造无缝的用户体验和可扩展的解决方案。",
+    "getInTouch": "联系我",
+    "downloadResume": "下载简历",
+    "scrollDown": "向下滚动"
+  },
+  "about": {
+    "title": "关于",
+    "titleHighlight": "我",
+    "subtitle": "进一步了解我的背景、技能以及我作为开发者的驱动力。",
+    "whoIAm": "个人简介",
+    "bio": "拥有4年以上经验的全栈开发工程师，专注于构建生产级DeFi平台、多租户SaaS系统和AI驱动的应用程序。核心技术栈为 React/Next.js 前端开发，同时具备扎实的 Node.js、PostgreSQL 和 API 设计后端能力。已构建处理超过9000万美元交易量、服务53K+用户的多链DeFi生态系统。",
+    "bioP2": "目前就职于 Honeypot Finance，专注于构建 Web3 应用和 DeFi 平台。我享受解决复杂问题的过程，并通过简洁高效的代码将创意变为现实。",
+    "bioP3": "在不写代码的时候，你会发现我在探索新技术、参与开源项目，或者享受温哥华美丽的户外风光。",
+    "education": "教育背景",
+    "degree": "软件开发文凭",
+    "school": "不列颠哥伦比亚理工学院 (BCIT)",
+    "year": "2023",
+    "quickFacts": "快速概览",
+    "yearsExp": "开发经验",
+    "projectsCompleted": "完成项目",
+    "technologies": "技术栈",
+    "coffeeCups": "咖啡杯数",
+    "whatIDo": "我能做什么",
+    "whatIDoItems": [
+      "构建可扩展的 Web 应用",
+      "开发 Web3 和 DeFi 平台",
+      "创建响应式用户界面",
+      "集成 AI/LLM 能力",
+      "优化性能和 SEO"
+    ],
+    "technicalSkills": "专业",
+    "technicalSkillsHighlight": "技能",
+    "skillCategories": {
+      "languages": "编程语言",
+      "frontend": "前端",
+      "backend": "后端",
+      "databases": "数据库",
+      "web3": "Web3",
+      "ai": "AI/大语言模型",
+      "devops": "DevOps & 基础设施",
+      "payments": "支付 & 认证"
+    }
+  },
+  "experience": {
+    "title": "工作",
+    "titleHighlight": "经历",
+    "subtitle": "我的职业旅程以及我有幸合作过的公司。",
+    "wantToKnowMore": "想了解更多我的工作经验？",
+    "downloadResume": "下载完整简历",
+    "jobs": [
+      {
+        "title": "全栈工程师",
+        "company": "Honeypot Finance",
+        "period": "2024 - 至今",
+        "description": [
+          "多链 DeFi 平台生态：超过9000万美元交易量，53K+ 活跃用户，执行190万+ 笔交易",
+          "使用 Nx monorepo 架构搭建了6个互联的 Next.js 应用：DEX、Meme币发射台、IDO平台、治理代币市场、金库仪表板和代币归属界面",
+          "基于 Orderly Network 构建永续合约 DEX，集成 TradingView 图表、实时订单簿和实时盈亏跟踪",
+          "设计了支持 Privy、Web3-Onboard、RainbowKit 的可插拔多链钱包架构，覆盖 EVM、Solana 和 Cosmos 生态",
+          "构建了基于 Apollo GraphQL 的 Subgraph 集成，用于实时链上数据索引；开发了 tRPC API 实现类型安全的内部通信"
+        ]
+      },
+      {
+        "title": "自由全栈开发者",
+        "company": "自由职业",
+        "period": "2022 - 至今",
+        "description": [
+          "exSatPay：构建跨平台移动应用，用户可通过 Visa 借记卡消费稳定币（USDT/USDC/USD1），支持 Apple Pay 和 Google Wallet 集成",
+          "实现安全认证，支持原生生物识别（Face ID/Touch ID）和 WebAuthn 无密码登录；开发了 KYC 验证流程和实时交易追踪",
+          "VE Studio：为奢侈皮革配饰品牌构建全栈电商平台，集成 Stripe 支付和 Builder.io 无头 CMS",
+          "Spark Kitchen & Bar：使用 Next.js 13、Builder.io CMS 和 TableAgent 预订系统构建现代餐厅网站"
+        ]
+      },
+      {
+        "title": "软件开发工程师 / IT 管理员",
+        "company": "海底捞火锅",
+        "period": "2021 - 2022",
+        "description": [
+          "为连锁餐饮集团（8家门店）构建生产自动化系统，用数据库驱动的报告替代手工 Excel 工作流",
+          "设计端到端数据管道：网页爬取 → 数据提取 → PostgreSQL 存储 → 自动化报告生成",
+          "开发 Excel 报告生成器用于商业智能：毛利分析、同比对比、库存追踪",
+          "实现基于 Selenium 的网页爬虫进行自动化数据采集；创建多家加拿大银行的交易处理系统"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "title": "精选",
+    "titleHighlight": "项目",
+    "subtitle": "精选的项目作品，展示我的技术能力和创造有影响力应用的热情。",
+    "featured": "精选",
+    "viewMore": "在 GitHub 查看更多",
+    "items": [
+      {
+        "title": "PlotEngine",
+        "description": "面向小说作家的跨平台AI写作助手。功能包括AI驱动的实体识别富文本编辑器、叙事元素知识库、多标签自动保存编辑器以及多语言支持（中/英/法）。"
+      },
+      {
+        "title": "Personal Skill Map",
+        "description": "基于 React Flow 技能树可视化的AI职业发展平台。功能包括 GPT-4o 视觉多格式文档导入、AI简历生成与ATS关键词注入、10种语言国际化系统以及 Stripe 信用计费。"
+      },
+      {
+        "title": "Point System SaaS",
+        "description": "基于 pnpm monorepo 架构的全栈多租户SaaS积分系统。功能包括按租户隔离的PostgreSQL数据库、不可变交易追加日志、任务/活动系统、多级推荐系统和防女巫攻击保护。"
+      }
+    ]
+  },
+  "contact": {
+    "title": "联系",
+    "titleHighlight": "我",
+    "subtitle": "有项目想法或想讨论合作机会？很期待听到您的声音。让我们一起创造精彩。",
+    "letsConnect": "取得联系",
+    "connectDescription": "我始终欢迎讨论新项目、创意想法，或者成为您愿景的一部分。欢迎通过以下任何渠道联系我。",
+    "email": "邮箱",
+    "phone": "电话",
+    "locationLabel": "所在地",
+    "followMe": "关注我",
+    "nameLabel": "姓名",
+    "namePlaceholder": "您的姓名",
+    "emailLabel": "邮箱",
+    "emailPlaceholder": "your@email.com",
+    "messageLabel": "留言",
+    "messagePlaceholder": "告诉我您的项目想法...",
+    "sending": "发送中...",
+    "messageSent": "发送成功！",
+    "sendMessage": "发送留言",
+    "errorGeneric": "出了点问题，请重试。",
+    "errorFailed": "发送失败，请重试。"
+  },
+  "footer": {
+    "tagline": "全栈开发工程师，专注于构建性能卓越、用户体验优秀的现代 Web 应用。",
+    "quickLinks": "快速链接",
+    "connect": "社交媒体",
+    "madeWith": "用心打造于",
+    "inVancouver": "温哥华"
+  },
+  "loading": {
+    "text": "正在加载",
+    "subtext": "准备3D可视化中"
+  },
+  "chatbot": {
+    "welcomeMessage": "你好！我是弘铭的AI助手。欢迎询问关于他的工作经验、技能或项目的任何问题！",
+    "chatWithAI": "AI 对话",
+    "askAbout": "了解弘铭的工作",
+    "placeholder": "随便问我...",
+    "errorMessage": "抱歉，我暂时无法回应。请重试或使用联系表单。"
+  },
+  "seo": {
+    "title": "王弘铭 | 全栈开发工程师 & Web3工程师 · 温哥华",
+    "description": "王弘铭，温哥华全栈开发工程师，拥有4年以上 React、Next.js、TypeScript 和 Web3 开发经验。已构建处理超9000万美元交易量、服务53K+用户的DeFi平台。",
+    "ogImageAlt": "王弘铭 – 全栈开发工程师作品集",
+    "jsonLd": {
+      "jobTitle": "全栈开发工程师",
+      "knowsAbout": "React, Next.js, TypeScript, Web3, DeFi, Node.js, PostgreSQL"
+    }
+  },
+  "blog": {
+    "title": "博客",
+    "titleHighlight": "文章",
+    "subtitle": "关于软件架构、AI 工程和构建真实系统过程中所学到的经验的思考。",
+    "readMore": "阅读全文",
+    "readingTime": "分钟阅读",
+    "publishedOn": "发布于",
+    "backToBlog": "返回博客",
+    "allPosts": "所有文章",
+    "tableOfContents": "目录",
+    "sharePost": "分享这篇文章",
+    "noPosts": "暂无博客文章，敬请期待！"
+  },
+  "aria": {
+    "mainNavigation": "主导航",
+    "mobileNavigation": "移动端导航",
+    "footerNavigation": "页脚快速链接",
+    "socialLinks": "社交媒体链接",
+    "github": "访问王弘铭的 GitHub 主页",
+    "linkedin": "访问王弘铭的 LinkedIn 主页",
+    "emailLink": "发送邮件给王弘铭",
+    "toggleMenu": "切换导航菜单",
+    "closeChat": "关闭聊天窗口",
+    "openChat": "打开AI助手对话",
+    "backToTop": "回到页面顶部",
+    "switchLanguage": "切换语言至",
+    "viewGithubRepo": "在 GitHub 查看源代码",
+    "viewLiveSite": "查看在线演示",
+    "downloadResume": "下载简历文档",
+    "readBlogPost": "阅读博客文章",
+    "blogNavigation": "博客导航"
+  }
+}

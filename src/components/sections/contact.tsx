@@ -14,10 +14,12 @@ import {
   Loader2,
 } from "lucide-react";
 import { personalInfo } from "@/lib/constants";
+import { useDictionary } from "@/i18n/dictionary-provider";
 
 export function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { dictionary: t } = useDictionary();
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -55,10 +57,10 @@ export function Contact() {
         setFormState({ name: "", email: "", message: "" });
         setTimeout(() => setIsSubmitted(false), 5000);
       } else {
-        setError("Something went wrong. Please try again.");
+        setError(t.contact.errorGeneric);
       }
     } catch {
-      setError("Failed to send message. Please try again.");
+      setError(t.contact.errorFailed);
     }
 
     setIsSubmitting(false);
@@ -84,11 +86,10 @@ export function Contact() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Get In <span className="gradient-text">Touch</span>
+            {t.contact.title} <span className="gradient-text">{t.contact.titleHighlight}</span>
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-            Have a project in mind or want to discuss opportunities? I&apos;d love to hear from
-            you. Let&apos;s create something amazing together.
+            {t.contact.subtitle}
           </p>
         </motion.div>
 
@@ -101,16 +102,14 @@ export function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-semibold mb-6">Let&apos;s Connect</h3>
+              <h3 className="text-2xl font-semibold mb-6">{t.contact.letsConnect}</h3>
               <p className="text-neutral-600 dark:text-neutral-400 mb-8">
-                I&apos;m always open to discussing new projects, creative ideas, or opportunities
-                to be part of your vision. Feel free to reach out through any of the channels
-                below.
+                {t.contact.connectDescription}
               </p>
             </div>
 
             {/* Contact details */}
-            <div className="space-y-4">
+            <address className="space-y-4 not-italic">
               <motion.a
                 href={`mailto:${personalInfo.email}`}
                 className="flex items-center gap-4 p-4 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl hover:border-primary-500 transition-all group overflow-hidden"
@@ -122,7 +121,7 @@ export function Contact() {
                   <Mail className="w-5 h-5 text-primary-500" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm text-neutral-500">Email</p>
+                  <p className="text-sm text-neutral-500">{t.contact.email}</p>
                   <p className="font-medium text-sm sm:text-base break-all">{personalInfo.email}</p>
                 </div>
               </motion.a>
@@ -136,7 +135,7 @@ export function Contact() {
                   <Phone className="w-5 h-5 text-primary-500" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm text-neutral-500">Phone</p>
+                  <p className="text-sm text-neutral-500">{t.contact.phone}</p>
                   <p className="font-medium truncate">{personalInfo.phone}</p>
                 </div>
               </motion.a>
@@ -149,16 +148,16 @@ export function Contact() {
                   <MapPin className="w-5 h-5 text-primary-500" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm text-neutral-500">Location</p>
+                  <p className="text-sm text-neutral-500">{t.contact.locationLabel}</p>
                   <p className="font-medium truncate">{personalInfo.location}</p>
                 </div>
               </motion.div>
-            </div>
+            </address>
 
             {/* Social links */}
             <div>
-              <p className="text-sm text-neutral-500 mb-4">Follow me on</p>
-              <div className="flex gap-4">
+              <p className="text-sm text-neutral-500 mb-4">{t.contact.followMe}</p>
+              <div className="flex gap-4" role="list" aria-label={t.aria.socialLinks}>
                 <motion.a
                   href={personalInfo.github}
                   target="_blank"
@@ -166,7 +165,7 @@ export function Contact() {
                   className="p-3 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  aria-label="GitHub"
+                  aria-label={t.aria.github}
                 >
                   <Github className="w-5 h-5" />
                 </motion.a>
@@ -177,7 +176,7 @@ export function Contact() {
                   className="p-3 bg-white dark:bg-dark-card border border-neutral-200 dark:border-dark-border rounded-xl text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-primary-500 transition-all"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  aria-label="LinkedIn"
+                  aria-label={t.aria.linkedin}
                 >
                   <Linkedin className="w-5 h-5" />
                 </motion.a>
@@ -202,7 +201,7 @@ export function Contact() {
                     htmlFor="name"
                     className="block text-sm font-medium mb-2"
                   >
-                    Name
+                    {t.contact.nameLabel}
                   </label>
                   <input
                     type="text"
@@ -212,7 +211,7 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3.5 sm:py-3 text-base bg-neutral-50 dark:bg-dark-bg border border-neutral-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
-                    placeholder="Your name"
+                    placeholder={t.contact.namePlaceholder}
                   />
                 </div>
 
@@ -222,7 +221,7 @@ export function Contact() {
                     htmlFor="email"
                     className="block text-sm font-medium mb-2"
                   >
-                    Email
+                    {t.contact.emailLabel}
                   </label>
                   <input
                     type="email"
@@ -232,7 +231,7 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3.5 sm:py-3 text-base bg-neutral-50 dark:bg-dark-bg border border-neutral-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
-                    placeholder="your@email.com"
+                    placeholder={t.contact.emailPlaceholder}
                   />
                 </div>
 
@@ -242,7 +241,7 @@ export function Contact() {
                     htmlFor="message"
                     className="block text-sm font-medium mb-2"
                   >
-                    Message
+                    {t.contact.messageLabel}
                   </label>
                   <textarea
                     id="message"
@@ -252,7 +251,7 @@ export function Contact() {
                     required
                     rows={4}
                     className="w-full px-4 py-3.5 sm:py-3 text-base bg-neutral-50 dark:bg-dark-bg border border-neutral-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all resize-none"
-                    placeholder="Tell me about your project..."
+                    placeholder={t.contact.messagePlaceholder}
                   />
                 </div>
 
@@ -269,17 +268,17 @@ export function Contact() {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      Sending...
+                      {t.contact.sending}
                     </>
                   ) : isSubmitted ? (
                     <>
                       <CheckCircle className="w-4 h-4" />
-                      Message Sent!
+                      {t.contact.messageSent}
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      Send Message
+                      {t.contact.sendMessage}
                     </>
                   )}
                 </motion.button>
