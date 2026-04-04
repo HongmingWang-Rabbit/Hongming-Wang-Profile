@@ -1,12 +1,16 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, MapPin, FileText } from "lucide-react";
 import { personalInfo } from "@/lib/constants";
 import { useDictionary } from "@/i18n/dictionary-provider";
 
-import { SplatScene } from "../ui/splat-scene";
+const SplatScene = dynamic(
+  () => import("../ui/splat-scene").then((mod) => ({ default: mod.SplatScene })),
+  { ssr: false }
+);
 import { LoadingScreen } from "../ui/loading-screen";
 
 export function Hero() {

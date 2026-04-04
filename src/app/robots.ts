@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/constants";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: ["/en", "/zh", "/"],
     },
-    sitemap: "https://wanghongming.xyz/sitemap.xml",
+    sitemap: `${siteConfig.url}/sitemap.xml`,
   };
 }

@@ -60,50 +60,39 @@ export function CustomCursor() {
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
-    // Add hover detection for interactive elements
-    const handleElementHover = () => {
-      const interactiveElements = document.querySelectorAll(
+    // Use event delegation on document.body instead of attaching to each element
+    const handlePointerEnter = (e: Event) => {
+      const target = (e.target as HTMLElement).closest(
         'a, button, [role="button"], input, textarea, select, [data-cursor]'
       );
+      if (!target) return;
+      const cursorText = target.getAttribute("data-cursor-text") || "";
+      const cursorVariant =
+        (target.getAttribute("data-cursor") as CursorState["variant"]) ||
+        "link";
+      setCursorState({ isHovering: true, text: cursorText, variant: cursorVariant });
+    };
 
-      interactiveElements.forEach((el) => {
-        el.addEventListener("mouseenter", () => {
-          const cursorText = el.getAttribute("data-cursor-text") || "";
-          const cursorVariant =
-            (el.getAttribute("data-cursor") as CursorState["variant"]) ||
-            "link";
-
-          setCursorState({
-            isHovering: true,
-            text: cursorText,
-            variant: cursorVariant,
-          });
-        });
-
-        el.addEventListener("mouseleave", () => {
-          setCursorState({
-            isHovering: false,
-            text: "",
-            variant: "default",
-          });
-        });
-      });
+    const handlePointerLeave = (e: Event) => {
+      const target = (e.target as HTMLElement).closest(
+        'a, button, [role="button"], input, textarea, select, [data-cursor]'
+      );
+      if (!target) return;
+      setCursorState({ isHovering: false, text: "", variant: "default" });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     document.body.addEventListener("mouseleave", handleMouseLeave);
     document.body.addEventListener("mouseenter", handleMouseEnter);
-
-    // Initial setup and mutation observer for dynamic elements
-    handleElementHover();
-    const observer = new MutationObserver(handleElementHover);
-    observer.observe(document.body, { childList: true, subtree: true });
+    document.body.addEventListener("mouseover", handlePointerEnter);
+    document.body.addEventListener("mouseout", handlePointerLeave);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       document.body.removeEventListener("mouseleave", handleMouseLeave);
       document.body.removeEventListener("mouseenter", handleMouseEnter);
-      observer.disconnect();
+      document.body.removeEventListener("mouseover", handlePointerEnter);
+      document.body.removeEventListener("mouseout", handlePointerLeave);
     };
   }, [mouseX, mouseY, isVisible, isTouchDevice]);
 

@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
 import { getAllPosts } from "@/lib/blog";
+import { siteConfig } from "@/lib/constants";
 
-const baseUrl = "https://wanghongming.xyz";
+const baseUrl = siteConfig.url;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Generate entries for each locale with full hreflang alternates

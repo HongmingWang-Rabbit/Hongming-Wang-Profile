@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Github, Linkedin, Mail, Heart, ArrowUp } from "lucide-react";
 import { personalInfo } from "@/lib/constants";
 import { useDictionary } from "@/i18n/dictionary-provider";
@@ -11,6 +13,8 @@ export function Footer() {
   };
 
   const { dictionary: t, locale } = useDictionary();
+  const pathname = usePathname();
+  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`;
   const currentYear = new Date().getFullYear();
 
   const navItems = [
@@ -28,10 +32,10 @@ export function Footer() {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 mb-8">
           {/* Brand */}
           <div>
-            <a href="#home" className="text-xl font-bold gradient-text">
+            <Link href={`/${locale}`} className="text-xl font-bold gradient-text">
               {personalInfo.name.split(" ")[0]}
               <span className="text-neutral-900 dark:text-white">.dev</span>
-            </a>
+            </Link>
             <p className="mt-4 text-neutral-600 dark:text-neutral-400 text-sm max-w-xs">
               {t.footer.tagline}
             </p>
@@ -41,15 +45,20 @@ export function Footer() {
           <div>
             <h4 className="font-semibold mb-4">{t.footer.quickLinks}</h4>
             <nav className="flex flex-col gap-2" aria-label={t.aria.footerNavigation}>
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-500 transition-colors"
-                >
-                  {item.name}
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const href = item.href.startsWith("#")
+                  ? isHome ? item.href : `/${locale}/${item.href}`
+                  : item.href;
+                return (
+                  <Link
+                    key={item.name}
+                    href={href}
+                    className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-500 transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 
