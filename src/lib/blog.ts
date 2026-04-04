@@ -335,6 +335,311 @@ AI 在这个系统里真正发光的地方：理解用户意图。「我要一�
 解法几乎从来不是「更多 AI」，而是「更少 AI，更好的代码」。`,
     },
   },
+  {
+    slug: "wordpress-to-nextjs-migration",
+    date: "2026-03-12",
+    readingTime: { en: 8, zh: 9 },
+    tags: ["Next.js", "WordPress", "Migration", "Freelance", "Case Study"],
+    coverImage: "/blog/wordpress-to-nextjs/new-hero.jpg",
+    title: {
+      en: "WordPress → Next.js: Migrating a Renovation Company's Website",
+      zh: "WordPress → Next.js：给装修公司做网站迁移",
+    },
+    subtitle: {
+      en: "How I rebuilt Reno Stars from a sluggish WordPress site to a modern Next.js app — the real tradeoffs, challenges, and results.",
+      zh: "我如何把 Reno Stars 从一个笨重的 WordPress 网站重建为现代 Next.js 应用——真实的取舍、挑战和结果。",
+    },
+    content: {
+      en: `## Why Migrate?
+
+My client [Reno Stars](https://reno-stars.com/) is a renovation company in Vancouver. Their WordPress site worked — it had content, SEO juice, and a decent design. But it was slow, hard to update, and plugin-heavy.
+
+They came to me wanting something modern that actually loads fast on mobile (where most of their leads come from). Here's what I learned rebuilding it from scratch.
+
+## The Old Stack vs New Stack
+
+| | WordPress (Old) | Next.js (New) |
+|---|---|---|
+| **Framework** | WordPress + Elementor | Next.js 14 + Tailwind CSS |
+| **CMS** | WordPress Admin + plugins | Custom Admin with AI + CRM |
+| **Hosting** | Shared hosting | Vercel |
+| **Load time** | ~4s | <1s |
+| **Maintenance** | Plugin updates, security patches | Near zero |
+
+## Visual Comparison
+
+### Hero Section
+
+The first thing visitors see. The old site had a generic Elementor layout. The new one is cleaner, more focused, and loads significantly faster.
+
+**Before (WordPress):**
+![Old hero section — WordPress + Elementor](/blog/wordpress-to-nextjs/old-hero.jpg)
+
+**After (Next.js):**
+![New hero section — Next.js + Tailwind CSS](/blog/wordpress-to-nextjs/new-hero.jpg)
+
+### Services Section
+
+Service cards got a complete redesign. Less visual clutter, better hierarchy, and the content is actually readable now.
+
+**Before:**
+![Old services page — heavy Elementor widgets](/blog/wordpress-to-nextjs/old-services.jpg)
+
+**After:**
+![New services section — clean card layout](/blog/wordpress-to-nextjs/new-services.jpg)
+
+### Portfolio / Projects
+
+The portfolio is where renovation companies win clients. The new version loads images lazily with Next.js Image optimization — no more waiting for a 3MB gallery to download.
+
+**Before:**
+![Old portfolio section](/blog/wordpress-to-nextjs/old-portfolio.jpg)
+
+**After:**
+![New portfolio with optimized images](/blog/wordpress-to-nextjs/new-portfolio.jpg)
+
+### About & Testimonials
+
+**Before:**
+![Old about section](/blog/wordpress-to-nextjs/old-about.jpg)
+
+**After:**
+![New about section with stats and trust signals](/blog/wordpress-to-nextjs/new-about.jpg)
+
+### Footer
+
+Even the footer got cleaned up. Better information architecture, clear CTAs, and proper service area listing.
+
+**Before:**
+![Old WordPress footer](/blog/wordpress-to-nextjs/old-footer.jpg)
+
+**After:**
+![New streamlined footer](/blog/wordpress-to-nextjs/new-footer.jpg)
+
+### Admin Panel
+
+This is the biggest upgrade. WordPress gives you wp-admin — a generic dashboard with 30+ sidebar items, half of them from plugins, none of them branded. My client doesn't need to know what "Yoast SEO" or "Elementor Templates" means.
+
+The new admin is purpose-built: clean dashboard with at-a-glance content counts, organized into Portfolio, Content, CRM, and Settings. Bilingual toggle (English/中文) right in the header — essential for a Vancouver renovation company serving Chinese-speaking clients. And it has AI-powered features for content generation baked right in.
+
+**Before (WordPress wp-admin):**
+![Generic WordPress login and admin](/blog/wordpress-to-nextjs/old-admin.jpg)
+
+**After (Custom Admin Panel):**
+![Custom Next.js admin dashboard — clean, branded, bilingual](/blog/wordpress-to-nextjs/new-admin.jpg)
+
+The projects management page alone shows the difference. Instead of navigating WordPress's "Custom Post Types" with ACF fields, the client sees a clean table with all the fields that matter: PO number, title, city, featured status, published status — with search, tabs for filtering, and one-click actions.
+
+![Project management — clean table with search, tabs, and inline actions](/blog/wordpress-to-nextjs/new-admin-projects.jpg)
+
+## What Actually Mattered
+
+### 1. SEO Migration is the Hard Part
+
+The renovation industry lives on Google. Reno Stars ranks for keywords like "Vancouver renovation contractor" — losing that would be a disaster.
+
+I had to:
+- Map every old URL to its new equivalent
+- Set up proper redirects (301, not 302)
+- Keep the same meta structure and schema markup
+- Preserve the sitemap and submit it fresh
+
+**Lesson:** Don't just rebuild the frontend. Audit every URL first.
+
+### 2. The CMS Question
+
+WordPress's biggest advantage is its admin panel. Non-technical clients can update content without calling you. Taking that away is a downgrade unless you replace it.
+
+I built a custom admin panel that goes beyond what WordPress offered:
+- **Portfolio management** — Projects, Services, Service Areas, with batch upload for renovation photos
+- **Content management** — Blog posts, FAQs, Gallery, Social Posts, Trust Badges, Partners
+- **CRM** — Contact tracking (WordPress needed a separate plugin for this)
+- **AI-powered features** — Content generation and optimization built directly into the workflow
+- **Bilingual** — English/中文 toggle throughout, not a $99/year WPML plugin
+
+It's simpler than WordPress admin, which is actually a feature — fewer things to break, and everything is relevant to running a renovation business.
+
+### 3. Performance Wins
+
+Next.js with server components and image optimization made a massive difference:
+
+- **First Contentful Paint:** 4.2s → 0.8s
+- **Largest Contentful Paint:** 6.1s → 1.2s
+- **Total page weight:** 3.8MB → 890KB
+
+For a renovation company, this matters. Someone searching on their phone at a job site doesn't wait 4 seconds.
+
+### 4. Bilingual Support
+
+Reno Stars serves both English and Chinese-speaking clients in Vancouver. WordPress handled this with WPML (expensive, buggy). In Next.js, I implemented i18n with \`next-intl\` — cleaner routing, no plugin conflicts.
+
+## Tradeoffs I'd Be Honest About
+
+Not everything is better:
+
+- **Client self-service is harder** — even with a custom CMS, WordPress is more plug-and-play for non-technical users
+- **Plugin ecosystem is gone** — need a contact form? Build it. Need analytics? Wire it up yourself
+- **Development cost is higher** — a WordPress site with a theme is faster to ship initially
+
+But for a business that needs speed, reliability, and a professional web presence, the tradeoff is worth it.
+
+## What I'd Do Differently
+
+- Start with the URL audit before writing any code
+- Build the CMS features in parallel, not after the frontend
+- Set up staging with real content from day one (not lorem ipsum)
+
+## The Result
+
+The new site is live at [reno-stars-nextjs.vercel.app](https://reno-stars-nextjs.vercel.app/) and will replace the production site soon. It's faster, cleaner, and the client can actually manage it without calling me every week.
+
+If you're thinking about migrating a client from WordPress to Next.js — do it, but respect the SEO migration. That's where the real work is.`,
+      zh: `## 为什么要迁移？
+
+我的客户 [Reno Stars](https://reno-stars.com/) 是温哥华的一家装修公司。他们的 WordPress 网站能用——有内容、有 SEO 积累、设计也过得去。但它很慢，很难更新，插件一大堆。
+
+他们找到我，想要一个在手机上加载快的现代网站（大部分客户都是手机端来的）。以下是我从零重建中学到的东西。
+
+## 新旧技术栈对比
+
+| | WordPress（旧） | Next.js（新） |
+|---|---|---|
+| **框架** | WordPress + Elementor | Next.js 14 + Tailwind CSS |
+| **CMS** | WordPress 后台 + 插件 | 自建后台（AI + CRM） |
+| **托管** | 共享主机 | Vercel |
+| **加载时间** | ~4秒 | <1秒 |
+| **维护** | 插件更新、安全补丁 | 几乎为零 |
+
+## 视觉对比
+
+### 首页 Hero 区域
+
+访客看到的第一个东西。旧网站用的是 Elementor 通用模板，新版更干净、更聚焦，加载快得多。
+
+**改版前（WordPress）：**
+![旧 Hero 区域 — WordPress + Elementor](/blog/wordpress-to-nextjs/old-hero.jpg)
+
+**改版后（Next.js）：**
+![新 Hero 区域 — Next.js + Tailwind CSS](/blog/wordpress-to-nextjs/new-hero.jpg)
+
+### 服务区域
+
+服务卡片完全重新设计。视觉噪音更少，层次更清晰，内容终于能好好阅读了。
+
+**改版前：**
+![旧服务页面 — 笨重的 Elementor 组件](/blog/wordpress-to-nextjs/old-services.jpg)
+
+**改版后：**
+![新服务区域 — 干净的卡片布局](/blog/wordpress-to-nextjs/new-services.jpg)
+
+### 作品集 / 项目展示
+
+作品集是装修公司赢得客户的关键。新版用 Next.js Image 优化懒加载图片——不用再等 3MB 的图库下载了。
+
+**改版前：**
+![旧作品集](/blog/wordpress-to-nextjs/old-portfolio.jpg)
+
+**改版后：**
+![新作品集，图片已优化](/blog/wordpress-to-nextjs/new-portfolio.jpg)
+
+### 关于我们 & 客户评价
+
+**改版前：**
+![旧关于页面](/blog/wordpress-to-nextjs/old-about.jpg)
+
+**改版后：**
+![新关于页面，带数据和信任标识](/blog/wordpress-to-nextjs/new-about.jpg)
+
+### 页脚
+
+页脚也清理了。更好的信息架构，清晰的 CTA，以及完善的服务区域列表。
+
+**改版前：**
+![旧 WordPress 页脚](/blog/wordpress-to-nextjs/old-footer.jpg)
+
+**改版后：**
+![新版精简页脚](/blog/wordpress-to-nextjs/new-footer.jpg)
+
+### 后台管理面板
+
+这是最大的升级。WordPress 的 wp-admin 是通用后台——30 多个侧边栏项目，一半来自插件，没有一个带品牌。我的客户不需要知道什么是"Yoast SEO"或"Elementor 模板"。
+
+新后台是定制的：干净的仪表盘一目了然地显示内容数量，分为作品集、内容、CRM 和设置。标题栏有中英文切换——这对温哥华服务华人客户的装修公司来说至关重要。还内置了 AI 辅助内容生成功能。
+
+**改版前（WordPress wp-admin）：**
+![通用 WordPress 登录和后台](/blog/wordpress-to-nextjs/old-admin.jpg)
+
+**改版后（自建管理后台）：**
+![自建 Next.js 后台——干净、品牌化、双语](/blog/wordpress-to-nextjs/new-admin.jpg)
+
+光是项目管理页面就能看出区别。不再需要在 WordPress 的"自定义文章类型"里用 ACF 字段导航，客户看到的是一个干净的表格：PO 编号、标题、城市、精选状态、发布状态——带搜索、标签过滤和一键操作。
+
+![项目管理——干净的表格，带搜索、标签和内联操作](/blog/wordpress-to-nextjs/new-admin-projects.jpg)
+
+## 真正重要的事
+
+### 1. SEO 迁移才是硬活
+
+装修行业靠的是 Google。Reno Stars 在"Vancouver renovation contractor"这类关键词上有排名——丢掉这些就是灾难。
+
+我必须：
+- 把每个旧 URL 映射到新的对应 URL
+- 设置正确的重定向（301，不是 302）
+- 保持相同的 meta 结构和 schema 标记
+- 保留站点地图并重新提交
+
+**经验：** 不要只重建前端。先审计每个 URL。
+
+### 2. CMS 的问题
+
+WordPress 最大的优势是后台。非技术客户可以自己更新内容。拿走这个等于降级，除非你替代它。
+
+我建的自定义后台比 WordPress 的更强：
+- **作品集管理** — 项目、服务、服务区域，支持装修照片批量上传
+- **内容管理** — 博客、FAQ、图库、社交帖子、信任徽章、合作伙伴
+- **CRM** — 联系人跟踪（WordPress 需要单独的插件）
+- **AI 功能** — 内容生成和优化直接内置到工作流中
+- **双语** — 全程中英文切换，不是 99 美元/年的 WPML 插件
+
+它比 WordPress 后台简单，这其实是个优点——更少的东西会坏，所有功能都跟装修业务相关。
+
+### 3. 性能提升
+
+Next.js 的服务器组件和图片优化带来了巨大差异：
+
+- **首次内容绘制：** 4.2秒 → 0.8秒
+- **最大内容绘制：** 6.1秒 → 1.2秒
+- **页面总大小：** 3.8MB → 890KB
+
+对装修公司来说这很重要。工地上用手机搜索的人不会等 4 秒。
+
+### 4. 双语支持
+
+Reno Stars 同时服务温哥华的英语和中文客户。WordPress 用 WPML 处理（贵、bug 多）。在 Next.js 里，我用 \`next-intl\` 实现了 i18n——更干净的路由，没有插件冲突。
+
+## 坦诚的取舍
+
+不是所有方面都更好：
+
+- **客户自助更难** — 即使有自建 CMS，WordPress 对非技术用户更友好
+- **插件生态没了** — 需要联系表单？自己建。需要分析？自己接
+- **开发成本更高** — 用 WordPress 主题做网站初期更快
+
+但对于需要速度、可靠性和专业网络形象的企业来说，这个取舍值得。
+
+## 如果重来
+
+- 写任何代码之前先做 URL 审计
+- CMS 功能和前端并行开发，不要之后再做
+- 从第一天就用真实内容搭建 staging 环境（不要 lorem ipsum）
+
+## 结果
+
+新网站已在 [reno-stars-nextjs.vercel.app](https://reno-stars-nextjs.vercel.app/) 上线，即将替换生产站点。它更快、更干净，客户终于不用每周打电话找我了。
+
+如果你在考虑把客户从 WordPress 迁移到 Next.js——做吧，但要尊重 SEO 迁移。那才是真正的工作量所在。`,
+    },
+  },
 ];
 
 // Helper functions

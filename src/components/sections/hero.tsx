@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, MapPin, FileText } from "lucide-react";
@@ -22,6 +22,12 @@ export function Hero() {
   const handleSceneLoad = useCallback(() => {
     // Small delay to ensure smooth transition
     setTimeout(() => setIsLoaded(true), 100);
+  }, []);
+
+  // Dismiss loading screen after 4s even if PLY hasn't finished (48MB file)
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 4000);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
