@@ -640,6 +640,468 @@ Reno Stars 同时服务温哥华的英语和中文客户。WordPress 用 WPML �
 如果你在考虑把客户从 WordPress 迁移到 Next.js——做吧，但要尊重 SEO 迁移。那才是真正的工作量所在。`,
     },
   },
+  {
+    slug: "openclaw-to-claude-code",
+    date: "2026-04-04",
+    readingTime: { en: 10, zh: 12 },
+    tags: ["Claude Code", "OpenClaw", "Migration", "MCP", "Automation"],
+    title: {
+      en: "Your OpenClaw + Claude Setup Just Broke. Here\u2019s How to Keep Using Opus & Sonnet Without Extra Costs.",
+      zh: "\u4f60\u7684 OpenClaw + Claude \u65b9\u6848\u6302\u4e86\u3002\u8fd9\u6837\u505a\u53ef\u4ee5\u7ee7\u7eed\u514d\u8d39\u7528 Opus \u548c Sonnet\u3002",
+    },
+    subtitle: {
+      en: "A complete guide to migrating from OpenClaw to Claude Code\u2019s native tools \u2014 done in one day, using your existing Claude subscription.",
+      zh: "\u4ece OpenClaw \u8fc1\u79fb\u5230 Claude Code \u539f\u751f\u5de5\u5177\u7684\u5b8c\u6574\u6307\u5357\u2014\u2014\u4e00\u5929\u641e\u5b9a\uff0c\u7528\u4f60\u73b0\u6709\u7684 Claude \u8ba2\u9605\u3002",
+    },
+    content: {
+      en: `## What Happened on April 4, 2026
+
+Anthropic changed their billing so Claude Pro/Max subscription limits no longer cover third-party tools like OpenClaw. If you were running OpenClaw with Claude, all your cron jobs, Telegram bots, and automations stopped with:
+
+> "Third-party apps now draw from your extra usage, not your plan limits."
+
+Your options now:
+1. **Pay extra** — opt into Anthropic's pay-as-you-go "extra usage" billing
+2. **Switch models** — run OpenClaw with Kimi, Llama, or other providers instead of Claude
+3. **Go native** — use Claude Code (Anthropic's own CLI), which IS covered by your subscription
+
+I went with option 3. By the end of the day, I had everything rebuilt — cron jobs, Telegram bot, browser automation, memory system — all running on Claude Code with my existing Claude subscription. No extra costs.
+
+Here's the complete playbook.
+
+## What You're Replacing
+
+| Feature | OpenClaw | Claude Code Native |
+|---|---|---|
+| Cron jobs | Built-in scheduler | macOS \`launchd\` + \`claude --print\` CLI |
+| Telegram bot (DMs + groups) | Built-in channel | Official Telegram plugin (\`--channels\`) |
+| Browser automation | Playwright MCP | Same — Playwright MCP works in both |
+| Memory across sessions | Workspace files | File-based memory in a git repo |
+| Heartbeat checks | HEARTBEAT.md | Cron job with \`--model sonnet\` (cheaper) |
+| MCP servers | Built-in config | \`~/.claude.json\` config |
+
+**Key point:** Claude Code uses the same Opus and Sonnet models, covered by your existing subscription. The \`claude --print\` CLI is a first-party tool — Anthropic can't cut it off.
+
+## The Architecture
+
+Everything lives in one git repo:
+
+\`\`\`
+my-business-intelligent/
+├── config/env.json           # Machine paths, credentials (gitignored)
+├── claude-config/
+│   ├── CLAUDE.md             # AI instructions (symlinked to ~/.claude/)
+│   └── settings.json         # MCP servers, hooks (symlinked to ~/.claude/)
+├── memory/                   # Persistent AI memory (symlinked to ~/.claude/)
+├── prompts/                  # Cron job prompts
+├── hooks/                    # Safety hooks
+├── src/
+│   ├── server.ts             # MCP server (11 tools)
+│   └── setup.ts              # One command installs everything
+└── data/cron-logs/           # Cron output
+\`\`\`
+
+Config is symlinked into \`~/.claude/\` so Claude Code reads from the repo. Everything is version-controlled. To move to a new machine: clone the repo, edit one config file, run \`pnpm run setup\`.
+
+## Step 1: Read Your OpenClaw Config (20 min)
+
+Before building anything, read everything in \`~/.openclaw/\`:
+
+\`\`\`
+# The important files
+cat ~/.openclaw/openclaw.json          # Main config
+cat ~/.openclaw/cron/jobs.json         # All your cron jobs + prompts
+cat ~/.openclaw/workspace/SOUL.md      # AI personality
+cat ~/.openclaw/workspace/TOOLS.md     # Tool notes
+cat ~/.openclaw/workspace/TODO.md      # Outstanding tasks
+ls  ~/.openclaw/workspace/memory/      # Memory files
+\`\`\`
+
+Copy down your cron job prompts, Telegram bot token, user ID, and any project paths.
+
+## Step 2: Create the Repo (5 min)
+
+\`\`\`
+mkdir ~/my-business-intelligent && cd $_
+git init && pnpm init
+pnpm add @modelcontextprotocol/sdk zod
+pnpm add -D tsx typescript @types/node
+\`\`\`
+
+Create \`config/env.json\` (gitignored) with your machine-specific paths:
+
+\`\`\`
+{
+  "machine": { "home": "/Users/me" },
+  "paths": { "repo": "/Users/me/my-business-intelligent" },
+  "projects": { "my_app": "/path/to/app" },
+  "telegram": { "bot_token": "YOUR_TOKEN", "owner_chat_id": "YOUR_ID" },
+  "git": { "email": "me@example.com", "name": "myuser" }
+}
+\`\`\`
+
+## Step 3: Create CLAUDE.md (10 min)
+
+Combine OpenClaw's SOUL.md + USER.md + AGENTS.md + TOOLS.md into one file at \`claude-config/CLAUDE.md\`. This loads automatically every session:
+
+\`\`\`
+# Standing Orders
+
+## Who You're Working With
+- Name, business, projects...
+
+## Core Rules
+- Your rules from SOUL.md...
+
+## Infrastructure
+- Database, APIs, services...
+
+## Active Cron Jobs
+| Job | Schedule | What |
+|---|---|---|
+| ... | ... | ... |
+\`\`\`
+
+Symlink it: \`ln -sf ~/my-business-intelligent/claude-config/CLAUDE.md ~/.claude/CLAUDE.md\`
+
+## Step 4: Migrate Cron Jobs to launchd (30 min)
+
+This is the big one. For each cron job in \`~/.openclaw/cron/jobs.json\`:
+
+1. **Copy the prompt** — the \`payload.message\` field is the full prompt. Save it to \`prompts/<job-name>.md\`
+2. **Update paths** — replace \`~/.openclaw/workspace/\` with your new repo paths
+3. **Create a LaunchAgent plist** that runs:
+
+\`\`\`
+claude --print --dangerously-skip-permissions -p "$(cat prompts/<job>.md)"
+\`\`\`
+
+I automated this with a setup script. Define jobs in TypeScript:
+
+\`\`\`
+const jobs = [
+  { name: 'my-job', label: 'com.mybiz.my-job',
+    schedule: { interval: 3600 }, // every hour
+    prompt_file: 'prompts/my-job.md',
+    timeout: 300 },
+];
+\`\`\`
+
+The script generates plists and installs them into \`~/Library/LaunchAgents/\`. Run \`pnpm run setup\` and you're done.
+
+**Cost tip:** Use \`--model sonnet\` for lightweight jobs (heartbeat, memory checks). Sonnet is faster, cheaper, and good enough for "check if things are ok" work. Save Opus for heavy tasks like code generation and SEO building.
+
+### Recommended Standard Jobs
+
+| Job | Schedule | Model | Purpose |
+|---|---|---|---|
+| health-check | Every 1h | Opus | Check crons, Chrome, MCP servers. Auto-fix issues. |
+| heartbeat | Every 30m | Sonnet | Quick TODO review, rotate checks, proactive tasks |
+| memory-compactor | Every 6h | Opus | Review and consolidate memory files |
+
+## Step 5: Set Up Telegram (15 min)
+
+Claude Code shipped official Telegram support with group @mention detection — this replaces OpenClaw's built-in channel.
+
+\`\`\`
+# Install bun (required by the plugin)
+curl -fsSL https://bun.sh/install | bash
+
+# Install plugin deps
+cd ~/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/telegram
+bun install
+
+# Configure bot token (use your existing token from OpenClaw)
+mkdir -p ~/.claude/channels/telegram
+echo "TELEGRAM_BOT_TOKEN=your-token" > ~/.claude/channels/telegram/.env
+\`\`\`
+
+Add to settings.json: \`"enabledPlugins": { "telegram@claude-plugins-official": true }\`
+
+Make it default with an alias in \`~/.zshrc\`:
+\`\`\`
+alias claude="$HOME/.local/bin/claude --dangerously-skip-permissions --channels plugin:telegram@claude-plugins-official"
+\`\`\`
+
+**Important:** Stop the OpenClaw gateway first — it will steal your bot's messages:
+\`\`\`
+launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+\`\`\`
+
+**For group mentions:** Disable privacy mode via @BotFather (\`/setprivacy\` then Disable), then add the group ID to \`access.json\`.
+
+## Step 6: Build an MCP Server (30 min)
+
+Give Claude Code tools to manage itself. Create \`src/server.ts\` with:
+
+- **Memory tools** — list, read, write, search memory files
+- **Cron tools** — list jobs, read logs, trigger runs
+- **Project tools** — git status across repos
+- **Telegram** — send messages via bot
+- **Config** — read config values (with denylist for secrets)
+
+11 tools total. Claude can now check on itself, send you alerts, and manage its own memory.
+
+## Step 7: Symlink Everything (2 min)
+
+\`\`\`
+ln -sf ~/my-business-intelligent/claude-config/CLAUDE.md ~/.claude/CLAUDE.md
+ln -sf ~/my-business-intelligent/claude-config/settings.json ~/.claude/settings.json
+ln -sf ~/my-business-intelligent/memory ~/.claude/memory/repo
+\`\`\`
+
+The setup script does this automatically.
+
+## Step 8: Security (10 min)
+
+Add a pre-commit hook that scans for secrets (API keys, tokens, DB passwords, private keys). Add PreToolUse hooks that block \`git --no-verify\` and protect linter configs from modification. Gitignore your \`config/env.json\`, \`.env\` files, and generated plists.
+
+If you committed secrets during setup (easy to do), scrub them:
+\`\`\`
+brew install git-filter-repo
+git filter-repo --replace-text <(echo "your-secret==>REDACTED")
+git push --force
+\`\`\`
+
+## Step 9: Stop OpenClaw (1 min)
+
+\`\`\`
+launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+\`\`\`
+
+Keep \`~/.openclaw/workspace/\` as a read-only archive — you may need to reference old configs or docs. Keep the chrome-debug LaunchAgent if you use Playwright.
+
+## Step 10: Verify
+
+\`\`\`
+launchctl list | grep com.mybiz    # All crons loaded?
+claude --version                    # CLI works?
+curl -s http://127.0.0.1:9222/json/version  # Chrome CDP alive?
+\`\`\`
+
+Send a test Telegram DM to your bot. Trigger a health check cron. Check that memory loads on a fresh session.
+
+## The Bonus: It's Actually Better Now
+
+Once I finished the migration, I realized the new setup has real advantages I didn't have with OpenClaw:
+
+**Portability.** One git repo. Clone to a new machine, edit one JSON file, run setup. With OpenClaw, migration meant reinstalling the framework, running onboard, reconfiguring browser profiles, re-pairing Telegram.
+
+**Version control.** Every config change is a git commit. With OpenClaw, config lived in a sprawl of JSON files, SQLite databases, and binary blobs — no history, no review.
+
+**Cost control.** I can use Sonnet for lightweight crons and Opus for heavy work. With OpenClaw, the gateway burned tokens just to stay alive — heartbeat polling, context maintenance, session state.
+
+**No single point of failure.** Each cron job is an independent launchd invocation. If one fails, the others keep running. OpenClaw's gateway was one process — when it crashed, everything went down.
+
+**You own it.** No framework updates breaking your setup. No middleman getting cut off by a provider. No malicious skills from a community marketplace. Every line of code is yours.
+
+## Common Gotchas
+
+1. **MCP servers go in \`~/.claude.json\`**, not \`settings.json\` — Claude Code reads MCP config from \`.claude.json\`
+2. **Use absolute paths** for MCP server scripts — \`cwd\` is not reliably honored
+3. **pnpm strict hoisting** breaks \`node --import tsx/esm\` — use \`npx tsx\` instead
+4. **\`--print\` mode can't write to \`~/.claude/memory/\`** — keep memory in your repo
+5. **OpenClaw gateway steals your Telegram bot** if still running — stop it first
+6. **Hook type must be \`"command"\`** not \`"intercept"\`
+7. **Shell alias needs full binary path** — \`alias claude="$HOME/.local/bin/claude ..."\`
+8. **MCP env vars set at spawn time** — add \`env\` field to config, not \`.env\` file
+9. **\`enabledPlugins\`** must include \`"telegram@claude-plugins-official": true\`
+
+## Open Source Migration Skill
+
+I turned this entire process into a reusable skill prompt (300 lines, 11 phases). Give it to any Claude Code agent on a machine with OpenClaw and it'll follow the same playbook:
+
+[github.com/HongmingWang-Rabbit/skill-migrate-openclaw-to-cc](https://github.com/HongmingWang-Rabbit/skill-migrate-openclaw-to-cc)`,
+      zh: `## 2026 \u5e74 4 \u6708 4 \u65e5\u53d1\u751f\u4e86\u4ec0\u4e48
+
+Anthropic \u6539\u4e86\u8ba1\u8d39\u65b9\u5f0f\uff0cClaude Pro/Max \u8ba2\u9605\u989d\u5ea6\u4e0d\u518d\u8986\u76d6 OpenClaw \u8fd9\u7c7b\u7b2c\u4e09\u65b9\u5de5\u5177\u3002\u5982\u679c\u4f60\u7528 OpenClaw \u8dd1 Claude\uff0c\u4f60\u7684\u5b9a\u65f6\u4efb\u52a1\u3001Telegram \u673a\u5668\u4eba\u548c\u81ea\u52a8\u5316\u5168\u505c\u4e86\uff1a
+
+> \u201c\u7b2c\u4e09\u65b9\u5e94\u7528\u73b0\u5728\u6d88\u8017\u989d\u5916\u7528\u91cf\uff0c\u4e0d\u518d\u7b97\u5728\u8ba1\u5212\u989d\u5ea6\u5185\u3002\u201d
+
+\u73b0\u5728\u4f60\u6709\u4e09\u4e2a\u9009\u62e9\uff1a
+1. **\u52a0\u94b1** — \u5f00\u901a Anthropic \u7684\u6309\u91cf\u4ed8\u8d39\u201c\u989d\u5916\u7528\u91cf\u201d
+2. **\u6362\u6a21\u578b** — \u8ba9 OpenClaw \u7528 Kimi\u3001Llama \u6216\u5176\u4ed6\u4f9b\u5e94\u5546\uff0c\u4e0d\u8d70 Claude
+3. **\u7528\u539f\u751f** — \u7528 Claude Code\uff08Anthropic \u81ea\u5df1\u7684 CLI\uff09\uff0c\u8ba2\u9605\u989d\u5ea6\u8986\u76d6
+
+\u6211\u9009\u4e86\u65b9\u6848 3\u3002\u5f53\u5929\u7ed3\u675f\u65f6\uff0c\u6240\u6709\u4e1c\u897f\u90fd\u91cd\u5efa\u597d\u4e86\u2014\u2014\u5b9a\u65f6\u4efb\u52a1\u3001Telegram \u673a\u5668\u4eba\u3001\u6d4f\u89c8\u5668\u81ea\u52a8\u5316\u3001\u8bb0\u5fc6\u7cfb\u7edf\u2014\u2014\u5168\u8dd1\u5728 Claude Code \u4e0a\uff0c\u7528\u73b0\u6709\u8ba2\u9605\uff0c\u96f6\u989d\u5916\u6210\u672c\u3002
+
+\u4ee5\u4e0b\u662f\u5b8c\u6574\u7684\u64cd\u4f5c\u624b\u518c\u3002
+
+## \u4f60\u5728\u66ff\u6362\u4ec0\u4e48
+
+| \u529f\u80fd | OpenClaw | Claude Code \u539f\u751f |
+|---|---|---|
+| \u5b9a\u65f6\u4efb\u52a1 | \u5185\u7f6e\u8c03\u5ea6\u5668 | macOS \`launchd\` + \`claude --print\` CLI |
+| Telegram \u673a\u5668\u4eba | \u5185\u7f6e\u9891\u9053 | \u5b98\u65b9 Telegram \u63d2\u4ef6\uff08\`--channels\`\uff09 |
+| \u6d4f\u89c8\u5668\u81ea\u52a8\u5316 | Playwright MCP | \u4e00\u6837\u2014\u2014Playwright MCP \u4e24\u8fb9\u90fd\u80fd\u7528 |
+| \u8de8\u4f1a\u8bdd\u8bb0\u5fc6 | \u5de5\u4f5c\u533a\u6587\u4ef6 | git \u4ed3\u5e93\u4e2d\u7684\u6587\u4ef6\u8bb0\u5fc6 |
+| \u5fc3\u8df3\u68c0\u67e5 | HEARTBEAT.md | \u5b9a\u65f6\u4efb\u52a1 + \`--model sonnet\`\uff08\u66f4\u4fbf\u5b9c\uff09 |
+| MCP \u670d\u52a1\u5668 | \u5185\u7f6e\u914d\u7f6e | \`~/.claude.json\` \u914d\u7f6e |
+
+**\u5173\u952e\u70b9\uff1a** Claude Code \u7528\u7684\u662f\u540c\u6837\u7684 Opus \u548c Sonnet \u6a21\u578b\uff0c\u8ba2\u9605\u989d\u5ea6\u8986\u76d6\u3002\`claude --print\` \u662f Anthropic \u7684\u7b2c\u4e00\u65b9\u5de5\u5177\u2014\u2014\u4ed6\u4eec\u4e0d\u4f1a\u780d\u6389\u3002
+
+## \u67b6\u6784
+
+\u6240\u6709\u4e1c\u897f\u90fd\u5728\u4e00\u4e2a git \u4ed3\u5e93\u91cc\uff1a
+
+\`\`\`
+my-business-intelligent/
+\u251c\u2500\u2500 config/env.json           # \u673a\u5668\u8def\u5f84\u3001\u51ed\u8bc1\uff08gitignored\uff09
+\u251c\u2500\u2500 claude-config/
+\u2502   \u251c\u2500\u2500 CLAUDE.md             # AI \u6307\u4ee4\uff08\u8f6f\u94fe\u63a5 \u2192 ~/.claude/\uff09
+\u2502   \u2514\u2500\u2500 settings.json         # MCP \u670d\u52a1\u5668\u3001hooks\uff08\u8f6f\u94fe\u63a5 \u2192 ~/.claude/\uff09
+\u251c\u2500\u2500 memory/                   # \u6301\u4e45\u5316 AI \u8bb0\u5fc6\uff08\u8f6f\u94fe\u63a5 \u2192 ~/.claude/\uff09
+\u251c\u2500\u2500 prompts/                  # \u5b9a\u65f6\u4efb\u52a1 prompt
+\u251c\u2500\u2500 hooks/                    # \u5b89\u5168 hooks
+\u251c\u2500\u2500 src/
+\u2502   \u251c\u2500\u2500 server.ts             # MCP \u670d\u52a1\u5668\uff0811 \u4e2a\u5de5\u5177\uff09
+\u2502   \u2514\u2500\u2500 setup.ts              # \u4e00\u6761\u547d\u4ee4\u5b89\u88c5\u4e00\u5207
+\u2514\u2500\u2500 data/cron-logs/           # \u5b9a\u65f6\u4efb\u52a1\u8f93\u51fa
+\`\`\`
+
+\u914d\u7f6e\u901a\u8fc7\u8f6f\u94fe\u63a5\u5230 \`~/.claude/\`\uff0c\u8ba9 Claude Code \u4ece\u4ed3\u5e93\u8bfb\u53d6\u3002\u6240\u6709\u4e1c\u897f\u90fd\u7248\u672c\u63a7\u5236\u3002\u8fc1\u79fb\u5230\u65b0\u673a\u5668\uff1aclone \u4ed3\u5e93\uff0c\u6539\u4e00\u4e2a\u914d\u7f6e\u6587\u4ef6\uff0c\u8dd1 \`pnpm run setup\`\u3002
+
+## \u7b2c 1 \u6b65\uff1a\u8bfb\u53d6 OpenClaw \u914d\u7f6e\uff0820 \u5206\u949f\uff09
+
+\u642d\u4efb\u4f55\u4e1c\u897f\u4e4b\u524d\uff0c\u5148\u8bfb \`~/.openclaw/\` \u91cc\u7684\u6240\u6709\u4e1c\u897f\uff1a
+
+\`\`\`
+cat ~/.openclaw/openclaw.json          # \u4e3b\u914d\u7f6e
+cat ~/.openclaw/cron/jobs.json         # \u6240\u6709\u5b9a\u65f6\u4efb\u52a1 + prompt
+cat ~/.openclaw/workspace/SOUL.md      # AI \u4eba\u8bbe
+cat ~/.openclaw/workspace/TOOLS.md     # \u5de5\u5177\u7b14\u8bb0
+cat ~/.openclaw/workspace/TODO.md      # \u5f85\u529e\u4e8b\u9879
+ls  ~/.openclaw/workspace/memory/      # \u8bb0\u5fc6\u6587\u4ef6
+\`\`\`
+
+\u8bb0\u4e0b\u4f60\u7684\u5b9a\u65f6\u4efb\u52a1 prompt\u3001Telegram bot token\u3001\u7528\u6237 ID \u548c\u9879\u76ee\u8def\u5f84\u3002
+
+## \u7b2c 2 \u6b65\uff1a\u521b\u5efa\u4ed3\u5e93\uff085 \u5206\u949f\uff09
+
+\`\`\`
+mkdir ~/my-business-intelligent && cd $_
+git init && pnpm init
+pnpm add @modelcontextprotocol/sdk zod
+pnpm add -D tsx typescript @types/node
+\`\`\`
+
+\u521b\u5efa \`config/env.json\`\uff08gitignored\uff09\uff0c\u586b\u5165\u673a\u5668\u76f8\u5173\u8def\u5f84\u3002
+
+## \u7b2c 3 \u6b65\uff1a\u521b\u5efa CLAUDE.md\uff0810 \u5206\u949f\uff09
+
+\u628a OpenClaw \u7684 SOUL.md + USER.md + AGENTS.md + TOOLS.md \u5408\u5e76\u5230 \`claude-config/CLAUDE.md\`\u3002\u6bcf\u6b21\u4f1a\u8bdd\u81ea\u52a8\u52a0\u8f7d\u3002
+
+\u521b\u5efa\u8f6f\u94fe\u63a5\uff1a\`ln -sf ~/my-business-intelligent/claude-config/CLAUDE.md ~/.claude/CLAUDE.md\`
+
+## \u7b2c 4 \u6b65\uff1a\u8fc1\u79fb\u5b9a\u65f6\u4efb\u52a1\u5230 launchd\uff0830 \u5206\u949f\uff09
+
+\u8fd9\u662f\u91cd\u5934\u620f\u3002\u5bf9 \`~/.openclaw/cron/jobs.json\` \u91cc\u7684\u6bcf\u4e2a\u4efb\u52a1\uff1a
+
+1. **\u590d\u5236 prompt** — \`payload.message\` \u5b57\u6bb5\u662f\u5b8c\u6574 prompt\uff0c\u4fdd\u5b58\u5230 \`prompts/<job-name>.md\`
+2. **\u66f4\u65b0\u8def\u5f84** — \u628a \`~/.openclaw/workspace/\` \u66ff\u6362\u6210\u65b0\u4ed3\u5e93\u8def\u5f84
+3. **\u521b\u5efa LaunchAgent plist** \u6267\u884c\uff1a
+
+\`\`\`
+claude --print --dangerously-skip-permissions -p "$(cat prompts/<job>.md)"
+\`\`\`
+
+\u6211\u7528 setup \u811a\u672c\u81ea\u52a8\u5316\u4e86\u8fd9\u6b65\u3002\u811a\u672c\u751f\u6210 plist \u5e76\u5b89\u88c5\u5230 \`~/Library/LaunchAgents/\`\u3002\u8dd1 \`pnpm run setup\` \u5c31\u5b8c\u4e8b\u4e86\u3002
+
+**\u7701\u94b1\u6280\u5de7\uff1a** \u8f7b\u91cf\u4efb\u52a1\u7528 \`--model sonnet\`\u3002Sonnet \u66f4\u5feb\u3001\u66f4\u4fbf\u5b9c\uff0c\u201c\u68c0\u67e5\u4e00\u4e0b\u662f\u5426\u6b63\u5e38\u201d\u591f\u7528\u4e86\u3002Opus \u7559\u7ed9\u4ee3\u7801\u751f\u6210\u548c SEO \u8fd9\u7c7b\u91cd\u6d3b\u3002
+
+### \u63a8\u8350\u7684\u6807\u51c6\u4efb\u52a1
+
+| \u4efb\u52a1 | \u9891\u7387 | \u6a21\u578b | \u7528\u9014 |
+|---|---|---|---|
+| health-check | \u6bcf 1 \u5c0f\u65f6 | Opus | \u68c0\u67e5\u5b9a\u65f6\u4efb\u52a1\u3001Chrome\u3001MCP \u670d\u52a1\u5668\uff0c\u81ea\u52a8\u4fee\u590d |
+| heartbeat | \u6bcf 30 \u5206\u949f | Sonnet | \u5feb\u901f TODO \u68c0\u67e5\u3001\u8f6e\u8be2\u68c0\u67e5\u3001\u4e3b\u52a8\u4efb\u52a1 |
+| memory-compactor | \u6bcf 6 \u5c0f\u65f6 | Opus | \u5ba1\u67e5\u548c\u6574\u5408\u8bb0\u5fc6\u6587\u4ef6 |
+
+## \u7b2c 5 \u6b65\uff1a\u914d\u7f6e Telegram\uff0815 \u5206\u949f\uff09
+
+Claude Code \u5b98\u65b9\u652f\u6301 Telegram\uff0c\u5305\u62ec\u7fa4\u7ec4 @\u63d0\u53ca\u68c0\u6d4b\u2014\u2014\u66ff\u4ee3 OpenClaw \u7684\u5185\u7f6e\u9891\u9053\u3002
+
+\u5728 settings.json \u4e2d\u6dfb\u52a0\uff1a\`"enabledPlugins": { "telegram@claude-plugins-official": true }\`
+
+**\u91cd\u8981\uff1a** \u5148\u505c\u6389 OpenClaw gateway\u2014\u2014\u5b83\u4f1a\u62a2\u4f60 bot \u7684\u6d88\u606f\u3002
+
+## \u7b2c 6 \u6b65\uff1a\u6784\u5efa MCP \u670d\u52a1\u5668\uff0830 \u5206\u949f\uff09
+
+\u8ba9 Claude Code \u6709\u5de5\u5177\u7ba1\u7406\u81ea\u5df1\u3002\u521b\u5efa \`src/server.ts\`\uff1a
+
+- **\u8bb0\u5fc6\u5de5\u5177** — \u5217\u51fa\u3001\u8bfb\u53d6\u3001\u5199\u5165\u3001\u641c\u7d22\u8bb0\u5fc6\u6587\u4ef6
+- **\u5b9a\u65f6\u4efb\u52a1\u5de5\u5177** — \u5217\u51fa\u4efb\u52a1\u3001\u8bfb\u65e5\u5fd7\u3001\u89e6\u53d1\u8fd0\u884c
+- **\u9879\u76ee\u5de5\u5177** — \u5404\u4ed3\u5e93 git \u72b6\u6001
+- **Telegram** — \u901a\u8fc7 bot \u53d1\u6d88\u606f
+- **\u914d\u7f6e** — \u8bfb\u53d6\u914d\u7f6e\u503c\uff08\u654f\u611f\u8def\u5f84\u6709\u9ed1\u540d\u5355\uff09
+
+\u5171 11 \u4e2a\u5de5\u5177\u3002Claude \u73b0\u5728\u53ef\u4ee5\u81ea\u68c0\u3001\u7ed9\u4f60\u53d1\u8b66\u62a5\u3001\u7ba1\u7406\u81ea\u5df1\u7684\u8bb0\u5fc6\u3002
+
+## \u7b2c 7 \u6b65\uff1a\u8f6f\u94fe\u63a5\u4e00\u5207\uff082 \u5206\u949f\uff09
+
+\`\`\`
+ln -sf ~/my-business-intelligent/claude-config/CLAUDE.md ~/.claude/CLAUDE.md
+ln -sf ~/my-business-intelligent/claude-config/settings.json ~/.claude/settings.json
+ln -sf ~/my-business-intelligent/memory ~/.claude/memory/repo
+\`\`\`
+
+setup \u811a\u672c\u81ea\u52a8\u5b8c\u6210\u8fd9\u6b65\u3002
+
+## \u7b2c 8 \u6b65\uff1a\u5b89\u5168\uff0810 \u5206\u949f\uff09
+
+\u52a0\u4e00\u4e2a pre-commit hook \u626b\u63cf\u5bc6\u94a5\u3002\u52a0 PreToolUse hooks \u963b\u6b62 \`git --no-verify\` \u5e76\u4fdd\u62a4 linter \u914d\u7f6e\u3002gitignore \u4f60\u7684 \`config/env.json\`\u3001\`.env\` \u6587\u4ef6\u548c\u751f\u6210\u7684 plist\u3002
+
+## \u7b2c 9 \u6b65\uff1a\u505c\u6b62 OpenClaw\uff081 \u5206\u949f\uff09
+
+\`\`\`
+launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+\`\`\`
+
+\u4fdd\u7559 \`~/.openclaw/workspace/\` \u4f5c\u4e3a\u53ea\u8bfb\u5b58\u6863\u3002
+
+## \u7b2c 10 \u6b65\uff1a\u9a8c\u8bc1
+
+\`\`\`
+launchctl list | grep com.mybiz    # \u5b9a\u65f6\u4efb\u52a1\u90fd\u52a0\u8f7d\u4e86\uff1f
+claude --version                    # CLI \u6b63\u5e38\uff1f
+curl -s http://127.0.0.1:9222/json/version  # Chrome CDP \u6d3b\u7740\uff1f
+\`\`\`
+
+\u7ed9\u4f60\u7684 bot \u53d1\u4e00\u6761 Telegram \u6d4b\u8bd5\u6d88\u606f\u3002\u89e6\u53d1\u4e00\u6b21 health-check\u3002\u68c0\u67e5\u65b0\u4f1a\u8bdd\u662f\u5426\u52a0\u8f7d\u4e86\u8bb0\u5fc6\u3002
+
+## \u989d\u5916\u6536\u83b7\uff1a\u5176\u5b9e\u66f4\u597d\u4e86
+
+\u8fc1\u79fb\u5b8c\u6210\u540e\u6211\u53d1\u73b0\uff0c\u65b0\u65b9\u6848\u6bd4 OpenClaw \u6709\u5b9e\u5b9e\u5728\u5728\u7684\u4f18\u52bf\uff1a
+
+**\u53ef\u79fb\u690d\u6027\u3002** \u4e00\u4e2a git \u4ed3\u5e93\u3002Clone \u5230\u65b0\u673a\u5668\uff0c\u6539\u4e00\u4e2a JSON \u6587\u4ef6\uff0c\u8dd1 setup\u3002OpenClaw \u7684\u8fc1\u79fb\u610f\u5473\u7740\u91cd\u65b0\u5b89\u88c5\u6846\u67b6\u3001\u8dd1 onboard\u3001\u91cd\u65b0\u914d\u7f6e\u6d4f\u89c8\u5668 profile\u3001\u91cd\u65b0\u7ed1\u5b9a Telegram\u3002
+
+**\u7248\u672c\u63a7\u5236\u3002** \u6bcf\u6b21\u914d\u7f6e\u53d8\u66f4\u90fd\u662f git commit\u3002OpenClaw \u7684\u914d\u7f6e\u6563\u843d\u5728 JSON \u6587\u4ef6\u3001SQLite \u6570\u636e\u5e93\u548c\u4e8c\u8fdb\u5236\u6587\u4ef6\u91cc\u2014\u2014\u6ca1\u6709\u5386\u53f2\uff0c\u6ca1\u6709 review\u3002
+
+**\u6210\u672c\u63a7\u5236\u3002** \u8f7b\u91cf\u5b9a\u65f6\u4efb\u52a1\u7528 Sonnet\uff0c\u91cd\u6d3b\u7528 Opus\u3002OpenClaw \u7684 gateway \u5149\u6d3b\u7740\u5c31\u70e7 token\u2014\u2014\u5fc3\u8df3\u8f6e\u8be2\u3001\u4e0a\u4e0b\u6587\u7ef4\u62a4\u3001\u4f1a\u8bdd\u72b6\u6001\u3002
+
+**\u6ca1\u6709\u5355\u70b9\u6545\u969c\u3002** \u6bcf\u4e2a\u5b9a\u65f6\u4efb\u52a1\u662f\u72ec\u7acb\u7684 launchd \u8c03\u7528\u3002\u4e00\u4e2a\u6302\u4e86\uff0c\u5176\u4ed6\u7ee7\u7eed\u8dd1\u3002OpenClaw \u7684 gateway \u662f\u4e00\u4e2a\u8fdb\u7a0b\u2014\u2014\u5b83\u5d29\u4e86\uff0c\u5168\u5b8c\u4e86\u3002
+
+**\u4f60\u62e5\u6709\u5b83\u3002** \u6ca1\u6709\u6846\u67b6\u66f4\u65b0\u7834\u574f\u4f60\u7684\u914d\u7f6e\u3002\u6ca1\u6709\u4e2d\u95f4\u4eba\u88ab\u4f9b\u5e94\u5546\u5207\u65ad\u3002\u6ca1\u6709\u793e\u533a\u5e02\u573a\u7684\u6076\u610f skill\u3002\u6bcf\u4e00\u884c\u4ee3\u7801\u90fd\u662f\u4f60\u7684\u3002
+
+## \u5e38\u89c1\u5751
+
+1. **MCP \u670d\u52a1\u5668\u653e \`~/.claude.json\`**\uff0c\u4e0d\u662f \`settings.json\`
+2. **\u7528\u7edd\u5bf9\u8def\u5f84** \u5199 MCP \u670d\u52a1\u5668\u811a\u672c — \`cwd\` \u4e0d\u53ef\u9760
+3. **pnpm \u4e25\u683c\u63d0\u5347** \u4f1a\u7834\u574f \`node --import tsx/esm\` — \u7528 \`npx tsx\`
+4. **\`--print\` \u6a21\u5f0f\u4e0d\u80fd\u5199 \`~/.claude/memory/\`** — \u8bb0\u5fc6\u653e\u4ed3\u5e93\u91cc
+5. **OpenClaw gateway \u4f1a\u62a2 Telegram bot** — \u5148\u505c\u6389
+6. **Hook \u7c7b\u578b\u5fc5\u987b\u662f \`"command"\`** \u4e0d\u662f \`"intercept"\`
+7. **Shell alias \u9700\u8981\u5b8c\u6574\u4e8c\u8fdb\u5236\u8def\u5f84**
+8. **MCP \u73af\u5883\u53d8\u91cf\u5728\u542f\u52a8\u65f6\u8bbe\u7f6e** — \u914d\u7f6e\u91cc\u52a0 \`env\` \u5b57\u6bb5
+9. **\`enabledPlugins\`** \u5fc5\u987b\u5305\u542b \`"telegram@claude-plugins-official": true\`
+
+## \u5f00\u6e90\u8fc1\u79fb Skill
+
+\u6211\u628a\u6574\u4e2a\u8fc7\u7a0b\u505a\u6210\u4e86\u4e00\u4e2a\u53ef\u590d\u7528\u7684 skill prompt\uff08300 \u884c\uff0c11 \u4e2a\u9636\u6bb5\uff09\u3002\u7ed9\u4efb\u4f55\u88c5\u4e86 OpenClaw \u7684\u673a\u5668\u4e0a\u7684 Claude Code agent \u7528\uff0c\u5b83\u4f1a\u6309\u540c\u6837\u7684\u6d41\u7a0b\u8d70\uff1a
+
+[github.com/HongmingWang-Rabbit/skill-migrate-openclaw-to-cc](https://github.com/HongmingWang-Rabbit/skill-migrate-openclaw-to-cc)`,
+    },
+  },
 ];
 
 // Helper functions
