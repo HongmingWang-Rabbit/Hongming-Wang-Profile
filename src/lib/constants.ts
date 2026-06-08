@@ -74,6 +74,14 @@ export const experiences = [
 
 export const projects = [
   {
+    title: "Molecules AI",
+    description:
+      "The operating system for AI agent organizations — compose multi-agent teams the way you'd staff a company. Features a visual org-chart topology, an A2A (agent-to-agent) JSON-RPC protocol, three-tier memory (local/team/global), runtime portability across Claude Code, LangGraph, CrewAI and AutoGen, a plugin/agent marketplace, and enterprise governance with human-in-the-loop approval tiers and audit trails. Founder.",
+    technologies: ["Next.js 15", "React Flow", "Zustand", "Go", "Gin", "Python", "PostgreSQL", "MCP", "JSON-RPC 2.0", "OpenTelemetry", "AWS"],
+    live: "https://www.moleculesai.app",
+    featured: true,
+  },
+  {
     title: "PlotEngine",
     description:
       "Cross-platform AI writing assistant for fiction writers. Features rich text editor with AI-powered entity recognition, knowledge base for narrative elements, multi-tab editor with auto-save, and multi-language support (EN/ZH/FR).",
