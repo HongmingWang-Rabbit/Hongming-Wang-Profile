@@ -9,7 +9,8 @@
     "experience": "Experience",
     "projects": "Projects",
     "contact": "Contact",
-    "blog": "Blog"
+    "blog": "Blog",
+    "media": "Media"
   },
   "hero": {
     "available": "Available for opportunities",
@@ -185,6 +186,14 @@
     "techStack": "Tech stack",
     "visitLive": "Visit live site",
     "viewSource": "View source"
+  },
+  "media": {
+    "title": "Selected",
+    "titleHighlight": "Media",
+    "subtitle": "Short videos on what I'm building — portfolio experiments, AI agents, and the occasional build-along.",
+    "visitChannel": "Visit my channel",
+    "watchOnYoutube": "Watch on YouTube",
+    "play": "Play video"
   },
   "blog": {
     "title": "Blog",

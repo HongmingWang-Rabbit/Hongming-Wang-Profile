@@ -74,6 +74,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
+  // Media listing pages
+  const mediaEntries = locales.map((locale) => ({
+    url: `${baseUrl}/${locale}/media`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+    alternates: {
+      languages: {
+        ...Object.fromEntries(locales.map((l) => [l, `${baseUrl}/${l}/media`])),
+        "x-default": `${baseUrl}/en/media`,
+      },
+    },
+  }));
+
   // Individual project detail pages
   const projectEntries = getAllProjects().flatMap((project) =>
     locales.map((locale) => ({
@@ -98,5 +112,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogListingEntries,
     ...blogPostEntries,
     ...projectEntries,
+    ...mediaEntries,
   ];
 }

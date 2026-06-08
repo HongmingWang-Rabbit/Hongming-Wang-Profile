@@ -9,7 +9,8 @@
     "experience": "工作经历",
     "projects": "项目作品",
     "contact": "联系我",
-    "blog": "博客"
+    "blog": "博客",
+    "media": "影音"
   },
   "hero": {
     "available": "开放工作机会",
@@ -185,6 +186,14 @@
     "techStack": "技术栈",
     "visitLive": "访问线上站点",
     "viewSource": "查看源码"
+  },
+  "media": {
+    "title": "精选",
+    "titleHighlight": "影音",
+    "subtitle": "记录我正在做的东西的短视频——作品集实验、AI agent，偶尔还有手把手的搭建过程。",
+    "visitChannel": "访问我的频道",
+    "watchOnYoutube": "在 YouTube 观看",
+    "play": "播放视频"
   },
   "blog": {
     "title": "博客",

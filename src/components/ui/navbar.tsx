@@ -25,6 +25,7 @@ export function Navbar() {
     { name: t.nav.experience, href: "#experience" },
     { name: t.nav.projects, href: "#projects" },
     { name: t.nav.blog, href: `/${locale}/blog` },
+    { name: t.nav.media, href: `/${locale}/media` },
     { name: t.nav.contact, href: "#contact" },
   ];
 
