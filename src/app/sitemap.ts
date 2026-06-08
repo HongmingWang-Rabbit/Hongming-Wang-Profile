@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
 import { getAllPosts } from "@/lib/blog";
+import { getAllProjects } from "@/lib/projects";
 import { siteConfig } from "@/lib/constants";
 
 const baseUrl = siteConfig.url;
@@ -73,5 +74,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [rootEntry, ...localeEntries, ...blogListingEntries, ...blogPostEntries];
+  // Individual project detail pages
+  const projectEntries = getAllProjects().flatMap((project) =>
+    locales.map((locale) => ({
+      url: `${baseUrl}/${locale}/projects/${project.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: {
+        languages: {
+          ...Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/projects/${project.slug}`])
+          ),
+          "x-default": `${baseUrl}/en/projects/${project.slug}`,
+        },
+      },
+    }))
+  );
+
+  return [
+    rootEntry,
+    ...localeEntries,
+    ...blogListingEntries,
+    ...blogPostEntries,
+    ...projectEntries,
+  ];
 }

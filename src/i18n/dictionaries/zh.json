@@ -108,6 +108,7 @@
     "subtitle": "精选的项目作品，展示我的技术能力和创造有影响力应用的热情。",
     "featured": "精选",
     "viewMore": "在 GitHub 查看更多",
+    "viewDetails": "查看详情",
     "items": [
       {
         "title": "Molecules AI",
@@ -175,6 +176,15 @@
       "jobTitle": "全栈开发工程师",
       "knowsAbout": "React, Next.js, TypeScript, Web3, DeFi, Node.js, PostgreSQL"
     }
+  },
+  "projectDetail": {
+    "backToProjects": "返回项目",
+    "allProjects": "所有项目",
+    "overview": "概览",
+    "keyFeatures": "核心功能",
+    "techStack": "技术栈",
+    "visitLive": "访问线上站点",
+    "viewSource": "查看源码"
   },
   "blog": {
     "title": "博客",

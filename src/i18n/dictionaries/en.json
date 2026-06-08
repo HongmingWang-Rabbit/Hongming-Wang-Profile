@@ -108,6 +108,7 @@
     "subtitle": "A selection of projects I've built that showcase my skills and passion for creating impactful applications.",
     "featured": "Featured",
     "viewMore": "View More on GitHub",
+    "viewDetails": "View details",
     "items": [
       {
         "title": "Molecules AI",
@@ -175,6 +176,15 @@
       "jobTitle": "Full-Stack Developer",
       "knowsAbout": "React, Next.js, TypeScript, Web3, DeFi, Node.js, PostgreSQL"
     }
+  },
+  "projectDetail": {
+    "backToProjects": "Back to projects",
+    "allProjects": "All projects",
+    "overview": "Overview",
+    "keyFeatures": "Key features",
+    "techStack": "Tech stack",
+    "visitLive": "Visit live site",
+    "viewSource": "View source"
   },
   "blog": {
     "title": "Blog",
