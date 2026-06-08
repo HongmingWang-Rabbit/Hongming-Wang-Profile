@@ -111,7 +111,7 @@
     "items": [
       {
         "title": "Molecules AI",
-        "description": "面向 AI agent 组织的操作系统——像组建公司团队一样编排多智能体团队。功能包括可视化组织架构拓扑、A2A（智能体间）JSON-RPC 协议、三层记忆（个人/团队/全局）、可在 Claude Code、LangGraph、CrewAI、AutoGen 等运行时之间自由切换、插件与智能体市场，以及带人类在环审批分级与审计追踪的企业级治理。创始人。"
+        "description": "🏆 NVIDIA DGX Spark 黑客松（中国，2026）第一名。面向 AI agent 组织的操作系统——像组建公司团队一样编排多智能体团队。功能包括可视化组织架构拓扑、A2A（智能体间）JSON-RPC 协议、三层记忆（个人/团队/全局）、可在 Claude Code、LangGraph、CrewAI、AutoGen 等运行时之间自由切换、插件与智能体市场，以及带人类在环审批分级与审计追踪的企业级治理。创始人。"
       },
       {
         "title": "PlotEngine",
