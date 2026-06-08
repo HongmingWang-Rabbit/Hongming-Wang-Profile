@@ -60,31 +60,15 @@ export function Hero() {
 
         <div className="container-custom pt-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Status badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-primary-500/10 border border-primary-500/20 rounded-full"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500" />
-            </span>
-            <span className="text-sm text-primary-600 dark:text-primary-400 font-medium">
-              {t.hero.available}
-            </span>
-          </motion.div>
-
           {/* Main heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.12] mb-6"
           >
-            {t.hero.greeting}{" "}
-            <span className="gradient-text">{personalInfo.name}</span>
+            {t.hero.greeting}
+            <span className="gradient-text block">{personalInfo.name}</span>
           </motion.h1>
 
           {/* Role */}
