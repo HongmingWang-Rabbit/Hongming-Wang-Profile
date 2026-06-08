@@ -14,6 +14,182 @@ export interface BlogPost {
 // Blog post registry — add new posts here
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ai-engineering-team-four-providers",
+    date: "2026-06-07",
+    readingTime: { en: 6, zh: 7 },
+    tags: ["AI", "Agents", "LLM", "Architecture"],
+    coverImage:
+      "/blog/ai-engineering-team-four-providers/agent-org-chart.png",
+    title: {
+      en: "Stop Paying Genius Rates for Junior Work: My 24/7 AI Team Across Four Providers",
+      zh: "别用天才的价格做初级的活：我横跨四家供应商的 24/7 AI 团队",
+    },
+    subtitle: {
+      en: "One Claude Max subscription used to run my whole agent team — until they went always-on. Here's the org chart I built instead, matching each LLM to the role it deserves.",
+      zh: "一个 Claude Max 订阅曾经撑起我整个 agent 团队——直到它们开始 24/7 运转。于是我搭了一张组织架构图，给每个角色分配它配得上的 LLM。",
+    },
+    content: {
+      en: `For a while, one Claude Max subscription ran my entire AI engineering team. It was glorious. Flat fee, all-you-can-eat tokens, no meter ticking in the back of my head. Then the team grew past five agents and started running around the clock — and the honeymoon ended fast.
+
+## The subscription cliff
+
+Here's the thing nobody tells you about scaling an agent team: a subscription is a buffet, but the API is a taxi with the meter running.
+
+While my agents were occasional and bursty, the subscription absorbed everything. The moment they became *always-on* — 24/7, dozens of PRs, continuous review loops — I was no longer snacking. I was running a factory. This is what that looks like by mid-week:
+
+![Weekly usage limit at 100%](/blog/ai-engineering-team-four-providers/weekly-usage-limit.png)
+
+*Weekly limit: 100% used, and the session meter already climbing again. Once agents run around the clock, you hit this wall fast.*
+
+So I did the math on "just buy API credits." For the same workload, metered API cost me roughly **50x** what the subscription did. Scaled across a 24/7 team, that's a couple thousand USD a month flowing to one vendor. Hard no. Not at pre-revenue, not for grunt work, not when there's a smarter way to spend.
+
+## The reframe: I don't have a model, I have an org
+
+The expensive mistake is treating every agent as an identical clone, all dialing the same premium model for every keystroke.
+
+Real companies don't do this. You don't hire a principal architect to do data entry. You don't put your most creative thinker on QA. You match the person to the role, and you match the role to the budget. Headcount is allocated, not maximized.
+
+So I stopped buying "the best model" and built an actual org chart — then assigned a different LLM to each role based on what that role genuinely needs.
+
+![The agent org chart](/blog/ai-engineering-team-four-providers/agent-org-chart.png)
+
+*The real org chart: a CEO Assistant up top, a Production Manager coordinating dev engineers running Kimi and MiniMax, codex-based reviewers and a root-cause researcher off to the side. Every box is a role, and every role gets the model it deserves.*
+
+## Leadership → Claude Opus
+
+The planners and leads — the agents deciding *what* to build and *how* the pieces fit together — run on Claude Opus.
+
+This is where you want the model that holds the whole board in its head and thinks divergently. In my experience Claude is the strongest at big-picture reasoning and generating options before committing to one. It's also the most expensive model I use — and that's fine, because leadership is a *small* headcount. You have one architect, not twenty. Spending premium tokens on the decisions that steer everything downstream is exactly where premium tokens belong.
+
+## Labor → Kimi & MiniMax
+
+The bulk of any engineering team's work is just... writing the code. Implementing a spec that somebody smarter already designed.
+
+For that, I use Kimi and MiniMax. They're not as sharp as Claude or GPT — I won't pretend otherwise — but they write code like a competent junior, and they're *dramatically* cheaper. Each one has exactly one job and a hard boundary around it.
+
+![MiniMax dev engineer executing a spec](/blog/ai-engineering-team-four-providers/minimax-dev-engineer.png)
+
+*Dev Engineer B runs MiniMax and is scoped to "implements specs only; NO review / RCA / decisions / delegation." Here it notices its own PR was already superseded by two others and closes it instead of blindly rebasing in a duplicate. Junior — but not careless.*
+
+When the hard thinking has already happened upstream, you don't need a genius to type out the implementation. You need throughput at a price you can afford to run nonstop. This is where the volume lives, so this is where the cost discipline matters most.
+
+## QA → OpenAI GPT
+
+Review is a completely different skill from creation. For a reviewer you don't want creative; you want careful, rule-following, allergic to shortcuts.
+
+GPT models (running on the codex runtime) follow the SOP. I give them a tight, boring mandate and they stick to it instead of wandering off to redesign things.
+
+![Codex reviewer following a strict SOP](/blog/ai-engineering-team-four-providers/codex-reviewer-sop.png)
+
+*The Code Reviewer's standing orders: review PRs, file concrete issues if it spots a gap, report idle — and explicitly NEVER triage backlog, implement features, or file RFCs that aren't direct PR follow-ups. Discipline over creativity.*
+
+And this isn't theater. Here's the loop catching a real security bug, end to end, with me nowhere in the room:
+
+![Reviewer catching a plaintext-secrets bug](/blog/ai-engineering-team-four-providers/reviewer-secrets-bug.png)
+
+*The reviewer blocks the PR because the production create-path was storing bot tokens and webhook secrets in plaintext — the encryption call had been dropped before persistence. The dev agent goes back, restores the single \`EncryptSensitiveFields\` call, and re-submits. A genuine plaintext-secrets leak, caught and fixed without me touching it.*
+
+A good reviewer doesn't need to be the most imaginative agent in the room. It needs to be the most disciplined. Pairing a divergent planner with a convergent reviewer is half the reason the whole thing stays stable.
+
+## What this actually buys me
+
+Three things, and they compound.
+
+**Cost falls off a cliff — in the right direction.** The expensive model only runs where the expense is justified. Everything else runs cheap. The bill stops scaling linearly with team size.
+
+**Specialization.** Each layer does what it's actually good at — divergent thinking up top, raw throughput in the middle, disciplined review at the gate.
+
+**Resilience.** No single provider holds my entire operation hostage. After getting my GitHub org banned two days before an investor demo, I learned that lesson the expensive way: redundancy isn't overhead, it's insurance. The same logic applies to model vendors.
+
+## The takeaway
+
+Stop asking "which model is the best." Start asking "which model for which job."
+
+The unit of intelligence isn't the model — it's the org. Once you see your agents as a company with roles and a budget instead of a swarm of identical geniuses, the architecture and the economics both fall into place.
+
+That, incidentally, is the whole bet behind what I'm building at [Molecules AI](https://moleculesai.app) — an operating system for organizations of AI agents, where composing a team like this is the default, not a hack I had to invent under cost pressure.`,
+      zh: `有那么一段时间，一个 Claude Max 订阅就撑起了我整个 AI 工程团队。那感觉太爽了：固定月费、token 随便用、脑子后面没有计价表在跳。然后团队规模超过五个 agent，开始全天候运转——蜜月期飞快地结束了。
+
+## 订阅的悬崖
+
+关于扩张 agent 团队，有件事没人会告诉你：订阅是自助餐，而 API 是打着表的出租车。
+
+当我的 agent 还只是偶尔、突发地工作时，订阅把一切都吸收了。可一旦它们变成*常驻在线*——24/7、几十个 PR、不间断的 review 循环——我就不再是在吃点心了，我是在开工厂。一周过到一半，画面是这样的：
+
+![每周用量已达 100%](/blog/ai-engineering-team-four-providers/weekly-usage-limit.png)
+
+*每周额度：100% 用完，而本次会话的计量表又开始往上爬了。一旦 agent 全天候运转，你很快就会撞上这堵墙。*
+
+于是我算了一笔"直接买 API 额度"的账。同样的工作量，按量计费的 API 大约是订阅价格的 **50 倍**。摊到一支 24/7 的团队上，就是每月几千美元流向同一家供应商。坚决不行。在没有收入的阶段不行，为了打杂的活不行，在有更聪明的花钱方式时更不行。
+
+## 重新框定：我有的不是一个模型，而是一家公司
+
+最烧钱的错误，是把每个 agent 都当成一模一样的克隆体，让它们对每一次敲键都去调同一个高端模型。
+
+真正的公司不会这么干。你不会雇一个首席架构师去录数据，也不会把最有创造力的人放去做 QA。你把人和角色匹配，把角色和预算匹配。人头是分配出来的，不是越多越好。
+
+所以我不再追着买"最好的模型"，而是搭了一张真正的组织架构图——再根据每个角色真正需要什么，给它分配一个不同的 LLM。
+
+![Agent 组织架构图](/blog/ai-engineering-team-four-providers/agent-org-chart.png)
+
+*真实的组织架构图：最上面是 CEO 助理，下面是一个 Production Manager，协调着跑 Kimi 和 MiniMax 的开发工程师，旁边还有基于 codex 的 reviewer 和一个根因研究员。每一个方框都是一个角色，而每个角色都拿到它配得上的模型。*
+
+## 领导层 → Claude Opus
+
+负责规划和带队的 agent——决定要*做什么*、各部分*如何*拼在一起的那些——跑在 Claude Opus 上。
+
+这正是你需要"能把整盘棋装进脑子里、并且发散思考"的模型的地方。以我的经验，Claude 在大局推理、在收敛到某个方案之前生成多种选项这件事上最强。它也是我用的最贵的模型——这没关系，因为领导层是*小*编制。你只有一个架构师，不是二十个。把高端 token 花在那些会左右下游一切的决策上，正是高端 token 该去的地方。
+
+## 劳动力 → Kimi 和 MiniMax
+
+任何工程团队的大部分工作，其实就是……把代码写出来。实现一份更聪明的人已经设计好的 spec。
+
+为此我用 Kimi 和 MiniMax。它们没有 Claude 或 GPT 那么犀利——我不假装它们有——但它们写代码像个称职的初级工程师，而且*便宜得多*。每一个都只有一份工作，外加一条硬边界。
+
+![MiniMax 开发工程师在执行一份 spec](/blog/ai-engineering-team-four-providers/minimax-dev-engineer.png)
+
+*开发工程师 B 跑的是 MiniMax，职责被限定为"只实现 spec；不做 review / 根因分析 / 决策 / 派活"。这里它注意到自己的 PR 已经被另外两个 PR 取代，于是把它关掉，而不是傻乎乎地 rebase 进一个重复版本。初级——但不马虎。*
+
+当难想的部分已经在上游想完了，你就不需要一个天才来把实现敲出来。你需要的是能不间断跑、价格又扛得住的吞吐量。体量都在这一层，所以成本纪律最该在这一层。
+
+## QA → OpenAI GPT
+
+Review 和创作是完全不同的两种技能。对一个 reviewer，你要的不是有创造力；你要的是细致、守规矩、对走捷径过敏。
+
+GPT 模型（跑在 codex 运行时上）会遵守 SOP。我给它一份紧凑、无聊的任务说明，它就老老实实照做，而不会跑偏去重新设计东西。
+
+![遵守严格 SOP 的 Codex reviewer](/blog/ai-engineering-team-four-providers/codex-reviewer-sop.png)
+
+*Code Reviewer 的常驻指令：review PR，发现缺口就提具体 issue，空闲时上报——并且明确规定永远不要去整理 backlog、不要实现功能、不要提那些并非直接由 PR 衍生的 RFC。纪律高于创造力。*
+
+而且这不是做样子。下面是这个循环抓到一个真实安全漏洞的全过程，从头到尾，全程没我在场：
+
+![Reviewer 抓到明文密钥的 bug](/blog/ai-engineering-team-four-providers/reviewer-secrets-bug.png)
+
+*reviewer 拦下了这个 PR，因为生产环境的创建路径把 bot token 和 webhook 密钥以明文存了下来——加密调用在落库前被丢掉了。开发 agent 回去把那一行 \`EncryptSensitiveFields\` 调用补回来，重新提交。一个货真价实的明文密钥泄漏，在我没碰一下的情况下被发现并修好。*
+
+一个好的 reviewer 不需要是房间里最有想象力的 agent。它需要是最有纪律的那个。把发散的规划者和收敛的 reviewer 配在一起，是整套系统能保持稳定的一半原因。
+
+## 这到底给我带来了什么
+
+三件事，而且会叠加。
+
+**成本断崖式下降——往对的方向。** 贵的模型只在花得值的地方运行。其余一切都跑便宜的。账单不再随团队规模线性增长。
+
+**专业化。** 每一层都做它真正擅长的事——上层发散思考，中层纯吞吐，关口处是有纪律的 review。
+
+**韧性。** 没有任何单一供应商能挟持我的整套运营。在投资人 demo 前两天被封掉 GitHub org 之后，我用很贵的方式学到了这一课：冗余不是开销，是保险。同样的逻辑也适用于模型供应商。
+
+## 收获
+
+别再问"哪个模型最好"。开始问"哪个模型适合哪份活"。
+
+智能的单位不是模型——是组织。一旦你把你的 agent 看成一家有角色、有预算的公司，而不是一群一模一样的天才，架构和经济账就都各就各位了。
+
+顺带一提，这正是我在做的 [Molecules AI](https://moleculesai.app) 背后的整个赌注——一个面向 AI agent 组织的操作系统，在那里，像这样组建一支团队是默认能力，而不是我在成本压力下不得不发明的奇技淫巧。`,
+    },
+  },
+  {
     slug: "removing-ai-until-it-worked",
     date: "2025-06-15",
     readingTime: { en: 12, zh: 14 },
