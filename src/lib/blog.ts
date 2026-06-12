@@ -14,6 +14,118 @@ export interface BlogPost {
 // Blog post registry — add new posts here
 export const blogPosts: BlogPost[] = [
   {
+    slug: "cognitive-gap-is-the-opportunity",
+    date: "2026-06-11",
+    readingTime: { en: 5, zh: 6 },
+    tags: ["AI", "Entrepreneurship", "Business", "Opportunity"],
+    coverImage: "/blog/cognitive-gap-is-the-opportunity/cover.png",
+    title: {
+      en: "Most People Still Can't Use AI. That Gap Is Your Business.",
+      zh: "大部分人还不会用AI，这个差距就是你的生意",
+    },
+    subtitle: {
+      en: "Half the world has never touched AI. You use it daily. Two small client stories about why that asymmetry is the clearest business opportunity since the early internet.",
+      zh: "世界上一半的人从没碰过 AI，而你每天都在用。两个真实的客户故事，讲清楚为什么这个不对称是互联网早期以来最清晰的商业机会。",
+    },
+    content: {
+      en: `Most people on this planet have not used AI in any real way. Half of them have never touched it at all. Meanwhile, you — reading this — probably use it every day.
+
+That difference is not a fun fact. It is a market.
+
+## The internet déjà vu
+
+Think back to the late 90s. The internet had just arrived, and most people called it a bubble. Almost nobody predicted that selling things online — e-commerce, livestream shopping, creator economies — would mint fortunes. It all sounded absurd. Then the internet deleted a generation of old jobs and invented a generation of new ones nobody had imagined.
+
+Today's AI is at exactly that point on the curve. The infrastructure has just matured: the frontier models from OpenAI and Anthropic crossed the threshold from impressive demo to genuinely usable tool, and inference prices keep falling. The models ordinary people can afford today already handle most everyday work.
+
+Jensen Huang put it bluntly: AI made his company's productivity explode — and they are hiring more people because of it, not fewer. The same week I heard founders quietly say the opposite about their industries. Both things are true. That is what a platform shift looks like.
+
+## Stuck at the chat box
+
+Steve Jobs had a product philosophy that sounded arrogant and turned out to be right: people do not know what they want until you show them. The iPhone redefined what a phone was, and the whole world followed.
+
+AI is in its pre-iPhone moment. If you are reading this, you have probably gone deep — agents, automation, real workflows. Now look around: most people are still typing questions into a single chat box. They have no idea that today's AI can build a complete website, edit videos, write songs, run marketing, and answer customers around the clock.
+
+They are not stupid. Nobody has brought AI to them yet.
+
+## Two small, real examples
+
+**Case one.** A client had an aging WordPress site. He spent days trying to add a single page and failed — those tools were never built for him. I rebuilt his front end, added a proper admin, and deployed an SEO agent on my platform that works on his organic traffic 24/7. Now when he wants two new pages, he tells the agent in one sentence. It costs him cents. After the first time he said: I had no idea it could be this easy.
+
+**Case two.** Another client wanted SMS marketing for an event. Register a Twilio account, let AI write the script, send to every customer with a full delivery report — under half an hour, end to end, even for someone who cannot code.
+
+The pattern: for anyone fluent in AI, both jobs were trivial. For the clients, they were impossible. They were never unwilling to pay. They simply did not know this was possible.
+
+## The gap is the business
+
+Why do most people stay on the surface? Two honest reasons. First, people are exhausted by their own lives; nobody has spare energy for new things until the new thing is shoved in front of their face. Second, good AI tools cost money, and a normal person will not pay tens or hundreds of dollars a month for a toy they have no clear use for.
+
+Stack those two barriers and you get a massive cognitive gap — and if you are fluent in AI, you are standing on the profitable side of it.
+
+You do not need to invent anything. No new model, no new product, no infrastructure. Take what already exists and package it as a service a normal person can buy: copywriting, design, code, customer support, marketing, data analysis, even bulk SMS. Every niche is full of pain points waiting for someone to solve them with AI.
+
+## The window
+
+Honestly: I think AI eventually replaces nearly all of this work — maybe in five years, maybe ten, maybe a bit longer. But between now and then there is a long window, and that window is full of information asymmetry. Asymmetry is opportunity.
+
+The people who got rich in the early internet were rarely the protocol inventors. They were the ones who brought the internet to people who did not have it yet. The same role is open again. Look at your clients, your friends, your family: what problem of theirs have you already solved with AI — that they do not even know is solvable?
+
+Bring it to them. That is the whole business.
+
+*The full story, with both client cases on screen, is in the video — Chinese with subtitles.*
+
+[Watch on YouTube](https://youtu.be/JDXL3jpUmkE)`,
+      zh: `这个星球上的大部分人，还没有真正用过 AI。有一半人甚至从来没碰过。而正在读这篇文章的你，可能每天都在用。
+
+这个差距不是一个有趣的冷知识，它是一个市场。
+
+## 90 年代的既视感
+
+回想 90 年代末，互联网刚刚出现的时候，多少人觉得那是一个泡沫。几乎没有人能预见到，在网上卖东西——电商、直播、内容创作——能造就这么多财富。当时听起来全是天方夜谭。然后互联网消灭了一代旧工作，又创造了一代谁都没想到过的新工作。
+
+今天的 AI 正处在曲线上完全相同的位置。基础设施刚刚成熟：OpenAI 和 Anthropic 的前沿模型刚刚跨过「能用」的门槛，推理价格还在不断下降。普通人现在用得起的模型，已经能处理生活中绝大部分的工作。
+
+黄仁勋说得很直接：AI 让他们公司的生产力暴涨——结果是他们反而在招更多的人。同一周里，我也听到另一些行业的人在悄悄说相反的话。两件事都是真的，平台级变革就长这个样子。
+
+## 停留在对话框
+
+乔布斯有一个听起来傲慢、事后证明正确的产品哲学：用户并不知道自己想要什么，直到你把东西做出来给他看。iPhone 重新定义了手机，然后全世界都跟着学。
+
+AI 正处在它的「iPhone 之前」时刻。你既然在读这篇文章，大概率已经走得很深——智能体、自动化、真实的工作流。但看看周围：大部分人还停留在往一个对话框里打字的阶段。他们完全不知道，今天的 AI 已经可以做出完整的网站、剪视频、写歌、做营销、24 小时回复客户。
+
+他们不笨。只是还没有人把 AI 带到他们面前。
+
+## 两个很小但真实的案例
+
+**案例一。** 一个客户有个老旧的 WordPress 网站，自己折腾了好几天想加一个页面，死活加不上去——那些工具本来就不是为他设计的。我帮他重做了前端、加了一个像样的后台，然后在平台上给他部署了一个 SEO 智能体，24 小时不间断地优化他的自然流量。现在他想加两个新页面，跟智能体说一句话就行，花费几毛钱。他用完之后说：原来还可以这么简单。
+
+**案例二。** 另一个客户想给活动做短信营销。注册一个 Twilio 账号，让 AI 写好脚本，给所有客户发送并生成完整的送达报告——前后不到半小时，即使完全不会写代码也能完成。
+
+规律很明显：对会用 AI 的人来说，这两件事都是举手之劳；对客户来说，却是不可能完成的任务。他们从来不是不愿意付钱，他们只是不知道这件事是可能的。
+
+## 认知差就是生意
+
+为什么大部分人停留在表面？两个很诚实的原因。第一，人们已经被自己的生活耗尽了精力，没有人有余力去拥抱新事物——直到新事物被怼到脸上。第二，好用的 AI 工具要花钱，一个普通上班族不会为一个「可能只是拿来玩玩」的东西每月花几十几百美金。
+
+这两道门槛叠在一起，就形成了巨大的认知差——而如果你熟悉 AI，你就站在这个差距有利可图的那一侧。
+
+你不需要发明任何东西。不需要新模型、新产品、新基建。把已经存在的能力封装成普通人能买单的服务就够了：文案、设计、编程、客服、营销、数据分析，甚至短信群发。每一个细分领域里，都是等着被 AI 解决的痛点。
+
+## 窗口期
+
+说实话：我认为 AI 最终会替代掉几乎所有这些工作——可能五年，可能十年，也可能再长一点。但在那一天到来之前，有一个很长的窗口期，窗口里到处都是信息差。信息差就是机遇。
+
+互联网早期赚到钱的人，很少是发明协议的人，而是把互联网带给还没有互联网的人。同样的角色现在再次空缺。看看你的客户、朋友、家人：他们有什么问题，是你已经能用 AI 解决、而他们甚至不知道可以解决的？
+
+把 AI 带到他们面前。这就是全部的生意。
+
+*完整的故事和两个案例的实操画面都在视频里（中文，带字幕）。*
+
+[在 YouTube 观看](https://youtu.be/JDXL3jpUmkE)`,
+    },
+  },
+
+  {
     slug: "ai-engineering-team-four-providers",
     date: "2026-06-07",
     readingTime: { en: 6, zh: 7 },

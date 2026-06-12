@@ -23,6 +23,20 @@ export const mediaChannelUrl = "https://www.youtube.com/@HongmingWang-tech";
 // title/description.
 export const mediaItems: MediaItem[] = [
   {
+    id: "JDXL3jpUmkE",
+    date: "2026-06-11",
+    tags: ["AI", "Entrepreneurship", "Business"],
+    title: {
+      en: "Most People Still Can't Use AI — That's Your Opportunity (Two Real Cases)",
+      zh: "大部分人还不会用AI，这就是你的机会｜两个真实案例",
+    },
+    description: {
+      en: "Why the AI cognitive gap is the clearest business opportunity since the early internet — with two real client cases: a WordPress rebuild with a 24/7 SEO agent, and an SMS marketing system built in half an hour.",
+      zh: "为什么 AI 认知差是互联网早期以来最清晰的商业机会——两个真实客户案例：WordPress 重建 + 24/7 SEO 智能体，以及半小时搞定的短信营销系统。",
+    },
+  },
+
+  {
     id: "pV_7era-jSI",
     date: "2026-01-10",
     tags: ["Three.js", "Next.js", "Portfolio"],
