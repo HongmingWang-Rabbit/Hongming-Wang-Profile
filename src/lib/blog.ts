@@ -14,6 +14,168 @@ export interface BlogPost {
 // Blog post registry — add new posts here
 export const blogPosts: BlogPost[] = [
   {
+    slug: "loop-engineering-promotes-the-human",
+    date: "2026-06-14",
+    readingTime: { en: 7, zh: 8 },
+    tags: ["AI", "Agents", "Loop Engineering", "AI Governance"],
+    coverImage: "/blog/loop-engineering/cover.png",
+    title: {
+      en: "Loop Engineering Doesn't Remove the Human. It Promotes One.",
+      zh: "循环工程不是去掉人，而是给人升职",
+    },
+    subtitle: {
+      en: "Everyone read \"loops mean no humans, agents running 24/7.\" That's the part they got wrong \u2014 and the honest catch nobody mentions about agents checking agents.",
+      zh: "所有人都读成了\u201c循环意味着没有人、agent 7\u00d724 自动跑\u201d\u2014\u2014这恰恰是他们搞错的地方，以及 agent 检查 agent 这件事里没人提的那个诚实的坑。",
+    },
+    content: {
+      en: `There's a sentence that broke AI-coding Twitter in June 2026. Peter Steinberger — the creator of OpenClaw — posted that you shouldn't be prompting coding agents anymore; you should be designing loops that prompt your agents. A few days earlier Boris Cherny, who runs Claude Code at Anthropic, had said almost the same thing from the inside: he doesn't prompt Claude anymore, he writes loops, and the loops do the prompting.
+
+Two sentences, millions of views, and a week of people arguing about what a "loop" actually was. Here's the version that actually holds up — and the part almost everyone gets wrong.
+
+## What loop engineering actually is
+
+For about two years, getting work out of a coding agent meant holding it the whole time. You write a prompt, read what comes back, write the next one. You are the loop. You are the thing deciding what happens on every turn.
+
+Loop engineering is the move from *being* the loop to *building* it. You design a small system that finds the work, hands it to an agent, checks the result, writes down what's done, and decides the next action — on a schedule, or until a goal is actually met. Then you let that system poke the agents instead of doing it yourself.
+
+Addy Osmani, who wrote the reference piece on this, breaks a working loop into five pieces plus one:
+
+1. **Automations** — something fires on a schedule and does discovery and triage on its own.
+2. **Worktrees** — isolated checkouts so two agents working in parallel don't overwrite each other.
+3. **Skills** — your project knowledge written down once, so the agent stops re-guessing it every session.
+4. **Connectors** — the agent reaches your real tools: the issue tracker, the database, Slack, the staging API.
+5. **Sub-agents** — one agent has the idea, a *different* one checks it.
+
+And the sixth, the one that quietly makes or breaks everything: **persistent state**. A markdown file, a Linear board, anything that lives outside the single conversation. The model forgets everything between runs. The repo doesn't. The state file is the spine — tomorrow's run picks up exactly where today's stopped.
+
+That's loop engineering. Not a bigger prompt. A system that discovers, assigns, verifies, remembers, and knows when to stop.
+
+## The part everyone gets wrong
+
+The popular summary is "loop engineering means no humans — agents running 24/7, fully autonomous." That's the misconception, and it's worth killing carefully, because the truth is more useful.
+
+Loop engineering removes the human from *one specific position*: the per-prompt driver's seat. You stop being the one poking the agent turn by turn. It does **not** remove human oversight. Osmani is blunt about this — a loop running unattended is also a loop making *mistakes* unattended. Verification doesn't disappear. It moves up a level.
+
+The cleanest way to say it borrows language the AI-governance world has been using all year:
+
+- **Human-in-the-loop (HITL):** a human approves before anything happens. Slow, safe, doesn't scale.
+- **Human-on-the-loop (HOTL):** agents run autonomously through their own decide-act cycle; the human monitors via dashboards and alerts and steps in only on exceptions — one person overseeing many agents in parallel instead of micromanaging each step.
+- **Human-out-of-the-loop:** fully autonomous, fine for low-risk reversible actions.
+
+So loop engineering isn't "remove the human." It's **relocation, not elimination.** You move from in-the-loop to on-the-loop. You stop approving every step and start designing the system and owning the exceptions. That distinction is also the honest answer to the "isn't this dangerous / isn't this hype" objection: the human never leaves. They get promoted from operator to architect.
+
+## The design that actually works
+
+If the human is on the loop, two things have to be true: agents have to check each other, and the human needs a single place to handle what the agents can't.
+
+**Agents reviewing agents** is the most-endorsed structural pattern in the whole conversation, and the logic is simple: the model that wrote the code is far too generous grading its own homework. A second agent — different instructions, ideally a different model — catches what the first one talked itself into. The reason this matters specifically *inside a loop* is that the loop runs while you're not watching. A verifier you actually trust is the only reason you can walk away.
+
+There's a great line from the original thread: a loop with nothing in it that can say *no* is just the agent agreeing with itself on repeat.
+
+**The human dashboard** is the other half. Anything the loop can't resolve lands in a triage inbox — an approval queue the human works through when they have time, instead of being interrupted on every action. That's your HOTL realization: the agents handle the routine, the dashboard surfaces the exceptions, the human spends their attention only where judgment is actually required.
+
+Picture an airline rebooking agent. Most passengers get rebooked automatically — out of the loop. A first-class international itinerary with a loyalty override hits a policy boundary, so the agent pauses, packages the context, and routes an approval request to a senior human — in the loop. Meanwhile a supervisor agent watches the whole flow for anomalies like unusual cost spikes. All three oversight levels, one system.
+
+## The catch nobody mentions (and the fix)
+
+Here's where most takes stop, and where the credibility actually lives: **agents checking agents is not a free lunch.**
+
+The core failure is correlated error. If your worker and your reviewer are the same model, they share the same blind spots — models even score their own output higher when they recognize it. Stack several agents voting and it gets worse: they can converge on the same wrong answer with total confidence, and a judge model facing a 3-against-1 split will often side with the majority even when the lone dissenter is right. The raw numbers are sobering — LLM-as-judge error rates climb past 50% on genuinely complex tasks, and most teams still keep humans involved in evaluation for exactly this reason.
+
+So the verifier can't just be "another opinion." Two fixes make it real:
+
+1. **Anchor verification in something objective.** A test that passes, a type checker, a real API response, a build that actually compiles — something external that can say *no* regardless of what any model believes. Agent-as-reviewer *plus* a hard external check beats agent-reviewing-agent alone every time.
+2. **Use a different, stronger model as the reviewer.** Different family, different blind spots. This single change kills most of the correlated-error problem.
+
+And watch for the dashboard's own failure mode: **governance theater** — a human nominally approving actions they don't have the context to actually evaluate, rubber-stamping a queue and calling it oversight. A dashboard that floods you with approvals you can't meaningfully judge is *worse* than no dashboard, because it manufactures false confidence. Real HOTL means the human sees enough — the trace, the reasoning, the cost — to make the call count.
+
+## Where this is heading
+
+This isn't just an architecture preference anymore. The EU AI Act (Article 14) and NIST's risk framework now write human oversight into law. "Audit, HITL, RBAC" has gone from nice-to-have to a buying gate. The teams that designed oversight in from the start are about to have a real advantage over the ones bolting it on.
+
+This is the bet I'm making with what I'm building — a control plane where agents are organized like a company, every cross-agent call lands in one observable timeline, and the HITL ladder (no-approval, single-reviewer, dual-reviewer) is configured per role and graded by risk. Because the platform is model-agnostic per role, you can wire a stronger model as the reviewer for exactly the correlated-error reason above. The loop runs; you stay on it.
+
+## The one line to remember
+
+Osmani put it best: two people can build the identical loop and get opposite results. One uses it to move faster on work they understand deeply. The other uses it to avoid understanding the work at all. The loop can't tell the difference. You can.
+
+So build the loop. Just build it like someone who plans to stay the engineer — not the person who presses go. The work didn't get easier. The leverage point moved.`,
+      zh: `2026 年 6 月，有一句话引爆了 AI 编程圈。OpenClaw 的作者 Peter Steinberger 发帖说：你不该再去给编程 agent 写提示词了，你该去设计那个替你给 agent 写提示词的循环。几天前，在 Anthropic 负责 Claude Code 的 Boris Cherny 从内部说了几乎一样的话：他已经不再给 Claude 写提示词了，他写循环，循环来写提示词。
+
+两句话，几百万次浏览，然后是整整一周关于"循环到底是什么"的争论。下面是真正站得住脚的那个版本——以及几乎所有人都搞错的那一部分。
+
+## 循环工程到底是什么
+
+差不多两年来，想让一个编程 agent 干活，意味着你得全程盯着它。你写一个提示词，读它返回的东西，再写下一个。你就是那个循环。每一轮发生什么，都是你在决定。
+
+循环工程，就是从"**当**这个循环"转向"**搭建**这个循环"。你设计一个小系统：它去发现要做的活、交给 agent、检查结果、记下做完了什么、决定下一步——按计划执行，或者一直跑到目标真正达成为止。然后你让这个系统去戳 agent，而不是你自己去戳。
+
+写下这个领域参考文章的 Addy Osmani，把一个能用的循环拆成五块加一块：
+
+1. **自动化（Automations）**——某个东西按计划触发，自己完成发现和分诊。
+2. **工作树（Worktrees）**——隔离的代码检出，让两个并行干活的 agent 不会互相覆盖。
+3. **技能（Skills）**——把你的项目知识写下来一次，让 agent 不用每个会话都重新猜。
+4. **连接器（Connectors）**——让 agent 够得到你真实的工具：问题追踪、数据库、Slack、预发布 API。
+5. **子 agent（Sub-agents）**——一个 agent 出主意，另一个**不同的** agent 去检查它。
+
+还有第六块，那个悄无声息却决定成败的：**持久化状态**。一个 markdown 文件、一块 Linear 看板，任何活在单次对话之外的东西。模型在每次运行之间会忘掉一切，但仓库不会。状态文件就是脊柱——明天的运行从今天停下的地方精确接上。
+
+这就是循环工程。不是更大的提示词，而是一个会发现、会分派、会验证、会记忆、并且知道何时该停的系统。
+
+## 所有人都搞错的那部分
+
+流行的总结是"循环工程意味着没有人——agent 7×24 全自动跑"。这就是那个误解，值得仔细把它杀掉，因为真相更有用。
+
+循环工程把人从**一个特定的位置**上移走了：逐条提示词的驾驶座。你不再是那个一轮一轮去戳 agent 的人。但它**并没有**移走人的监督。Osmani 说得很直白——一个无人值守地运行的循环，也是一个无人值守地**犯错**的循环。验证没有消失，它往上挪了一层。
+
+要说清楚这件事，最干净的办法是借用 AI 治理圈这一年一直在用的语言：
+
+- **人在环内（HITL）：** 任何事发生之前都要人先批准。慢、安全、不可规模化。
+- **人在环上（HOTL）：** agent 自主地跑完自己的"决策—行动"循环；人通过看板和告警来监控，只在异常时介入——一个人同时监督许多并行的 agent，而不是对每一步都微观管理。
+- **人在环外：** 完全自主，对低风险、可逆的操作没问题。
+
+所以循环工程不是"去掉人"，而是**重新安置，不是消除。**你从环内挪到环上。你不再批准每一步，而是开始设计这个系统、并对异常负责。这个区分，也是对"这不危险吗 / 这不是炒作吗"的诚实回答：人从未离开，他只是从操作员被**提拔**成了架构师。
+
+## 真正有效的设计
+
+如果人在环上，那有两件事必须成立：agent 必须互相检查，而且人需要一个统一的地方来处理 agent 搞不定的事。
+
+**agent 审查 agent**是整场讨论里被最多人背书的结构性模式，逻辑很简单：写出这段代码的模型，给自己的作业打分时太宽容了。第二个 agent——不同的指令，最好是不同的模型——能抓到第一个 agent 自己说服了自己的地方。这件事**在循环内部**之所以尤其重要，是因为循环在你不看的时候照样跑。一个你真正信得过的验证者，是你敢走开的唯一理由。
+
+原帖里有一句很妙的话：一个里面没有任何东西能说**不**的循环，不过是 agent 在反复地同意自己。
+
+**人的看板**是另一半。任何循环解决不了的事，都落进一个分诊收件箱——一个人有空时才处理的审批队列，而不是每个动作都来打断你。这就是你的 HOTL 落地：agent 处理常规，看板浮出异常，人只把注意力花在真正需要判断的地方。
+
+想象一个航空改签 agent。大多数乘客被自动改签——环外。一段触发了忠诚度覆盖规则的头等舱国际行程撞上了政策边界，于是 agent 暂停、打包上下文、把审批请求路由给一位资深人类——环内。与此同时，一个监督 agent 盯着整个流程，看有没有成本异常飙升之类的反常。三个监督层级，一个系统。
+
+## 没人提的那个坑（以及解法）
+
+大多数观点到这里就停了，而可信度恰恰活在这里：**agent 检查 agent 不是免费的午餐。**
+
+核心的失败是相关性错误。如果你的执行者和你的审查者是同一个模型，它们共享同样的盲区——模型甚至会给它认出来是自己写的输出打更高的分。叠几个 agent 来投票会更糟：它们会带着十足的自信收敛到同一个错误答案上，而一个面对 3 比 1 分裂的裁判模型，往往会站在多数那边，哪怕那个孤独的反对者才是对的。原始数字令人清醒——在真正复杂的任务上，LLM-as-judge 的错误率会爬过 50%，而大多数团队至今仍让人参与评估，正是因为这个。
+
+所以验证者不能只是"另一个意见"。两个修复让它变真：
+
+1. **把验证锚在客观的东西上。**一个通过的测试、一个类型检查器、一个真实的 API 响应、一次真的能编译通过的构建——某个外部的、不管任何模型怎么相信都能说**不**的东西。agent 当审查者**加上**一道硬性外部检查，每次都胜过单靠 agent 审 agent。
+2. **用一个不同的、更强的模型当审查者。**不同家族，不同盲区。这一个改动就能消掉相关性错误的大部分问题。
+
+还要提防看板自己的失败模式：**治理表演**——一个人名义上在批准他根本没有上下文去真正评估的操作，把队列橡皮图章一盖，就管这叫监督。一个用你无法有意义判断的审批把你淹没的看板，比没有看板**更糟**，因为它制造了虚假的信心。真正的 HOTL 意味着人看得到足够的东西——轨迹、推理、成本——让这一次裁决算数。
+
+## 这件事会走向哪里
+
+这已经不只是一种架构偏好了。欧盟《AI 法案》（第 14 条）和 NIST 的风险框架，现在把人的监督写进了法律。"审计、HITL、RBAC"已经从锦上添花变成了采购的硬门槛。那些从一开始就把监督设计进去的团队，即将对那些事后才往上焊的团队，握有一个真实的优势。
+
+这就是我正在搭建的东西所押的注——一个把 agent 像一家公司一样组织起来的控制平面：每一次跨 agent 的调用都落进同一条可观测的时间线，而 HITL 阶梯（不审批、单审查者、双审查者）按角色配置、按风险分级。因为这个平台在每个角色上都是模型无关的，你可以正是出于上面那个相关性错误的理由，给审查者接一个更强的模型。循环在跑，你在环上。
+
+## 一句话记住它
+
+Osmani 说得最好：两个人可以搭出一模一样的循环，得到相反的结果。一个人用它在自己深刻理解的工作上跑得更快，另一个人用它来彻底逃避理解这份工作。循环分不出这两者的区别。你能。
+
+所以，去搭那个循环。只是，要像一个打算继续当工程师的人那样去搭——而不是那个只负责按"开始"的人。工作没有变得更容易，是杠杆的支点挪了位置。`,
+    },
+  },
+
+  {
     slug: "cognitive-gap-is-the-opportunity",
     date: "2026-06-11",
     readingTime: { en: 5, zh: 6 },
