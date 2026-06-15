@@ -15,6 +15,87 @@ export interface BlogPost {
 // Blog post registry — add new posts here
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ai-is-just-a-hack",
+    date: "2026-06-15",
+    readingTime: { en: 5, zh: 5 },
+    tags: ["AI", "LLM", "Loop Engineering", "George Hotz"],
+    coverImage: "/blog/ai-is-just-a-hack/cover.png",
+    youtubeId: "FrJbyYUlRAQ",
+    title: {
+      en: "AI Is Just a Hack. So Was Newton.",
+      zh: "AI 只是个 hack\u2014\u2014牛顿力学也是",
+    },
+    subtitle: {
+      en: "George Hotz says the whole AI route is a hack. He's right about the diagnosis \u2014 and wrong about the conclusion. Here's why a bounded, imperfect hack is exactly how progress works.",
+      zh: "George Hotz 说整条 AI 路线就是个 hack。诊断没错，结论错了\u2014\u2014为什么一个有边界、不完美的 hack，恰恰就是进步本来的样子。",
+    },
+    content: {
+      en: `George Hotz — the guy who jailbroke the original iPhone and built tinygrad — set AI Twitter on fire by saying the whole AI direction is wrong: large models are just a hack, cobbled together, not a rigorous technical system.
+
+He's not wrong about the diagnosis. Anyone who's looked under the hood knows today's LLMs are a giant probability game. They don't understand logic or the rules of the real world; they fit a distribution over text from massive data and statistically *guess* output that looks fluent and correct. Architecturally it really is an improvised hack — there's no complete, self-consistent theory of intelligence underneath.
+
+Where I disagree is the conclusion: that we should therefore throw the whole route out.
+
+## A hack that still moves the world
+
+Even if AI is only a stage hack, it has genuinely raised productivity across industries and solved real problems that were stuck for years. That counts.
+
+Look at the history of science: there has never been a perfect, one-shot ultimate technology. The flawed, approximate, even "wrong" temporary solutions are exactly the stepping stones to the next, more rigorous thing. Without those imperfect intermediate steps to accumulate practice, we never find the direction closer to the truth.
+
+## Newton was a hack too
+
+Take the physics everyone learned. Newtonian mechanics, viewed from relativity and quantum mechanics, is a bounded, incomplete approximation — in a sense, its own way of simplifying the world. At high speed, strong gravity, or the quantum scale, Newton's laws break down completely and can't describe reality.
+
+And yet — even though Einstein overturned its underlying logic — engineering, aerospace, mechanical, and civil work still run on Newtonian mechanics today. Why? Because in the overwhelming majority of everyday situations the approximation is precise *enough*, cheaper, and simpler to compute. Its flaws only show up at extreme, special conditions that don't touch the value it creates every day.
+
+AI is exactly the same.
+
+## Manage the hack — don't worship or trash it
+
+We fully admit current LLMs and agents are probability-fitting stage hacks with inherent flaws and blind spots you can't fully remove. But you don't discard something just because it isn't perfect.
+
+This is the whole logic behind what I've been calling **loop engineering** — and the three production AI loops we run on Molecule AI. We *know* AI has limits, so we wrap it in a closed loop of safeguards: multi-layer verification, human oversight on top, heterogeneous model cross-review, and objective tests as the hard backstop. Engineering patches the hack's weaknesses and plays to its strengths.
+
+If we insist on chasing a flawless ultimate technology and reject every imperfect transition, progress simply stops. Every efficiency gain, every round of trial and error — flaws and all — paves the road to the more rigorous tech that comes next.
+
+Hotz pointing at AI's foundational flaws is a valuable, clear-eyed reminder: don't blindly hand everything to AI, and don't let autonomous loops run unattended. But we shouldn't swing to the other extreme and write off the productivity revolution this stage of AI is delivering.
+
+See clearly that it's a hack, hold the engineering line, and use the leverage it gives you. That's the more honest — and more useful — position.`,
+      zh: `破解过初代 iPhone、写出 tinygrad 的 George Hotz，最近一句话引爆了 AI 圈：整条 AI 路线根本就是错的，大模型只是一套取巧拼凑出来的 hack，算不上正经严谨的技术体系。
+
+平心而论，他这句话没说错。但凡稍微摸透 AI 底层原理的人都清楚，当前主流大模型的本质就是一场巨型概率游戏：它不理解逻辑、不懂真实世界规则，只是靠海量数据拟合文字分布，用统计概率"猜"出看起来通顺、正确的输出。从底层架构来说，它确实是临时凑出来的 hack，没有完整、自洽的底层智能理论支撑。
+
+但我不认同他全盘否定这条路线的结论。
+
+## 一个 hack，照样推动世界
+
+就算 AI 只是个阶段性 hack，它也实实在在拉高了各行各业的生产效率，落地解决了大量过去难以推进的问题。
+
+回看整个科技史，从来不存在一步到位、完美无缺的终极技术。无数在后世看来有缺陷、近似、甚至"错误"的临时方案，恰恰是推动下一代更严谨科技诞生的垫脚石。没有这些不完美的过渡做实践积累，我们根本摸不到更接近真理的方向。
+
+## 牛顿力学也是个 hack
+
+举个所有人都学过的例子。牛顿经典力学，放到相对论、量子力学的维度看，本身就是一套有适用边界、不够完整的近似模型——某种意义上，也是简化世界的 hack。在高速、强引力、微观粒子的场景下，牛顿定律会完全失效。
+
+可哪怕爱因斯坦颠覆了它的底层逻辑，时至今日，工程、航天、机械、建筑领域依然在大规模使用牛顿力学。为什么？因为在日常绝大多数场景里，这套近似精度完全够用，成本更低、计算更简单。它的缺陷只出现在极端条件下，完全不影响日常创造价值。
+
+AI 也一模一样。
+
+## 管好这个 hack，而不是神化或抛弃它
+
+我们完全承认，当前 LLM、AI 智能体只是概率拟合的阶段性 hack，有固有缺陷、有无法根除的盲区。但不能因为它不完美，就否定它当下的价值。
+
+这正是我一直在讲的**循环工程**、以及我们在 Molecule AI 上落地三套企业级 AI 循环的核心逻辑：我们清楚 AI 有局限，所以用多层校验、人工上层监管、异构模型互审、客观测试兜底的闭环系统，去弥补这个 hack 的缺陷，扬长避短。
+
+如果一味追求底层绝对完美、拒绝一切有缺陷的过渡方案，人类科技只会停滞不前。每一次效率提升、每一轮试错，哪怕有短板，都是在为未来更严谨的科技铺路。
+
+George Hotz 指出 AI 底层的缺陷，是非常珍贵、清醒的提醒：警惕盲目全量依赖 AI、放任无人自主循环。但我们不该走向另一个极端，全盘否定现阶段 AI 的生产力革命。
+
+看清它只是个 hack、守住工程管控的底线，同时用好它的效率杠杆——这才是更客观、更务实的选择。`,
+    },
+  },
+
+  {
     slug: "loop-engineering-promotes-the-human",
     date: "2026-06-14",
     readingTime: { en: 7, zh: 8 },
