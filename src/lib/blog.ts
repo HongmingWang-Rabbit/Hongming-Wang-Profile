@@ -20,7 +20,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: { en: 5, zh: 5 },
     tags: ["AI", "LLM", "Loop Engineering", "George Hotz"],
     coverImage: "/blog/ai-is-just-a-hack/cover.png",
-    youtubeId: "FrJbyYUlRAQ",
+    youtubeId: "FrJbyYUIRAQ",
     title: {
       en: "AI Is Just a Hack. So Was Newton.",
       zh: "AI 只是个 hack\u2014\u2014牛顿力学也是",
