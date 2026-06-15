@@ -95,6 +95,26 @@ export function BlogPostClient({ post, locale }: BlogPostClientProps) {
               </div>
             </motion.header>
 
+            {/* Video embed */}
+            {post.youtubeId && (
+              <motion.div
+                className="mt-8 rounded-xl overflow-hidden border border-neutral-200 dark:border-dark-border bg-black"
+                style={{ aspectRatio: "16 / 9" }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+              >
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${post.youtubeId}`}
+                  title={title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </motion.div>
+            )}
+
             {/* Article Content */}
             <motion.div
               className="blog-content"

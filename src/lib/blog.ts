@@ -6,6 +6,7 @@ export interface BlogPost {
   readingTime: { en: number; zh: number };
   tags: string[];
   coverImage?: string;
+  youtubeId?: string;
   title: { en: string; zh: string };
   subtitle: { en: string; zh: string };
   content: { en: string; zh: string };
@@ -19,6 +20,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: { en: 7, zh: 8 },
     tags: ["AI", "Agents", "Loop Engineering", "AI Governance"],
     coverImage: "/blog/loop-engineering/cover.png",
+    youtubeId: "irSJWiU-1IA",
     title: {
       en: "Loop Engineering Doesn't Remove the Human. It Promotes One.",
       zh: "循环工程不是去掉人，而是给人升职",
