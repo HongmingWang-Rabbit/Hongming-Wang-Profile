@@ -82,6 +82,14 @@ export const projects = [
     featured: true,
   },
   {
+    title: "AgentAccord",
+    description:
+      "📄 Research Paper (OpenReview, 2026) — Co-author (Zhanlin Cui, Xuanhua Yin, Boyu Wei, Hongming Wang). Organization-Scoped Runtime Governance for Multi-Agent Delegation: treats privileged A2A delegations as governed transactions with short-lived single-use state-bound credentials, linearizable receiver-side admission, contract-verified artifact completion, and hash-chained causal audit logs across 6 defenses, 5 frameworks, and A2ASecBench.",
+    technologies: ["Multi-Agent Systems", "A2A Protocol", "Runtime Governance", "Cryptographic Credentials", "Causal Tracing", "A2ASecBench", "Python"],
+    live: "https://openreview.net/forum?id=ntHygt1Cvc",
+    featured: true,
+  },
+  {
     title: "PlotEngine",
     description:
       "Cross-platform AI writing assistant for fiction writers. Features rich text editor with AI-powered entity recognition, knowledge base for narrative elements, multi-tab editor with auto-save, and multi-language support (EN/ZH/FR).",
