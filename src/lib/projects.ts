@@ -150,6 +150,114 @@ It won **1st place at the NVIDIA DGX Spark Hackathon (China, 2026)**.`,
     ],
   },
   {
+    slug: "agentaccord",
+    icon: "ShieldCheck",
+    title: "AgentAccord",
+    tagline: {
+      en: "Organization-scoped runtime governance for multi-agent delegation.",
+      zh: "面向多智能体委派的组织级运行时治理架构。",
+    },
+    description: {
+      en: "Co-authored research paper introducing an executable multi-agent governance runtime — single-use state-bound delegation credentials, linearizable receiver admission, contract-verified completion, and hash-chained causal logs.",
+      zh: "联合署名研究论文：提出可执行的多智能体组织治理运行时——单次状态绑定委派凭证、线性化接收端准入、合约验证的完成提交，以及哈希链因果审计日志。",
+    },
+    award: {
+      en: "📄 Research Paper — OpenReview (2026)",
+      zh: "📄 研究论文 — OpenReview（2026）",
+    },
+    overview: {
+      en: `LLM agents increasingly operate as persistent organizations with evolving membership, roles, and delegation. Existing multi-agent frameworks coordinate who should act and where requests may flow, but do not ensure that a delegation remains authorized when it reaches the receiver or that a claimed completion is backed by a verified artifact.
+
+I co-authored **AgentAccord** (with Zhanlin Cui, Xuanhua Yin, and Boyu Wei) to make multi-agent organizations executable by treating every privileged delegation as a **governed transaction**. Each delegation request carries a short-lived, single-use credential binding its caller, receiver, intent digest, runtime-derived authorization path witness, current authority epoch digests, and completion contract.
+
+Immediately before execution, the receiver gateway revalidates current authority state and atomically consumes the credential nonce once, failing closed on role revocations, edge edits, or stale endpoints. Terminal success is committed only after the produced artifact satisfies the bound verifier contract, and every authorization, execution, recovery, and completion event is recorded in a causally linked, hash-chained log.
+
+Across six normalized defenses, five unaugmented official framework paths (AutoGen, CrewAI, LangGraph, MetaGPT, OpenAI Agents SDK), and **A2ASecBench**, AgentAccord is the only evaluated method that jointly preserves authorized task delivery (18/18 benign artifacts valid) while blocking 100% of stale receivers (6/6), illegal delegations (6/6), unauthorized effects under prompt injection (24/24), and artifact-free completion claims (6/6) — while improving failure-class attribution by **+26.7 percentage points** over output-only evidence.`,
+      zh: `大语言模型智能体正越来越多地作为具有动态成员、角色和委派关系的持久组织运行。现有的多智能体框架虽然能协调“由谁执行”以及“请求流向何处”，却无法保证委派请求到达接收端时权限依然有效，也无法确保智能体声称的“任务完成”有经过验证的真实产物支撑。
+
+我与崔湛林（Zhanlin Cui）、Xuanhua Yin、Boyu Wei 联合撰写了 **AgentAccord**，通过将每一次特权委派视为**受治理的事务（Governed Transaction）**，使多智能体组织真正具备可执行性与安全性。每次委派请求都携带一枚短期、单次使用的加密凭证，绑定调用方、接收方、意图摘要、运行时授权路径见证、当前权限状态纪元摘要以及完成合约。
+
+在接收端派发执行前的瞬间，网关会重新校验实时组织权限状态并原子化消费单次 nonce；一旦期间发生角色撤销、拓扑边修改或端点替换，准入即刻安全拒绝（fail-closed）。终端状态仅在产出物通过绑定校验器验证后才会提交完成，并将授权、执行、恢复与完成全流程记录在因果关联的哈希链日志中。
+
+在六种标准化防御方案、五种主流原生框架路径（AutoGen、CrewAI、LangGraph、MetaGPT、OpenAI Agents SDK）以及 **A2ASecBench** 基准测试中，AgentAccord 是唯一在保持正常任务 100% 交付（18/18）的同时，100% 拦截过期接收端（6/6）、越权委派（6/6）、提示词注入下的未授权副作用（24/24）以及无产物虚假完成（6/6）的方案，并将故障归因准确率较仅靠输出证据提升了 **26.7 个百分点**。`,
+    },
+    features: [
+      {
+        title: { en: "State-bound single-use credentials", zh: "状态绑定的单次委派凭证" },
+        description: {
+          en: "Cryptographically binds caller, receiver, intent digest, authorization path witness, authority epochs, and completion contract to a single-use nonce.",
+          zh: "将调用方、接收方、意图摘要、授权路径见证、权限纪元与完成合约加密绑定至单次 nonce。",
+        },
+      },
+      {
+        title: { en: "Linearizable receiver admission", zh: "线性化接收端准入控制" },
+        description: {
+          en: "Revalidates live authority digests and policy slices at delivery time and atomically consumes the nonce (#Dispatch <= 1), blocking replay and TOCTOU drift.",
+          zh: "在投递时刻实时重验权限摘要与策略切片，并原子化消费 nonce（#Dispatch <= 1），阻断重放与状态漂移攻击。",
+        },
+      },
+      {
+        title: { en: "Contract-relative completion soundness", zh: "基于合约验证的完成完备性" },
+        description: {
+          en: "Separates permission to start from proof of completion — rejects hallucinated or artifact-free completions unless the bound verifier accepts the artifact.",
+          zh: "将“准许执行”与“完成证明”解耦——除非绑定校验器验证产物合规，否则一律拒绝无产物的虚假完成声明。",
+        },
+      },
+      {
+        title: { en: "Hash-chained causal audit log", zh: "哈希链因果审计追踪" },
+        description: {
+          en: "Links authorization, execution, recovery, and verification into a tamper-evident causal graph — boosting failure-class attribution by +26.7 pp (30/30 exact recovery).",
+          zh: "将授权、执行、恢复与验证串联为防篡改因果图，使故障类型归因准确率提升 26.7 个百分点（30/30 精确还原关键事件）。",
+        },
+      },
+      {
+        title: { en: "Zero boundary violations across 6 defenses", zh: "六种防御对比下零边界失守" },
+        description: {
+          en: "18/18 benign utility preserved while blocking 6/6 stale receivers, 6/6 illegal delegations, 24/24 injection side-effects, and 6/6 unsupported completions.",
+          zh: "在 18/18 正常任务完全通过的同时，实现 6/6 过期接收端、6/6 越权委派、24/24 注入副作用及 6/6 虚假完成的零失守拦截。",
+        },
+      },
+      {
+        title: { en: "A2ASecBench & 5-framework evaluation", zh: "A2ASecBench 与五框架跨平台验证" },
+        description: {
+          en: "Outperforms baselines across all 13 A2ASecBench endpoints (88% authentic agent-card selection vs. 34% baseline) and 486 cross-framework runs.",
+          zh: "在 A2ASecBench 全部 13 项指标上领先基线（真实 Agent Card 识别率达 88%，对比最强基线 34%），并通过 486 次跨框架实验验证。",
+        },
+      },
+    ],
+    technologies: [
+      "Multi-Agent Systems",
+      "A2A Protocol",
+      "Runtime Governance",
+      "Cryptographic Credentials",
+      "Causal Tracing",
+      "A2ASecBench",
+      "LangGraph",
+      "AutoGen",
+      "CrewAI",
+      "Python",
+    ],
+    live: "https://openreview.net/forum?id=ntHygt1Cvc",
+    featured: true,
+    year: "2026",
+    screenshots: [
+      {
+        src: "/projects/agentaccord/hero.png",
+        caption: {
+          en: "AgentAccord governed delegation lifecycle — state-bound issuance, linearizable admission, and evidence-bound completion.",
+          zh: "AgentAccord 受治理委派生命周期——状态绑定签发、线性化准入与证据绑定完成提交。",
+        },
+      },
+      {
+        src: "/projects/agentaccord/features.png",
+        caption: {
+          en: "Matched six-defense boundary comparison, causal attribution gains (+26.7 pp), and A2ASecBench evaluation.",
+          zh: "六种防御方案的边界对比、因果故障归因提升（+26.7 个百分点）以及 A2ASecBench 评测结果。",
+        },
+      },
+    ],
+  },
+  {
     slug: "plotengine",
     icon: "PenLine",
     title: "PlotEngine",
