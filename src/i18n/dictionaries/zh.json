@@ -26,8 +26,8 @@
     "titleHighlight": "我",
     "subtitle": "进一步了解我的背景、技能以及我作为开发者的驱动力。",
     "whoIAm": "个人简介",
-    "bio": "拥有4年以上经验的全栈开发工程师，专注于构建生产级DeFi平台、多租户SaaS系统和AI驱动的应用程序。核心技术栈为 React/Next.js 前端开发，同时具备扎实的 Node.js、PostgreSQL 和 API 设计后端能力。已构建处理超过9000万美元交易量、服务53K+用户的多链DeFi生态系统。",
-    "bioP2": "目前就职于 Honeypot Finance，专注于构建 Web3 应用和 DeFi 平台。我享受解决复杂问题的过程，并通过简洁高效的代码将创意变为现实。",
+    "bio": "扎根温哥华的全栈开发工程师与 AI 系统架构师，拥有 4 年以上构建多智能体操作系统、垂直 AI SaaS 与生产级 DeFi 平台的经验。Enter OS 联合创始人，DineCall AI Inc. 高级软件工程师。",
+    "bioP2": "作为 Enter OS（2026 NVIDIA DGX Spark 黑客松第一名）联合创始人，我致力于构建组织级多智能体编排与运行时治理架构；在 DineCall AI Inc.（鼎呼）担任高级软件工程师，主导服务加拿大本地餐厅的多语种 AI 语音点餐与餐饮一体化平台研发；同时在 Honeypot Finance 构建高并发多链 Web3 与 DeFi 生态（超 9000 万美元交易量、53K+ 用户）。",
     "bioP3": "在不写代码的时候，你会发现我在探索新技术、参与开源项目，或者享受温哥华美丽的户外风光。",
     "education": "教育背景",
     "degree": "软件开发文凭",
@@ -67,9 +67,31 @@
     "downloadResume": "下载完整简历",
     "jobs": [
       {
+        "title": "联合创始人 (Co-Founder)",
+        "company": "Enter OS",
+        "period": "2026.03 - 至今",
+        "description": [
+          "联合创立 Enter OS（原 Molecules AI），面向 AI 智能体组织的操作系统——荣获 2026 NVIDIA DGX Spark 全栈 AI 黑客松总冠军（第一名）",
+          "设计层级化多智能体组织编排架构（角色、汇报线、三层记忆范围与人类在环审批阶梯），替代脆弱的线性工作流",
+          "构建可视化拓扑编辑器 Canvas 与多租户控制平面 Control Plane，实现 JSON-RPC 2.0 A2A 路由及跨 Hermes、OpenClaw、Claude Code、LangGraph 的运行时可移植",
+          "联合撰写 AgentAccord 论文，提出单次状态绑定凭证、线性化准入与哈希链因果审计的组织级运行时治理架构"
+        ]
+      },
+      {
+        "title": "高级软件工程师 (Senior Software Engineer)",
+        "company": "DineCall AI Inc.",
+        "period": "2026.08 - 至今",
+        "description": [
+          "主导架构并交付支持英语、粤语、普通话无缝切换的 AI 语音电话点餐、订位与餐饮一体化运营平台，服务大温哥华地区多家真实餐厅",
+          "构建 7×24 小时自然语音 AI 接线员基础设施，支持外卖点单、菜品改配、餐桌预订与零抽成直连收单",
+          "研发连接 AI 电话专员、线上点单、堂食扫码点餐、双语菜单管理、后厨分单与客户 CRM 的一体化 SaaS 平台",
+          "设计多租户软件基础设施、POS/打印机/支付集成与自动化质量合规门禁"
+        ]
+      },
+      {
         "title": "全栈工程师",
         "company": "Honeypot Finance",
-        "period": "2024 - 至今",
+        "period": "2023 - 至今",
         "description": [
           "多链 DeFi 平台生态：超过9000万美元交易量，53K+ 活跃用户，执行190万+ 笔交易",
           "使用 Nx monorepo 架构搭建了6个互联的 Next.js 应用：DEX、Meme币发射台、IDO平台、治理代币市场、金库仪表板和代币归属界面",
@@ -111,8 +133,8 @@
     "viewDetails": "查看详情",
     "items": [
       {
-        "title": "Molecules AI",
-        "description": "🏆 NVIDIA DGX Spark 黑客松（中国，2026）第一名。面向 AI agent 组织的操作系统——像组建公司团队一样编排多智能体团队。功能包括可视化组织架构拓扑、A2A（智能体间）JSON-RPC 协议、三层记忆（个人/团队/全局）、可在 Claude Code、LangGraph、CrewAI、AutoGen 等运行时之间自由切换、插件与智能体市场，以及带人类在环审批分级与审计追踪的企业级治理。创始人。"
+        "title": "Enter OS",
+        "description": "🏆 NVIDIA DGX Spark 黑客松（中国，2026）第一名。面向 AI agent 组织的操作系统（原 Molecules AI）——像组建公司团队一样编排多智能体团队。功能包括可视化组织架构拓扑、A2A（智能体间）JSON-RPC 协议、三层记忆（个人/团队/全局）、可在 Hermes、OpenClaw、Claude Code、LangGraph、CrewAI、AutoGen 等运行时之间自由切换、插件与智能体市场，以及带人类在环审批分级与审计追踪的企业级治理。联合创始人。"
       },
       {
         "title": "AgentAccord",

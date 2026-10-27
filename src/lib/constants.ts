@@ -34,9 +34,33 @@ export const navItems = [
 
 export const experiences = [
   {
+    title: "Co-Founder",
+    company: "Enter OS",
+    period: "Mar 2026 - Present",
+    description: [
+      "Co-founded Enter OS (formerly Molecules AI), the operating system for AI agent organizations — 1st Place Winner of the NVIDIA DGX Spark Full-Stack AI Hackathon (2026)",
+      "Architected hierarchical multi-agent orchestration (roles, reporting lines, three-tier memory scopes, and HITL approval ladders) replacing flat workflow chains",
+      "Built the visual topology Canvas and multi-tenant Control Plane with JSON-RPC 2.0 A2A routing and runtime portability across Hermes, OpenClaw, Claude Code, and LangGraph",
+      "Co-authored AgentAccord, introducing organization-scoped runtime governance with single-use state-bound credentials, linearizable admission, and causal audit logs",
+    ],
+    technologies: ["Next.js 15", "React Flow", "Go", "Gin", "Python", "PostgreSQL", "Kubernetes", "MCP", "JSON-RPC 2.0", "OpenTelemetry", "WorkOS"],
+  },
+  {
+    title: "Senior Software Engineer",
+    company: "DineCall AI Inc.",
+    period: "Aug 2026 - Present",
+    description: [
+      "Architecting and shipping a multilingual (English, Cantonese, Mandarin) AI voice ordering, table reservation, and unified restaurant operations platform serving live restaurants across Greater Vancouver",
+      "Built 24/7 AI phone host infrastructure handling natural code-switching, pickup orders, dish modifications, and table reservations with zero commission overhead",
+      "Engineered the connected restaurant SaaS platform uniting AI phone agents, online ordering, dine-in QR ordering, bilingual menu management, kitchen order routing, and CRM",
+      "Designed multi-tenant software infrastructure, POS/printer/payment integrations, and automated quality/compliance gates",
+    ],
+    technologies: ["Next.js", "TypeScript", "Voice AI", "Supabase", "PostgreSQL", "Stripe", "Tailwind CSS", "Node.js", "Vercel"],
+  },
+  {
     title: "Full-Stack Engineer",
     company: "Honeypot Finance",
-    period: "2024 - Present",
+    period: "2023 - Present",
     description: [
       "Multi-chain DeFi platform ecosystem: $90M+ trading volume, 53K+ active users, 1.9M+ trades executed",
       "Architected Nx monorepo with 6 interconnected Next.js applications: DEX, memecoin launchpad, IDO platform, governance token market, vault dashboard, and token vesting interface",
@@ -74,11 +98,11 @@ export const experiences = [
 
 export const projects = [
   {
-    title: "Molecules AI",
+    title: "Enter OS",
     description:
-      "🏆 1st place — NVIDIA DGX Spark Hackathon (China, 2026). The operating system for AI agent organizations — compose multi-agent teams the way you'd staff a company. Features a visual org-chart topology, an A2A (agent-to-agent) JSON-RPC protocol, three-tier memory (local/team/global), runtime portability across Claude Code, LangGraph, CrewAI and AutoGen, a plugin/agent marketplace, and enterprise governance with human-in-the-loop approval tiers and audit trails. Founder.",
-    technologies: ["Next.js 15", "React Flow", "Zustand", "Go", "Gin", "Python", "PostgreSQL", "MCP", "JSON-RPC 2.0", "OpenTelemetry", "AWS"],
-    live: "https://www.moleculesai.app",
+      "🏆 1st place — NVIDIA DGX Spark Hackathon (China, 2026). The operating system for AI agent organizations (formerly Molecules AI) — compose multi-agent teams the way you'd staff a company. Features a visual org-chart topology, an A2A (agent-to-agent) JSON-RPC protocol, three-tier memory (local/team/global), runtime portability across Hermes, OpenClaw, Claude Code, LangGraph, CrewAI and AutoGen, a plugin/agent marketplace, and enterprise governance with human-in-the-loop approval tiers and audit trails. Co-Founder.",
+    technologies: ["Next.js 15", "React Flow", "Zustand", "Go", "Gin", "Python", "PostgreSQL", "Kubernetes", "MCP", "JSON-RPC 2.0", "OpenTelemetry"],
+    live: "https://enteros.ai",
     featured: true,
   },
   {

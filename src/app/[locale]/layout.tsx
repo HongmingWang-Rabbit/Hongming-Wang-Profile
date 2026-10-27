@@ -141,10 +141,22 @@ function generateJsonLd(locale: string, dict: Awaited<ReturnType<typeof getDicti
     email: `mailto:${personalInfo.email}`,
     telephone: personalInfo.phone,
     jobTitle: dict.seo.jsonLd.jobTitle,
-    worksFor: {
-      "@type": "Organization",
-      name: "Honeypot Finance",
-    },
+    worksFor: [
+      {
+        "@type": "Organization",
+        name: "Enter OS",
+        url: "https://enteros.ai",
+      },
+      {
+        "@type": "Organization",
+        name: "DineCall AI Inc.",
+        url: "https://dinecall.ai",
+      },
+      {
+        "@type": "Organization",
+        name: "Honeypot Finance",
+      },
+    ],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Vancouver",

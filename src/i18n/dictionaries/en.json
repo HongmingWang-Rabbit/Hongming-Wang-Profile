@@ -26,8 +26,8 @@
     "titleHighlight": "Me",
     "subtitle": "Get to know more about my background, skills, and what drives me as a developer.",
     "whoIAm": "Who I Am",
-    "bio": "Full-Stack Developer with 4+ years of experience building production DeFi platforms, multi-tenant SaaS, and AI-powered applications. Core expertise in React/Next.js frontend with strong backend skills in Node.js, PostgreSQL, and API design. Built multi-chain DeFi ecosystem processing $90M+ trading volume with 53K+ users.",
-    "bioP2": "Currently working at Honeypot Finance, I specialize in building Web3 applications and DeFi platforms. I enjoy tackling complex problems and turning ideas into reality through clean, efficient code.",
+    "bio": "Full-Stack Developer & AI Systems Architect based in Vancouver with 4+ years of experience building multi-agent operating systems, vertical AI SaaS, and production DeFi platforms. Co-Founder of Enter OS and Senior Software Engineer at DineCall AI Inc.",
+    "bioP2": "As Co-Founder of Enter OS (1st place, NVIDIA DGX Spark Hackathon 2026), I build organization-scoped multi-agent orchestration and runtime governance. At DineCall AI Inc., I architect multilingual AI voice ordering and restaurant operations infrastructure serving live restaurants across Canada, alongside building high-volume Web3 & DeFi platforms at Honeypot Finance ($90M+ volume, 53K+ users).",
     "bioP3": "When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or enjoying the beautiful outdoors of Vancouver.",
     "education": "Education",
     "degree": "Software Development Diploma",
@@ -67,9 +67,31 @@
     "downloadResume": "Download Full Resume",
     "jobs": [
       {
+        "title": "Co-Founder",
+        "company": "Enter OS",
+        "period": "Mar 2026 - Present",
+        "description": [
+          "Co-founded Enter OS (formerly Molecules AI), the operating system for AI agent organizations — 1st Place Winner of the NVIDIA DGX Spark Full-Stack AI Hackathon (2026)",
+          "Architected hierarchical multi-agent orchestration (roles, reporting lines, three-tier memory scopes, and HITL approval ladders) replacing flat workflow chains",
+          "Built the visual topology Canvas and multi-tenant Control Plane with JSON-RPC 2.0 A2A routing and runtime portability across Hermes, OpenClaw, Claude Code, and LangGraph",
+          "Co-authored AgentAccord, introducing organization-scoped runtime governance with single-use state-bound credentials, linearizable admission, and causal audit logs"
+        ]
+      },
+      {
+        "title": "Senior Software Engineer",
+        "company": "DineCall AI Inc.",
+        "period": "Aug 2026 - Present",
+        "description": [
+          "Architecting and shipping a multilingual (English, Cantonese, Mandarin) AI voice ordering, table reservation, and unified restaurant operations platform serving live restaurants across Greater Vancouver",
+          "Built 24/7 AI phone host infrastructure handling natural code-switching, pickup orders, dish modifications, and table reservations with zero commission overhead",
+          "Engineered the connected restaurant SaaS platform uniting AI phone agents, online ordering, dine-in QR ordering, bilingual menu management, kitchen order routing, and CRM",
+          "Designed multi-tenant software infrastructure, POS/printer/payment integrations, and automated quality/compliance gates"
+        ]
+      },
+      {
         "title": "Full-Stack Engineer",
         "company": "Honeypot Finance",
-        "period": "2024 - Present",
+        "period": "2023 - Present",
         "description": [
           "Multi-chain DeFi platform ecosystem: $90M+ trading volume, 53K+ active users, 1.9M+ trades executed",
           "Architected Nx monorepo with 6 interconnected Next.js applications: DEX, memecoin launchpad, IDO platform, governance token market, vault dashboard, and token vesting interface",
@@ -111,8 +133,8 @@
     "viewDetails": "View details",
     "items": [
       {
-        "title": "Molecules AI",
-        "description": "🏆 1st place — NVIDIA DGX Spark Hackathon (China, 2026). The operating system for AI agent organizations — compose multi-agent teams the way you'd staff a company. Features a visual org-chart topology, an A2A (agent-to-agent) JSON-RPC protocol, three-tier memory (local/team/global), runtime portability across Claude Code, LangGraph, CrewAI and AutoGen, a plugin/agent marketplace, and enterprise governance with human-in-the-loop approval tiers and audit trails. Founder."
+        "title": "Enter OS",
+        "description": "🏆 1st place — NVIDIA DGX Spark Hackathon (China, 2026). The operating system for AI agent organizations (formerly Molecules AI) — compose multi-agent teams the way you'd staff a company. Features a visual org-chart topology, an A2A (agent-to-agent) JSON-RPC protocol, three-tier memory (local/team/global), runtime portability across Hermes, OpenClaw, Claude Code, LangGraph, CrewAI and AutoGen, a plugin/agent marketplace, and enterprise governance with human-in-the-loop approval tiers and audit trails. Co-Founder."
       },
       {
         "title": "AgentAccord",

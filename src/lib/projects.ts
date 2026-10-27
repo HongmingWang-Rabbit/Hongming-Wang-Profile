@@ -40,9 +40,9 @@ export interface Project {
 // and the per-project detail pages. Add new projects here.
 export const projects: Project[] = [
   {
-    slug: "molecules-ai",
+    slug: "enter-os",
     icon: "Network",
-    title: "Molecules AI",
+    title: "Enter OS",
     tagline: {
       en: "The operating system for AI agent organizations.",
       zh: "面向 AI agent 组织的操作系统。",
@@ -56,20 +56,20 @@ export const projects: Project[] = [
       zh: "🏆 NVIDIA DGX Spark 黑客松（中国，2026）第一名",
     },
     overview: {
-      en: `Molecules AI is the platform layer for the multi-agent era. Instead of wiring agents together with brittle workflow logic, you model them as an **organization** — roles, reporting lines, memory scopes, and approval ladders — and the control plane handles coordination.
+      en: `Enter OS (formerly Molecules AI) is the platform layer for the multi-agent era. Instead of wiring agents together with brittle workflow logic, you model them as an **organization** — roles, reporting lines, memory scopes, and approval ladders — and the control plane handles coordination.
 
-I'm the **founder**, and the bet is simple: the unit of intelligence isn't the model, it's the org. As teams go from one agent to dozens, the bottleneck stops being the model and becomes how agents coordinate, who can approve what, and how knowledge accumulates across runs.
+I'm the **Co-Founder**, and the bet is simple: the unit of intelligence isn't the model, it's the org. As teams go from one agent to dozens, the bottleneck stops being the model and becomes how agents coordinate, who can approve what, and how knowledge accumulates across runs.
 
-The product is open-core. The **Canvas** runs in your browser as a visual topology editor with a live A2A trace overlay; the **Control Plane** runs on your own tenant with a JSON-RPC 2.0 A2A router, a three-tier memory store, and enterprise governance. Bring whatever runtime you already trust — Claude Code, LangGraph, CrewAI, AutoGen — the topology never changes.
+The product is open-core. The **Canvas** runs in your browser as a visual topology editor with a live A2A trace overlay; the **Control Plane** runs on your own tenant with a JSON-RPC 2.0 A2A router, a three-tier memory store, and enterprise governance. Bring whatever runtime you already trust — Hermes, OpenClaw, Claude Code, LangGraph, CrewAI, AutoGen — the topology never changes.
 
-It won **1st place at the NVIDIA DGX Spark Hackathon (China, 2026)**.`,
-      zh: `Molecules AI 是面向多智能体时代的平台层。与其用脆弱的工作流逻辑把 agent 拼在一起，不如把它们建模成一个**组织**——角色、汇报线、记忆范围、审批阶梯——由控制平面负责协调。
+Originally conceived as "Starfire", it won **1st place at the NVIDIA DGX Spark Hackathon (China, 2026)**.`,
+      zh: `Enter OS（原 Molecules AI）是面向多智能体时代的平台层。与其用脆弱的工作流逻辑把 agent 拼在一起，不如把它们建模成一个**组织**——角色、汇报线、记忆范围、审批阶梯——由控制平面负责协调。
 
-我是这个项目的**创始人**，核心判断很简单：智能的单位不是模型，而是组织。当团队从一个 agent 扩张到几十个，瓶颈不再是模型本身，而是 agent 之间如何协调、谁能批准什么、知识如何在多次运行中沉淀。
+我是这个项目的**联合创始人**，核心判断很简单：智能的单位不是模型，而是组织。当团队从一个 agent 扩张到几十个，瓶颈不再是模型本身，而是 agent 之间如何协调、谁能批准什么、知识如何在多次运行中沉淀。
 
-产品采用 open-core 模式。**Canvas** 在浏览器里运行，是带实时 A2A 轨迹叠加的可视化拓扑编辑器；**Control Plane** 运行在你自己的租户上，提供 JSON-RPC 2.0 的 A2A 路由、三层记忆存储和企业级治理。沿用你已经信任的任意运行时——Claude Code、LangGraph、CrewAI、AutoGen——拓扑始终不变。
+产品采用 open-core 模式。**Canvas** 在浏览器里运行，是带实时 A2A 轨迹叠加的可视化拓扑编辑器；**Control Plane** 运行在你自己的租户上，提供 JSON-RPC 2.0 的 A2A 路由、三层记忆存储和企业级治理。沿用你已经信任的任意运行时——Hermes、OpenClaw、Claude Code、LangGraph、CrewAI、AutoGen——拓扑始终不变。
 
-它荣获 **NVIDIA DGX Spark 黑客松（中国，2026）第一名**。`,
+项目最初以“Starfire”为代号，荣获 **NVIDIA DGX Spark 黑客松（中国，2026）第一名**。`,
     },
     features: [
       {
@@ -96,8 +96,8 @@ It won **1st place at the NVIDIA DGX Spark Hackathon (China, 2026)**.`,
       {
         title: { en: "Runtime-portable", zh: "运行时可移植" },
         description: {
-          en: "Swap runtimes — Claude Code, LangGraph, CrewAI, AutoGen — without touching the topology.",
-          zh: "在 Claude Code、LangGraph、CrewAI、AutoGen 之间切换运行时，无需改动拓扑。",
+          en: "Swap runtimes — Hermes, OpenClaw, Claude Code, LangGraph, CrewAI, AutoGen — without touching the topology.",
+          zh: "在 Hermes、OpenClaw、Claude Code、LangGraph、CrewAI、AutoGen 之间切换运行时，无需改动拓扑。",
         },
       },
       {
@@ -127,9 +127,9 @@ It won **1st place at the NVIDIA DGX Spark Hackathon (China, 2026)**.`,
       "JSON-RPC 2.0",
       "OpenTelemetry",
       "WorkOS",
-      "AWS",
+      "Kubernetes",
     ],
-    live: "https://www.moleculesai.app",
+    live: "https://enteros.ai",
     featured: true,
     year: "2026",
     screenshots: [
@@ -541,12 +541,17 @@ export function getAllProjects(): Project[] {
   return projects;
 }
 
+const LEGACY_PROJECT_SLUGS: Record<string, string> = {
+  "molecules-ai": "enter-os",
+};
+
 export function getProjectBySlug(slug: string): Project | undefined {
-  return projects.find((p) => p.slug === slug);
+  const canonical = LEGACY_PROJECT_SLUGS[slug] ?? slug;
+  return projects.find((p) => p.slug === canonical);
 }
 
 export function getAllProjectSlugs(): string[] {
-  return projects.map((p) => p.slug);
+  return [...projects.map((p) => p.slug), ...Object.keys(LEGACY_PROJECT_SLUGS)];
 }
 
 export function localized(value: Bilingual, locale: Locale): string {
